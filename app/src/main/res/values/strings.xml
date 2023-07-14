@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Karsanime</string>
+
+    <!--    Drawer Teks -->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <!--    Menu    -->
+    <string name="menu_home">Home</string>
+    <string name="menu_favorite">Favorite</string>
+    <string name="menu_anime">Anime</string>
+    <string name="menu_manga">Manga</string>
+    <string name="menu_character">Character</string>
+    <string name="menu_people">People</string>
+    <string name="menu_setting">Setting</string>
+
+    <!--    App Teks    -->
+    <string name="something_wrong">Something Wrong!</string>
+    <string name="data_not_found">Data not found!</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>
