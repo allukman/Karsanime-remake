@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">Karsanime</string>
+    <string name="image_description">Image</string>
+    <string name="text_primary">Sample of title text</string>
+    <string name="text_subtitle">Sample of subtitle text</string>
 
     <!--    Drawer Teks -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -19,5 +22,15 @@
     <string name="data_not_found">Data not found!</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="desc_image_poster_upcoming_anime">Image Poster Upcoming Anime</string>
+    <string name="desc_icon_star">Icon star</string>
+    <string name="search">Search</string>
+    <string name="what_you_are_looking_for">What you are looking for?</string>
+    <string name="find_your_favorite_anime_between_more_than_10_000_anime">Find your favorite Anime Between more Than 10,000 Anime</string>
+    <string name="upcoming_anime">Upcoming Anime</string>
+    <string name="see_all"><![CDATA[See all >]]></string>
+    <string name="top_anime">Top Anime</string>
+    <string name="top_manga">Top Manga</string>
+    <string name="top_people">Top People</string>
 
 </resources>

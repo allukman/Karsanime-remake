@@ -8,14 +8,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
-import com.karsatech.karsanime.anime.AnimeFragment
+import com.karsatech.karsanime.ui.anime.AnimeFragment
 import com.karsatech.karsanime.databinding.ActivityMainBinding
-import com.karsatech.karsanime.favorite.FavoriteFragment
-import com.karsatech.karsanime.home.HomeFragment
-import com.karsatech.karsanime.manga.MangaFragment
-import com.karsatech.karsanime.people.PeopleFragment
-import com.karsatech.karsanime.setting.SettingFragment
+import com.karsatech.karsanime.ui.favorite.FavoriteFragment
+import com.karsatech.karsanime.ui.home.HomeFragment
+import com.karsatech.karsanime.ui.manga.MangaFragment
+import com.karsatech.karsanime.ui.people.PeopleFragment
+import com.karsatech.karsanime.ui.setting.SettingFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var binding: ActivityMainBinding
