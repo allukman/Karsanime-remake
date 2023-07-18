@@ -6,6 +6,8 @@
         <item name="colorPrimary">@color/elm</item>
         <item name="colorSecondary">@color/grey</item>
         <item name="colorSecondaryVariant">@color/elm</item>
+        <item name="colorSurface">@color/white</item>
+        <item name="colorAccent">@color/dark</item>
     </style>
 
     <style name="Theme.Karsanime.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

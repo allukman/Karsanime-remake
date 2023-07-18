@@ -1,7 +1,10 @@
 package com.karsatech.karsanime.core.data.source.remote.response.people
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class DetailPeopleResponse(
 
     @field:SerializedName("mal_id")
@@ -37,14 +40,17 @@ data class DetailPeopleResponse(
     @field:SerializedName("images")
     val images: Images?,
 
-    ) {
+    ) : Parcelable {
+
+    @Parcelize
     data class Images(
         @field:SerializedName("jpg")
         val jpg: Jpg?,
-    ) {
+    ) : Parcelable {
+        @Parcelize
         data class Jpg(
             @field:SerializedName("image_url")
             val imageUrl: String?,
-        )
+        ) : Parcelable
     }
 }

@@ -5,26 +5,26 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.karsatech.karsanime.core.data.source.remote.response.people.DetailPeopleResponse
+import com.karsatech.karsanime.core.data.source.remote.response.anime.DetailGeneralResponse
 import com.karsatech.karsanime.core.utils.UiUtils.loadImage
-import com.karsatech.karsanime.databinding.ItemListPeopleBinding
+import com.karsatech.karsanime.databinding.ItemListUpcomingBinding
 
-class PeopleAdapter: ListAdapter<DetailPeopleResponse, PeopleAdapter.RecyclerViewHolder>(DIFF_CALLBACK) {
+class AnimeAdapter : ListAdapter<DetailGeneralResponse, AnimeAdapter.RecyclerViewHolder>(DIFF_CALLBACK) {
 
     private lateinit var actionAdapter: ActionAdapter
 
     companion object {
-        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<DetailPeopleResponse>() {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<DetailGeneralResponse>() {
             override fun areItemsTheSame(
-                oldItem: DetailPeopleResponse,
-                newItem: DetailPeopleResponse
+                oldItem: DetailGeneralResponse,
+                newItem: DetailGeneralResponse
             ): Boolean {
                 return oldItem == newItem
             }
 
             override fun areContentsTheSame(
-                oldItem: DetailPeopleResponse,
-                newItem: DetailPeopleResponse
+                oldItem: DetailGeneralResponse,
+                newItem: DetailGeneralResponse
             ): Boolean {
                 return oldItem == newItem
             }
@@ -32,7 +32,7 @@ class PeopleAdapter: ListAdapter<DetailPeopleResponse, PeopleAdapter.RecyclerVie
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {
-        val bind = ItemListPeopleBinding.inflate(
+        val bind = ItemListUpcomingBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
@@ -49,21 +49,22 @@ class PeopleAdapter: ListAdapter<DetailPeopleResponse, PeopleAdapter.RecyclerVie
         this.actionAdapter = onItemClickCallback
     }
 
-    inner class RecyclerViewHolder(private val bind: ItemListPeopleBinding) :
+    inner class RecyclerViewHolder(private val bind: ItemListUpcomingBinding) :
         RecyclerView.ViewHolder(bind.root) {
-        fun bind(data: DetailPeopleResponse) {
+        fun bind(data: DetailGeneralResponse) {
             with(bind) {
-                civImagePeople.loadImage(data.images?.jpg?.imageUrl, itemView.context, progressBar)
-                name.text = data.name
+             title.text = data.title
+             imagePoster.loadImage(data.images!!.jpg!!.largeImageUrl, itemView.context, progressBar)
 
-                itemView.setOnClickListener {
-                    actionAdapter.onItemClick(data)
-                }
+             itemView.setOnClickListener {
+                actionAdapter.onItemClick(data)
+             }
+
             }
         }
     }
 
     interface ActionAdapter {
-        fun onItemClick(data: DetailPeopleResponse)
+        fun onItemClick(data: DetailGeneralResponse)
     }
 }

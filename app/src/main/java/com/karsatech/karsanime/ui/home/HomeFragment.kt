@@ -1,5 +1,6 @@
 package com.karsatech.karsanime.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,8 +16,12 @@ import com.karsatech.karsanime.core.data.Resource
 import com.karsatech.karsanime.core.data.source.remote.response.anime.DetailGeneralResponse
 import com.karsatech.karsanime.core.data.source.remote.response.people.DetailPeopleResponse
 import com.karsatech.karsanime.core.ui.PeopleAdapter
-import com.karsatech.karsanime.core.ui.UpcomingAdapter
+import com.karsatech.karsanime.core.ui.AnimeAdapter
 import com.karsatech.karsanime.databinding.FragmentHomeBinding
+import com.karsatech.karsanime.ui.anime.DetailAnimeActivity
+import com.karsatech.karsanime.ui.anime.DetailAnimeActivity.Companion.DETAIL_ANIME
+import com.karsatech.karsanime.ui.people.DetailPeopleActivity
+import com.karsatech.karsanime.ui.people.DetailPeopleActivity.Companion.DETAIL_PEOPLE
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -27,9 +32,9 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var upcomingAdapter: UpcomingAdapter
-    private lateinit var topAnimeAdapter: UpcomingAdapter
-    private lateinit var topMangaAdapter: UpcomingAdapter
+    private lateinit var animeUpcomingAdapter: AnimeAdapter
+    private lateinit var topAnimeAdapter: AnimeAdapter
+    private lateinit var topMangaAdapter: AnimeAdapter
     private lateinit var topPeopleAdapter: PeopleAdapter
 
     override fun onCreateView(
@@ -49,19 +54,19 @@ class HomeFragment : Fragment() {
     private fun initializeRecyclerViews() {
         binding.rvUpcoming.apply {
             layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
-            upcomingAdapter = UpcomingAdapter()
-            adapter = upcomingAdapter
+            animeUpcomingAdapter = AnimeAdapter()
+            adapter = animeUpcomingAdapter
         }
 
         binding.rvTopAnime.apply {
             layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
-            topAnimeAdapter = UpcomingAdapter()
+            topAnimeAdapter = AnimeAdapter()
             adapter = topAnimeAdapter
         }
 
         binding.rvTopManga.apply {
             layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
-            topMangaAdapter = UpcomingAdapter()
+            topMangaAdapter = AnimeAdapter()
             adapter = topMangaAdapter
         }
 
@@ -156,11 +161,28 @@ class HomeFragment : Fragment() {
     }
 
     private fun setUpcomingData(data: ArrayList<DetailGeneralResponse?>) {
-        upcomingAdapter.submitList(data)
+        animeUpcomingAdapter.submitList(data)
+
+        animeUpcomingAdapter.setOnItemClickCallback(object : AnimeAdapter.ActionAdapter {
+            override fun onItemClick(data: DetailGeneralResponse) {
+                val intent = Intent(activity, DetailAnimeActivity::class.java)
+                intent.putExtra(DETAIL_ANIME, data)
+                startActivity(intent)
+            }
+        })
     }
 
     private fun setTopAnimeData(data: ArrayList<DetailGeneralResponse?>) {
         topAnimeAdapter.submitList(data)
+
+        topAnimeAdapter.setOnItemClickCallback(object: AnimeAdapter.ActionAdapter {
+            override fun onItemClick(data: DetailGeneralResponse) {
+                val intent = Intent(activity, DetailAnimeActivity::class.java)
+                intent.putExtra(DETAIL_ANIME, data)
+                startActivity(intent)
+            }
+
+        })
     }
 
     private fun setTopMangaData(data: ArrayList<DetailGeneralResponse?>) {
@@ -169,6 +191,15 @@ class HomeFragment : Fragment() {
 
     private fun setTopPeopleData(data: ArrayList<DetailPeopleResponse?>) {
         topPeopleAdapter.submitList(data)
+
+        topPeopleAdapter.setOnItemClickCallback(object : PeopleAdapter.ActionAdapter {
+            override fun onItemClick(data: DetailPeopleResponse) {
+                val intent = Intent(activity, DetailPeopleActivity::class.java)
+                intent.putExtra(DETAIL_PEOPLE, data)
+                startActivity(intent)
+            }
+
+        })
     }
 
     override fun onDestroyView() {

@@ -16,6 +16,12 @@
         android:theme="@style/Theme.Karsanime"
         tools:targetApi="31">
         <activity
+            android:name=".ui.people.DetailPeopleActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.anime.DetailAnimeActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="false" />
         <activity
