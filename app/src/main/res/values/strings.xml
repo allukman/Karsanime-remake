@@ -32,5 +32,6 @@
     <string name="top_anime">Top Anime</string>
     <string name="top_manga">Top Manga</string>
     <string name="top_people">Top People</string>
+    <string name="desc_apps_logo">Apps logo</string>
 
 </resources>

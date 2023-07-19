@@ -32,16 +32,17 @@ class DetailAnimeActivity : AppCompatActivity() {
 
     private fun setupData(data: DetailGeneralResponse) {
 
-        binding.title.text = data.title
-        binding.rating.text = data.rating
-        binding.score.text = data.score.toString()
-        binding.textRanking.text = data.rank.toString()
-        binding.textMember.text = data.members.toString()
-        binding.textPopularity.text = data.popularity.toString()
-        binding.textFavorites.text = data.favorite.toString()
-        binding.synopsis.text = data.synopsis
+        binding.title.text = data.title ?: "unknown"
+        binding.rating.text = data.rating ?: "unknown"
+        binding.score.text = if (data.score == null) "0.0" else data.score.toString()
+        binding.textRanking.text = if (data.rank == null) "unknown" else data.rank.toString()
+        binding.textMember.text = if (data.members == null) "unknown" else data.members.toString()
+        binding.textPopularity.text = if (data.popularity == null) "unknown" else data.popularity.toString()
+        binding.textFavorites.text = if (data.favorite == null) "unknown" else data.favorite.toString()
+        binding.synopsis.text = data.synopsis ?: "unknown"
+        binding.status.text = data.status ?: "unknown"
+        binding.episodes.text = if (data.episodes == null) "unknown" else data.episodes.toString() + " episodes"
 
-        Log.d("DetailAnimeActivity", data.genres.toString())
         Glide.with(this)
             .load(data.images!!.jpg!!.largeImageUrl)
             .into(binding.imagePoster)

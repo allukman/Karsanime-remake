@@ -26,7 +26,7 @@ data class DetailGeneralResponse(
     val source: String?,
 
     @field:SerializedName("episodes")
-    val episodes: Int?,
+    val episodes: Int?, 
 
     @field:SerializedName("status")
     val status: String?,
