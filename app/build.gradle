@@ -128,9 +128,13 @@ dependencies {
     // Shimmer
     implementation "com.facebook.shimmer:shimmer:$shimmer_version"
 
-    // circle image view
+    // Circle image view
     implementation "de.hdodenhof:circleimageview:$circle_image_version"
 
+    // Paging
+    implementation "androidx.paging:paging-runtime-ktx:3.1.0"
+
+    // Flexbox   
     implementation 'com.google.android.flexbox:flexbox:3.0.0'
 
     // Dagger hilt

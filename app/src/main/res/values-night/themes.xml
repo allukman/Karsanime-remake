@@ -8,6 +8,7 @@
         <item name="colorSecondaryVariant">@color/dark</item>
         <item name="colorSurface">@color/dark</item>
         <item name="colorAccent">@color/white</item>
+        <item name="colorOnBackground">@color/elm</item>
     </style>
 
     <style name="NavigationViewStyle" parent="Widget.Design.NavigationView">
