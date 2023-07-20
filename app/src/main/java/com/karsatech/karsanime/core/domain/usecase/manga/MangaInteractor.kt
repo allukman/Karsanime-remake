@@ -6,5 +6,6 @@ import javax.inject.Inject
 class MangaInteractor @Inject constructor(private val mangaRepository: MangaRepository): MangaUseCase {
 
     override fun getTopManga() = mangaRepository.getTopManga()
+    override fun getTopMangaPagination() = mangaRepository.getTopMangaPagination()
 
 }

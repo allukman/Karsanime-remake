@@ -8,4 +8,6 @@
 
     <color name="elm">#206b82</color>
     <color name="orange">#FFA500</color>
+
+    <color name="shimmer">#DDDDDD</color>
 </resources>

@@ -8,10 +8,8 @@ import androidx.paging.PagingData
 import androidx.paging.liveData
 import com.karsatech.karsanime.core.data.Resource
 import com.karsatech.karsanime.core.data.source.remote.network.PeopleService
-import com.karsatech.karsanime.core.data.source.remote.response.anime.ListGeneralResponse
 import com.karsatech.karsanime.core.data.source.remote.response.people.DetailPeopleResponse
 import com.karsatech.karsanime.core.data.source.remote.response.people.ListPeopleResponse
-import com.karsatech.karsanime.core.paging.AnimePagingSource
 import com.karsatech.karsanime.core.paging.PeoplePagingSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
