@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.google.android.flexbox.FlexboxLayoutManager
+import com.karsatech.karsanime.R
 import com.karsatech.karsanime.core.data.source.remote.response.anime.DetailGeneralResponse
 import com.karsatech.karsanime.core.data.source.remote.response.anime.Genres
 import com.karsatech.karsanime.core.ui.GenreAdapter
@@ -35,13 +36,13 @@ class DetailAnimeActivity : AppCompatActivity() {
         binding.title.text = data.title ?: "unknown"
         binding.rating.text = data.rating ?: "unknown"
         binding.score.text = if (data.score == null) "0.0" else data.score.toString()
-        binding.textRanking.text = if (data.rank == null) "unknown" else data.rank.toString()
-        binding.textMember.text = if (data.members == null) "unknown" else data.members.toString()
-        binding.textPopularity.text = if (data.popularity == null) "unknown" else data.popularity.toString()
-        binding.textFavorites.text = if (data.favorite == null) "unknown" else data.favorite.toString()
-        binding.synopsis.text = data.synopsis ?: "unknown"
-        binding.status.text = data.status ?: "unknown"
-        binding.episodes.text = if (data.episodes == null) "unknown" else data.episodes.toString() + " episodes"
+        binding.textRanking.text = if (data.rank == null) "0" else data.rank.toString()
+        binding.textMember.text = if (data.members == null) "0" else data.members.toString()
+        binding.textPopularity.text = if (data.popularity == null) "0" else data.popularity.toString()
+        binding.textFavorites.text = if (data.favorite == null) "0" else data.favorite.toString()
+        binding.synopsis.text = data.synopsis ?: getString(R.string.error_anime_synopsis)
+        binding.status.text = data.status ?: getString(R.string.error_status)
+        binding.episodes.text = if (data.episodes == null) "0 episodes" else data.episodes.toString() + " episodes"
 
         Glide.with(this)
             .load(data.images!!.jpg!!.largeImageUrl)

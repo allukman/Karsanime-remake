@@ -22,6 +22,7 @@ import com.karsatech.karsanime.databinding.FragmentHomeBinding
 import com.karsatech.karsanime.ui.anime.DetailAnimeActivity
 import com.karsatech.karsanime.ui.anime.DetailAnimeActivity.Companion.DETAIL_ANIME
 import com.karsatech.karsanime.ui.manga.DetailMangaActivity
+import com.karsatech.karsanime.ui.manga.DetailMangaActivity.Companion.DETAIL_MANGA
 import com.karsatech.karsanime.ui.people.DetailPeopleActivity
 import com.karsatech.karsanime.ui.people.DetailPeopleActivity.Companion.DETAIL_PEOPLE
 import dagger.hilt.android.AndroidEntryPoint
@@ -207,6 +208,7 @@ class HomeFragment : Fragment() {
         topMangaAdapter.setOnItemClickCallback(object : AnimeAdapter.ActionAdapter {
             override fun onItemClick(data: DetailGeneralResponse) {
                 val intent = Intent(activity, DetailMangaActivity::class.java)
+                intent.putExtra(DETAIL_MANGA, data)
                 startActivity(intent)
             }
 
