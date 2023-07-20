@@ -12,6 +12,12 @@ interface AnimeService {
         @Query("limit") limit: Int
     ) : ListGeneralResponse
 
+    @GET("top/anime")
+    suspend fun getTopAnimePagination(
+        @Query("page") page: Int,
+        @Query("limit") limit: Int
+    ) : ListGeneralResponse
+
     @GET("seasons/upcoming")
     suspend fun getUpcomingAnime(
         @Query("page") page: Int,

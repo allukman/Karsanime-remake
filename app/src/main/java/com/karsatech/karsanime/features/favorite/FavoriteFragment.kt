@@ -1,16 +1,14 @@
-package com.karsatech.karsanime.ui.people
+package com.karsatech.karsanime.features.favorite
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.karsatech.karsanime.R
-import com.karsatech.karsanime.databinding.FragmentHomeBinding
-import com.karsatech.karsanime.databinding.FragmentPeopleBinding
+import com.karsatech.karsanime.databinding.FragmentFavoriteBinding
 
-class PeopleFragment : Fragment() {
-    private var _binding: FragmentPeopleBinding? = null
+class FavoriteFragment : Fragment() {
+    private var _binding: FragmentFavoriteBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -18,7 +16,7 @@ class PeopleFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = FragmentPeopleBinding.inflate(inflater, container, false)
+        _binding = FragmentFavoriteBinding.inflate(inflater, container, false)
         return binding.root
     }
 

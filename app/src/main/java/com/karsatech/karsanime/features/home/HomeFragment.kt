@@ -1,8 +1,7 @@
-package com.karsatech.karsanime.ui.home
+package com.karsatech.karsanime.features.home
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,18 +18,13 @@ import com.karsatech.karsanime.core.data.source.remote.response.people.DetailPeo
 import com.karsatech.karsanime.core.ui.PeopleAdapter
 import com.karsatech.karsanime.core.ui.AnimeAdapter
 import com.karsatech.karsanime.databinding.FragmentHomeBinding
-import com.karsatech.karsanime.ui.anime.DetailAnimeActivity
-import com.karsatech.karsanime.ui.anime.DetailAnimeActivity.Companion.DETAIL_ANIME
-import com.karsatech.karsanime.ui.manga.DetailMangaActivity
-import com.karsatech.karsanime.ui.manga.DetailMangaActivity.Companion.DETAIL_MANGA
-import com.karsatech.karsanime.ui.people.DetailPeopleActivity
-import com.karsatech.karsanime.ui.people.DetailPeopleActivity.Companion.DETAIL_PEOPLE
+import com.karsatech.karsanime.features.anime.DetailAnimeActivity
+import com.karsatech.karsanime.features.anime.DetailAnimeActivity.Companion.DETAIL_ANIME
+import com.karsatech.karsanime.features.manga.DetailMangaActivity
+import com.karsatech.karsanime.features.manga.DetailMangaActivity.Companion.DETAIL_MANGA
+import com.karsatech.karsanime.features.people.DetailPeopleActivity
+import com.karsatech.karsanime.features.people.DetailPeopleActivity.Companion.DETAIL_PEOPLE
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -177,7 +171,7 @@ class HomeFragment : Fragment() {
         errorTextView.text = errorMessage
     }
 
-    private fun setUpcomingData(data: ArrayList<DetailGeneralResponse?>) {
+    private fun setUpcomingData(data: List<DetailGeneralResponse?>) {
         animeUpcomingAdapter.submitList(data)
 
         animeUpcomingAdapter.setOnItemClickCallback(object : AnimeAdapter.ActionAdapter {
@@ -189,7 +183,7 @@ class HomeFragment : Fragment() {
         })
     }
 
-    private fun setTopAnimeData(data: ArrayList<DetailGeneralResponse?>) {
+    private fun setTopAnimeData(data: List<DetailGeneralResponse?>) {
         topAnimeAdapter.submitList(data)
 
         topAnimeAdapter.setOnItemClickCallback(object: AnimeAdapter.ActionAdapter {
@@ -202,7 +196,7 @@ class HomeFragment : Fragment() {
         })
     }
 
-    private fun setTopMangaData(data: ArrayList<DetailGeneralResponse?>) {
+    private fun setTopMangaData(data: List<DetailGeneralResponse?>) {
         topMangaAdapter.submitList(data)
 
         topMangaAdapter.setOnItemClickCallback(object : AnimeAdapter.ActionAdapter {

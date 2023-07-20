@@ -2,19 +2,18 @@ package com.karsatech.karsanime
 
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
-import com.karsatech.karsanime.ui.anime.AnimeFragment
+import com.karsatech.karsanime.features.anime.AnimeFragment
 import com.karsatech.karsanime.databinding.ActivityMainBinding
-import com.karsatech.karsanime.ui.favorite.FavoriteFragment
-import com.karsatech.karsanime.ui.home.HomeFragment
-import com.karsatech.karsanime.ui.manga.MangaFragment
-import com.karsatech.karsanime.ui.people.PeopleFragment
-import com.karsatech.karsanime.ui.setting.SettingFragment
+import com.karsatech.karsanime.features.favorite.FavoriteFragment
+import com.karsatech.karsanime.features.home.HomeFragment
+import com.karsatech.karsanime.features.manga.MangaFragment
+import com.karsatech.karsanime.features.people.PeopleFragment
+import com.karsatech.karsanime.features.setting.SettingFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

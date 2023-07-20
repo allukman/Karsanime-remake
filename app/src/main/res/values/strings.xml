@@ -47,5 +47,6 @@
     <string name="desc_back_button_from_detail_image">Back button from detail image</string>
     <string name="desc_detail_full_image">Detail full image</string>
     <string name="see_full_detail">See full detail</string>
+    <string name="retry">Retry</string>
 
 </resources>

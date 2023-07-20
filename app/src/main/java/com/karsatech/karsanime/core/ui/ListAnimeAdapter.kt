@@ -2,6 +2,7 @@ package com.karsatech.karsanime.core.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -9,7 +10,7 @@ import com.karsatech.karsanime.core.data.source.remote.response.anime.DetailGene
 import com.karsatech.karsanime.core.utils.UiUtils.loadImage
 import com.karsatech.karsanime.databinding.ItemListAnimeBinding
 
-class ListAnimeAdapter : ListAdapter<DetailGeneralResponse, ListAnimeAdapter.RecyclerViewHolder>(DIFF_CALLBACK) {
+class ListAnimeAdapter : PagingDataAdapter<DetailGeneralResponse, ListAnimeAdapter.RecyclerViewHolder>(DIFF_CALLBACK) {
 
     private lateinit var actionAdapter: ActionAdapter
 
@@ -42,7 +43,7 @@ class ListAnimeAdapter : ListAdapter<DetailGeneralResponse, ListAnimeAdapter.Rec
     }
 
     override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position)!!)
     }
 
     fun setOnItemClickCallback(onItemClickCallback: ActionAdapter) {

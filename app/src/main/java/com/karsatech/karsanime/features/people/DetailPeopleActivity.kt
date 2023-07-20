@@ -1,4 +1,4 @@
-package com.karsatech.karsanime.ui.people
+package com.karsatech.karsanime.features.people
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,8 +8,8 @@ import com.bumptech.glide.Glide
 import com.karsatech.karsanime.core.data.source.remote.response.people.DetailPeopleResponse
 import com.karsatech.karsanime.core.utils.UiUtils.withDateFormat
 import com.karsatech.karsanime.databinding.ActivityDetailPeopleBinding
-import com.karsatech.karsanime.ui.image.ImageActivity
-import com.karsatech.karsanime.ui.image.ImageActivity.Companion.DETAIL_IMAGE
+import com.karsatech.karsanime.features.image.ImageActivity
+import com.karsatech.karsanime.features.image.ImageActivity.Companion.DETAIL_IMAGE
 
 class DetailPeopleActivity : AppCompatActivity() {
 

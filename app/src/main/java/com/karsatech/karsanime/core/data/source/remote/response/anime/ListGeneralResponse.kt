@@ -8,6 +8,6 @@ data class ListGeneralResponse(
     val pagination: Pagination,
 
     @field:SerializedName("data")
-    val data: ArrayList<DetailGeneralResponse?>
+    val data: List<DetailGeneralResponse>
 
 )

@@ -6,6 +6,8 @@ import javax.inject.Inject
 class AnimeInteractor @Inject constructor(private val animeRepository: AnimeRepository):
     AnimeUseCase {
 
+    override fun getTopAnimePagination() = animeRepository.getTopAnimePagination()
+
     override fun getTopAnime() = animeRepository.getTopAnime()
 
     override fun getUpcomingAnime() = animeRepository.getUpcomingAnime()

@@ -1,4 +1,4 @@
-package com.karsatech.karsanime.ui.welcome
+package com.karsatech.karsanime.features.welcome
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -10,7 +10,7 @@ import com.karsatech.karsanime.R
 
 class SplashscreenActivity : AppCompatActivity() {
 
-    private val splashTimeout: Long = 3000
+    private val splashTimeout: Long = 1000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

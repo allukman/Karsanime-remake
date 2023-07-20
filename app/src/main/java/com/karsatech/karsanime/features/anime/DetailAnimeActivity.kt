@@ -1,42 +1,43 @@
-package com.karsatech.karsanime.ui.manga
+package com.karsatech.karsanime.features.anime
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.karsatech.karsanime.R
 import com.karsatech.karsanime.core.data.source.remote.response.anime.DetailGeneralResponse
 import com.karsatech.karsanime.core.data.source.remote.response.anime.Genres
 import com.karsatech.karsanime.core.ui.GenreAdapter
-import com.karsatech.karsanime.databinding.ActivityDetailMangaBinding
-import com.karsatech.karsanime.ui.anime.DetailAnimeActivity
-import com.karsatech.karsanime.ui.image.ImageActivity
-import com.karsatech.karsanime.ui.image.ImageActivity.Companion.DETAIL_IMAGE
-import com.karsatech.karsanime.ui.people.DetailPeopleActivity
+import com.karsatech.karsanime.databinding.ActivityDetailAnimeBinding
+import com.karsatech.karsanime.features.image.ImageActivity
+import com.karsatech.karsanime.features.image.ImageActivity.Companion.DETAIL_IMAGE
 
-class DetailMangaActivity : AppCompatActivity() {
+class DetailAnimeActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityDetailMangaBinding
+    private lateinit var binding: ActivityDetailAnimeBinding
     private lateinit var data: DetailGeneralResponse
     private lateinit var genreAdapter: GenreAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityDetailMangaBinding.inflate(layoutInflater)
+        binding = ActivityDetailAnimeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        data = intent.getParcelableExtra<DetailGeneralResponse>(DETAIL_MANGA) as DetailGeneralResponse
+        data = intent.getParcelableExtra<DetailGeneralResponse>(DETAIL_ANIME) as DetailGeneralResponse
 
-        Log.d("DetailMangaActivity", data.toString())
+        Log.d("DetailAnimeActivity", data.toString())
 
         initializeRecyclerViews()
         setupData(data)
+
     }
 
     private fun setupData(data: DetailGeneralResponse) {
 
         binding.title.text = data.title ?: "unknown"
+        binding.rating.text = data.rating ?: "unknown"
         binding.score.text = if (data.score == null) "0.0" else data.score.toString()
         binding.textRanking.text = if (data.rank == null) "0" else data.rank.toString()
         binding.textMember.text = if (data.members == null) "0" else data.members.toString()
@@ -44,8 +45,7 @@ class DetailMangaActivity : AppCompatActivity() {
         binding.textFavorites.text = if (data.favorite == null) "0" else data.favorite.toString()
         binding.synopsis.text = data.synopsis ?: getString(R.string.error_anime_synopsis)
         binding.status.text = data.status ?: getString(R.string.error_status)
-        binding.chapters.text = if (data.episodes == null) "0 chapters" else data.episodes.toString() + " chapters"
-        binding.volumes.text = if (data.volumes == null) "0 volumes" else data.volumes.toString() + " volumes"
+        binding.episodes.text = if (data.episodes == null) "0 episodes" else data.episodes.toString() + " episodes"
 
         Glide.with(this)
             .load(data.images!!.jpg!!.largeImageUrl)
@@ -66,13 +66,13 @@ class DetailMangaActivity : AppCompatActivity() {
 
     private fun initializeRecyclerViews() {
         binding.rvGenre.apply {
-            layoutManager = FlexboxLayoutManager(this@DetailMangaActivity)
+            layoutManager = FlexboxLayoutManager(this@DetailAnimeActivity)
             genreAdapter = GenreAdapter()
             adapter = genreAdapter
         }
     }
 
     companion object {
-        const val DETAIL_MANGA = "DETAIL_MANGA"
+        const val DETAIL_ANIME = "DETAIL_ANIME"
     }
 }

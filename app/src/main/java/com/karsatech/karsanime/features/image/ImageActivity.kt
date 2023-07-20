@@ -1,9 +1,8 @@
-package com.karsatech.karsanime.ui.image
+package com.karsatech.karsanime.features.image
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.bumptech.glide.Glide
-import com.karsatech.karsanime.R
 import com.karsatech.karsanime.databinding.ActivityImageBinding
 
 class ImageActivity : AppCompatActivity() {

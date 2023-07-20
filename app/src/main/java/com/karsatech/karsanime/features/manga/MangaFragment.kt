@@ -1,12 +1,10 @@
-package com.karsatech.karsanime.ui.manga
+package com.karsatech.karsanime.features.manga
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.karsatech.karsanime.R
-import com.karsatech.karsanime.databinding.FragmentHomeBinding
 import com.karsatech.karsanime.databinding.FragmentMangaBinding
 
 class MangaFragment : Fragment() {

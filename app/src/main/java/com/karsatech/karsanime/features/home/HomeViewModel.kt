@@ -1,4 +1,4 @@
-package com.karsatech.karsanime.ui.home
+package com.karsatech.karsanime.features.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
