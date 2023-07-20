@@ -8,8 +8,7 @@ import com.karsatech.karsanime.core.data.source.remote.response.anime.ListGenera
 import kotlinx.coroutines.flow.Flow
 
 interface AnimeUseCase {
-
-    fun getTopAnimePagination() : LiveData<PagingData<DetailGeneralResponse>>
     fun getTopAnime(): Flow<Resource<ListGeneralResponse>>
     fun getUpcomingAnime(): Flow<Resource<ListGeneralResponse>>
+    fun getTopAnimePagination() : LiveData<PagingData<DetailGeneralResponse>>
 }

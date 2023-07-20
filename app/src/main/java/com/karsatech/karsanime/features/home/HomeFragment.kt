@@ -209,7 +209,7 @@ class HomeFragment : Fragment() {
         })
     }
 
-    private fun setTopPeopleData(data: ArrayList<DetailPeopleResponse?>) {
+    private fun setTopPeopleData(data: List<DetailPeopleResponse?>) {
         topPeopleAdapter.submitList(data)
 
         topPeopleAdapter.setOnItemClickCallback(object : PeopleAdapter.ActionAdapter {

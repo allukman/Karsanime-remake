@@ -8,5 +8,5 @@ data class ListPeopleResponse(
     val pagination: Pagination,
 
     @field:SerializedName("data")
-    val data: ArrayList<DetailPeopleResponse?>
+    val data: List<DetailPeopleResponse>
 )

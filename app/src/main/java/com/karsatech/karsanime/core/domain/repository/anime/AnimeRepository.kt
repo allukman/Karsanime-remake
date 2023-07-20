@@ -22,17 +22,6 @@ import javax.inject.Singleton
 class AnimeRepository @Inject constructor(private val animeService: AnimeService):
     IAnimeRepository {
 
-//    fun getAnimePagination(): LiveData<PagingData<DetailGeneralResponse>> {
-//        return Pager(
-//            config = PagingConfig(
-//                pageSize = 5
-//            ),
-//            pagingSourceFactory = {
-//                AnimePagingSource(animeService)
-//            }
-//        ).liveData
-//    }
-
     override fun getTopAnime(): Flow<Resource<ListGeneralResponse>> {
         return flow {
             emit(Resource.Loading())
