@@ -273,7 +273,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="See full detail"
+                    android:text="@string/see_full_detail"
                     style="@style/description_bold"
                     android:textColor="@color/white"
                     app:layout_constraintTop_toTopOf="@id/ic_arrow"

@@ -1,5 +1,6 @@
 package com.karsatech.karsanime.ui.manga
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -11,6 +12,9 @@ import com.karsatech.karsanime.core.data.source.remote.response.anime.Genres
 import com.karsatech.karsanime.core.ui.GenreAdapter
 import com.karsatech.karsanime.databinding.ActivityDetailMangaBinding
 import com.karsatech.karsanime.ui.anime.DetailAnimeActivity
+import com.karsatech.karsanime.ui.image.ImageActivity
+import com.karsatech.karsanime.ui.image.ImageActivity.Companion.DETAIL_IMAGE
+import com.karsatech.karsanime.ui.people.DetailPeopleActivity
 
 class DetailMangaActivity : AppCompatActivity() {
 
@@ -48,6 +52,12 @@ class DetailMangaActivity : AppCompatActivity() {
             .into(binding.imagePoster)
 
         setGenre(data.genres)
+
+        binding.imagePoster.setOnClickListener {
+            val intent = Intent(this, ImageActivity::class.java)
+            intent.putExtra(DETAIL_IMAGE, data.images.jpg!!.largeImageUrl)
+            startActivity(intent)
+        }
     }
 
     private fun setGenre(data: ArrayList<Genres>) {

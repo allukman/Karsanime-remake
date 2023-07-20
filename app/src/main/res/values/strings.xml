@@ -3,12 +3,12 @@
     <string name="text_primary">Sample of title text</string>
     <string name="text_subtitle">Sample of subtitle text</string>
 
-<!--    Drawer Teks -->
+    <!--    Drawer Teks -->
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-<!--    Menu    -->
+    <!--    Menu    -->
 
     <string name="menu_home">Home</string>
     <string name="menu_favorite">Favorite</string>
@@ -18,7 +18,7 @@
     <string name="menu_people">People</string>
     <string name="menu_setting">Setting</string>
 
-<!--    App Teks    -->
+    <!--    App Teks    -->
 
     <string name="something_wrong">Something Wrong!</string>
     <string name="data_not_found">Data not found!</string>
@@ -38,11 +38,14 @@
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-<!--    Image Description   -->
+    <!--    Image Description   -->
 
     <string name="desc_image_poster_upcoming_anime">Image Poster Upcoming Anime</string>
     <string name="desc_icon_star">Icon star</string>
     <string name="desc_apps_logo">Apps logo</string>
     <string name="image_description">Image</string>
+    <string name="desc_back_button_from_detail_image">Back button from detail image</string>
+    <string name="desc_detail_full_image">Detail full image</string>
+    <string name="see_full_detail">See full detail</string>
 
 </resources>
