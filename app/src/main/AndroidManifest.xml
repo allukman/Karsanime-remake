@@ -16,6 +16,9 @@
         android:theme="@style/Theme.Karsanime"
         tools:targetApi="31">
         <activity
+            android:name=".ui.manga.DetailMangaActivity"
+            android:exported="false"/>
+        <activity
             android:name=".ui.people.DetailPeopleActivity"
             android:exported="false" />
         <activity
@@ -25,7 +28,7 @@
             android:name=".MainActivity"
             android:exported="false" />
         <activity
-            android:name=".welcome.SplashscreenActivity"
+            android:name=".ui.welcome.SplashscreenActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

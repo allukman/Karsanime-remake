@@ -1,4 +1,4 @@
-package com.karsatech.karsanime.welcome
+package com.karsatech.karsanime.ui.welcome
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity

@@ -307,9 +307,10 @@
                 app:layout_constraintTop_toBottomOf="@id/top_manga_title"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/top_anime_title"/>
+                app:layout_constraintBottom_toTopOf="@id/view"/>
 
             <View
+                android:id="@+id/view"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_48dp"
                 app:layout_constraintLeft_toLeftOf="parent"
