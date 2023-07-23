@@ -48,5 +48,7 @@
     <string name="desc_detail_full_image">Detail full image</string>
     <string name="see_full_detail">See full detail</string>
     <string name="retry">Retry</string>
+    <string name="desc_button_favorite">button favorite</string>
+    <string name="desc_image_poster_anime">image poster anime</string>
 
 </resources>

@@ -2,6 +2,8 @@ package com.karsatech.karsanime.di
 
 import com.karsatech.karsanime.core.domain.usecase.anime.AnimeInteractor
 import com.karsatech.karsanime.core.domain.usecase.anime.AnimeUseCase
+import com.karsatech.karsanime.core.domain.usecase.favorite.FavoriteInteractor
+import com.karsatech.karsanime.core.domain.usecase.favorite.FavoriteUseCase
 import com.karsatech.karsanime.core.domain.usecase.manga.MangaInteractor
 import com.karsatech.karsanime.core.domain.usecase.manga.MangaUseCase
 import com.karsatech.karsanime.core.domain.usecase.people.PeopleInteractor
@@ -27,5 +29,9 @@ abstract class AppModule {
     @Binds
     @ViewModelScoped
     abstract fun providePeopleUseCase(peopleInteractor: PeopleInteractor): PeopleUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun provideFavoriteUseCase(favoriteInteractor: FavoriteInteractor): FavoriteUseCase
 
 }

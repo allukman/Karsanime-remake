@@ -1,22 +1,26 @@
 package com.karsatech.karsanime.core.data.source.local
 
+import com.karsatech.karsanime.core.data.source.local.entity.AnimeEntity
 import com.karsatech.karsanime.core.data.source.local.entity.TourismEntity
+import com.karsatech.karsanime.core.data.source.local.room.AnimeDao
 import com.karsatech.karsanime.core.data.source.local.room.TourismDao
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class LocalDataSource @Inject constructor(private val tourismDao: TourismDao) {
+class LocalDataSource @Inject constructor(private val animeDao: AnimeDao) {
 
-    fun getAllTourism(): Flow<List<TourismEntity>> = tourismDao.getAllTourism()
+    fun getAllFavoriteAnime(): Flow<List<AnimeEntity>> = animeDao.getAllFavoriteAnime()
 
-    fun getFavoriteTourism(): Flow<List<TourismEntity>> = tourismDao.getFavoriteTourism()
+    fun getFavoriteAnimeById(animeId: String): Flow<List<AnimeEntity>> = animeDao.getFavoriteById(animeId)
 
-    suspend fun insertTourism(tourismList: List<TourismEntity>) = tourismDao.insertTourism(tourismList)
+    fun setFavoriteAnime(anime: AnimeEntity) {
+        animeDao.insertFavoriteAnime(anime)
+    }
 
-    fun setFavoriteTourism(tourism: TourismEntity, newState: Boolean) {
-        tourism.isFavorite = newState
-        tourismDao.updateFavoriteTourism(tourism)
+    fun removeFavoriteAnime(animeId: String) {
+        animeDao.removeFavoriteAnime(animeId)
     }
 }
+

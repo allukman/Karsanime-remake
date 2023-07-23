@@ -26,8 +26,6 @@ class DetailMangaActivity : AppCompatActivity() {
 
         data = intent.getParcelableExtra<DetailGeneralResponse>(DETAIL_MANGA) as DetailGeneralResponse
 
-        Log.d("DetailMangaActivity", data.toString())
-
         initializeRecyclerViews()
         setupData(data)
     }
@@ -55,6 +53,10 @@ class DetailMangaActivity : AppCompatActivity() {
             val intent = Intent(this, ImageActivity::class.java)
             intent.putExtra(DETAIL_IMAGE, data.images.jpg!!.largeImageUrl)
             startActivity(intent)
+        }
+
+        binding.btnBack.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
         }
     }
 

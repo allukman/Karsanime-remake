@@ -24,7 +24,6 @@ class DetailPeopleActivity : AppCompatActivity() {
         data = intent.getParcelableExtra<DetailPeopleResponse>(DETAIL_PEOPLE) as DetailPeopleResponse
 
         setupData(data)
-        Log.d("DetailPeopleActivity", data.toString())
 
     }
 
@@ -42,6 +41,10 @@ class DetailPeopleActivity : AppCompatActivity() {
             val intent = Intent(this, ImageActivity::class.java)
             intent.putExtra(DETAIL_IMAGE, data.images.jpg!!.imageUrl)
             startActivity(intent)
+        }
+
+        binding.btnBack.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
         }
 
     }

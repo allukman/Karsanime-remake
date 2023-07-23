@@ -2,6 +2,8 @@ package com.karsatech.karsanime.core.di
 
 import com.karsatech.karsanime.core.domain.repository.anime.AnimeRepository
 import com.karsatech.karsanime.core.domain.repository.anime.IAnimeRepository
+import com.karsatech.karsanime.core.domain.repository.favorite.FavoriteRepository
+import com.karsatech.karsanime.core.domain.repository.favorite.IFavoriteRepository
 import com.karsatech.karsanime.core.domain.repository.manga.IMangaRepository
 import com.karsatech.karsanime.core.domain.repository.manga.MangaRepository
 import com.karsatech.karsanime.core.domain.repository.people.IPeopleRepository
@@ -24,4 +26,7 @@ abstract class RepositoryModule {
 
     @Binds
     abstract fun provideRepositoryPeople(peopleRepository: PeopleRepository): IPeopleRepository
+
+    @Binds
+    abstract fun provideRepositoryFavorite(favoriteRepository: FavoriteRepository): IFavoriteRepository
 }
