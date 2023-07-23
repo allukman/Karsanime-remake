@@ -52,7 +52,7 @@ class PeopleFragment : Fragment() {
         initializeRecyclerViews()
     }
 
-    private fun storyLoadingState() {
+    private fun listPeopleLoadingState() {
         listPeopleAdapter.addLoadStateListener {
             when (it.refresh) {
                 is LoadState.Loading -> {
@@ -74,18 +74,17 @@ class PeopleFragment : Fragment() {
     private fun observeViewModelAnime() {
         peopleViewModel.topPeoplePagination.observe(viewLifecycleOwner) { people ->
             listPeopleAdapter.submitData(lifecycle, people)
-            setAnimeData()
+            setPeopleData()
         }
     }
 
-    private fun setAnimeData() {
+    private fun setPeopleData() {
         listPeopleAdapter.setOnItemClickCallback(object : ListPeopleAdapter.ActionAdapter {
             override fun onItemClick(data: DetailPeopleResponse) {
                 val intent = Intent(activity, DetailPeopleActivity::class.java)
                 intent.putExtra(DETAIL_PEOPLE, data)
                 startActivity(intent)
             }
-
         })
     }
 
@@ -96,7 +95,7 @@ class PeopleFragment : Fragment() {
             adapter = listPeopleAdapter
         }
 
-        storyLoadingState()
+        listPeopleLoadingState()
         observeViewModelAnime()
 
         binding.rvListPeople.adapter = listPeopleAdapter.withLoadStateFooter(

@@ -11,4 +11,5 @@ interface AnimeUseCase {
     fun getTopAnime(): Flow<Resource<ListGeneralResponse>>
     fun getUpcomingAnime(): Flow<Resource<ListGeneralResponse>>
     fun getTopAnimePagination() : LiveData<PagingData<DetailGeneralResponse>>
+    fun getUpcomingAnimePagination() : LiveData<PagingData<DetailGeneralResponse>>
 }

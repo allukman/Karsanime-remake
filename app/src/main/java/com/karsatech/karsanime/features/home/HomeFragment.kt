@@ -17,11 +17,14 @@ import com.karsatech.karsanime.core.data.source.remote.response.anime.DetailGene
 import com.karsatech.karsanime.core.data.source.remote.response.people.DetailPeopleResponse
 import com.karsatech.karsanime.core.ui.PeopleAdapter
 import com.karsatech.karsanime.core.ui.AnimeAdapter
+import com.karsatech.karsanime.core.utils.DataType
 import com.karsatech.karsanime.databinding.FragmentHomeBinding
 import com.karsatech.karsanime.features.anime.DetailAnimeActivity
 import com.karsatech.karsanime.features.anime.DetailAnimeActivity.Companion.DETAIL_ANIME
 import com.karsatech.karsanime.features.manga.DetailMangaActivity
 import com.karsatech.karsanime.features.manga.DetailMangaActivity.Companion.DETAIL_MANGA
+import com.karsatech.karsanime.features.pagination.ListPaginationActivity
+import com.karsatech.karsanime.features.pagination.ListPaginationActivity.Companion.SEE_ALL_PAGINATION
 import com.karsatech.karsanime.features.people.DetailPeopleActivity
 import com.karsatech.karsanime.features.people.DetailPeopleActivity.Companion.DETAIL_PEOPLE
 import dagger.hilt.android.AndroidEntryPoint
@@ -50,12 +53,38 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initializeRecyclerViews()
+        initOnClick()
 
         observeViewModelUpcoming()
         observeViewModelTopPeople()
         observeViewModelTopAnime()
     }
 
+    private fun initOnClick() {
+        binding.upcomingSeeAll.setOnClickListener {
+            val intent = Intent(activity, ListPaginationActivity::class.java)
+            intent.putExtra(SEE_ALL_PAGINATION, DataType.UPCOMING_ANIME)
+            startActivity(intent)
+        }
+
+        binding.topAnimeSeeAll.setOnClickListener {
+            val intent = Intent(activity, ListPaginationActivity::class.java)
+            intent.putExtra(SEE_ALL_PAGINATION, DataType.TOP_ANIME)
+            startActivity(intent)
+        }
+
+        binding.topMangaSeeAll.setOnClickListener {
+            val intent = Intent(activity, ListPaginationActivity::class.java)
+            intent.putExtra(SEE_ALL_PAGINATION, DataType.TOP_MANGA)
+            startActivity(intent)
+        }
+
+        binding.topPeopleSeeAll.setOnClickListener {
+            val intent = Intent(activity, ListPaginationActivity::class.java)
+            intent.putExtra(SEE_ALL_PAGINATION, DataType.TOP_PEOPLE)
+            startActivity(intent)
+        }
+    }
     private fun initializeRecyclerViews() {
         binding.rvUpcoming.apply {
             layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
@@ -226,4 +255,5 @@ class HomeFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
 }

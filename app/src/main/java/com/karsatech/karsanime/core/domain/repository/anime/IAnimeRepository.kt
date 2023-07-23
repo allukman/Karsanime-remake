@@ -15,4 +15,6 @@ interface IAnimeRepository {
 
     fun getTopAnimePagination(): LiveData<PagingData<DetailGeneralResponse>>
 
+    fun getUpcomingAnimePagination(): LiveData<PagingData<DetailGeneralResponse>>
+
 }

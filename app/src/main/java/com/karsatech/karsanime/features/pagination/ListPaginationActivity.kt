@@ -1,0 +1,265 @@
+package com.karsatech.karsanime.features.pagination
+
+import android.content.Intent
+import android.os.Bundle
+import android.util.Log
+import android.view.View
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.paging.CombinedLoadStates
+import androidx.paging.LoadState
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.karsatech.karsanime.R
+import com.karsatech.karsanime.core.data.source.remote.response.anime.DetailGeneralResponse
+import com.karsatech.karsanime.core.data.source.remote.response.people.DetailPeopleResponse
+import com.karsatech.karsanime.core.paging.LoadingStateAdapter
+import com.karsatech.karsanime.core.ui.ListAnimeAdapter
+import com.karsatech.karsanime.core.ui.ListMangaAdapter
+import com.karsatech.karsanime.core.ui.ListPeopleAdapter
+import com.karsatech.karsanime.core.utils.DataType
+import com.karsatech.karsanime.databinding.ActivityListPaginationBinding
+import com.karsatech.karsanime.features.anime.DetailAnimeActivity
+import com.karsatech.karsanime.features.manga.DetailMangaActivity
+import dagger.hilt.android.AndroidEntryPoint
+
+@AndroidEntryPoint
+class ListPaginationActivity : AppCompatActivity() {
+
+    private val listPaginationViewModel: ListPaginationViewModel by viewModels()
+    private lateinit var binding: ActivityListPaginationBinding
+
+    private lateinit var listAnimeAdapter: ListAnimeAdapter
+    private lateinit var listMangaAdapter: ListMangaAdapter
+    private lateinit var listPeopleAdapter: ListPeopleAdapter
+    private lateinit var listUpcomingAnimeAdapter: ListAnimeAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityListPaginationBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        setSupportActionBar(binding.toolbar)
+
+        initializeRecyclerViews()
+
+        val dataType = intent.getSerializableExtra(SEE_ALL_PAGINATION) as? DataType
+        dataType?.let { setupList(it) } ?: Log.d("ListPaginationActivity", "Invalid type data")
+    }
+
+    private fun initializeRecyclerViews() {
+        binding.rvListAnime.apply {
+            layoutManager = LinearLayoutManager(this@ListPaginationActivity, RecyclerView.VERTICAL, false)
+            listAnimeAdapter = ListAnimeAdapter()
+            adapter = listAnimeAdapter
+        }
+        binding.rvListManga.apply {
+            layoutManager = LinearLayoutManager(this@ListPaginationActivity, RecyclerView.VERTICAL, false)
+            listMangaAdapter = ListMangaAdapter()
+            adapter = listMangaAdapter
+        }
+        binding.rvListPeople.apply {
+            layoutManager = LinearLayoutManager(this@ListPaginationActivity, RecyclerView.VERTICAL, false)
+            listPeopleAdapter = ListPeopleAdapter()
+            adapter = listPeopleAdapter
+        }
+        binding.rvListUpcomingAnime.apply {
+            layoutManager = LinearLayoutManager(this@ListPaginationActivity, RecyclerView.VERTICAL, false)
+            listUpcomingAnimeAdapter = ListAnimeAdapter()
+            adapter = listUpcomingAnimeAdapter
+        }
+    }
+
+    private fun setupList(dataType: DataType) {
+        val titleResId = when (dataType) {
+            DataType.UPCOMING_ANIME -> {
+                R.string.upcoming_anime
+            }
+            DataType.TOP_ANIME -> {
+                R.string.top_anime
+            }
+            DataType.TOP_MANGA -> {
+                R.string.top_manga
+            }
+            DataType.TOP_PEOPLE -> {
+                R.string.top_people
+            }
+        }
+        supportActionBar?.title = getString(titleResId)
+
+        when (dataType) {
+            DataType.UPCOMING_ANIME -> {
+                initUpcomingAnimeData()
+            }
+            DataType.TOP_ANIME -> {
+                initAnimeData()
+            }
+            DataType.TOP_MANGA -> {
+                initMangaData()
+            }
+            DataType.TOP_PEOPLE -> {
+                initPeopleData()
+            }
+        }
+    }
+
+    // Initialize RecyclerView data and loading state for each data type
+    private fun initAnimeData() {
+        listAnimeLoadingState()
+        observeViewModelAnime()
+        binding.layoutTopAnime.visibility = View.VISIBLE
+        binding.rvListAnime.adapter = listAnimeAdapter.withLoadStateFooter(
+            footer = LoadingStateAdapter { listAnimeAdapter.retry() }
+        )
+        setAnimeData()
+    }
+
+    private fun initMangaData() {
+        listMangaLoadingState()
+        observeViewModelManga()
+        binding.layoutTopManga.visibility = View.VISIBLE
+        binding.rvListManga.adapter = listMangaAdapter.withLoadStateFooter(
+            footer = LoadingStateAdapter { listMangaAdapter.retry() }
+        )
+        setMangaData()
+    }
+
+    private fun initPeopleData() {
+        listPeopleLoadingState()
+        observeViewModelPeople()
+        binding.layoutTopPeople.visibility = View.VISIBLE
+        binding.rvListPeople.adapter = listPeopleAdapter.withLoadStateFooter(
+            footer = LoadingStateAdapter { listPeopleAdapter.retry() }
+        )
+        setPeopleData()
+    }
+
+    private fun initUpcomingAnimeData() {
+        listUpcomingAnimeLoadingState()
+        observeViewModelUpcomingAnime()
+        binding.layoutTopUpcomingAnime.visibility = View.VISIBLE
+        binding.rvListUpcomingAnime.adapter = listUpcomingAnimeAdapter.withLoadStateFooter(
+            footer = LoadingStateAdapter { listUpcomingAnimeAdapter.retry() }
+        )
+        setUpcomingAnimeData()
+    }
+
+    // Observers
+    private fun observeViewModelAnime() {
+        listPaginationViewModel.topAnimePagination.observe(this) { anime ->
+            listAnimeAdapter.submitData(lifecycle, anime)
+        }
+    }
+
+    private fun observeViewModelManga() {
+        listPaginationViewModel.topMangaPagination.observe(this) { manga ->
+            listMangaAdapter.submitData(lifecycle, manga)
+        }
+    }
+
+    private fun observeViewModelPeople() {
+        listPaginationViewModel.topPeoplePagination.observe(this) { people ->
+            listPeopleAdapter.submitData(lifecycle, people)
+        }
+    }
+
+    private fun observeViewModelUpcomingAnime() {
+        listPaginationViewModel.upcomingAnimePagination.observe(this) { upcoming ->
+            listUpcomingAnimeAdapter.submitData(lifecycle, upcoming)
+        }
+    }
+
+    // Loading state for each RecyclerView
+    private fun listAnimeLoadingState() {
+        listAnimeAdapter.addLoadStateListener {
+            handleLoadingState(binding.rvListAnime, binding.progressBarTopAnime, it)
+        }
+    }
+
+    private fun listMangaLoadingState() {
+        listMangaAdapter.addLoadStateListener {
+            handleLoadingState(binding.rvListManga, binding.progressBarTopManga, it)
+        }
+    }
+
+    private fun listPeopleLoadingState() {
+        listPeopleAdapter.addLoadStateListener {
+            handleLoadingState(binding.rvListPeople, binding.progressBarTopPeople, it)
+        }
+    }
+
+    private fun listUpcomingAnimeLoadingState() {
+        listUpcomingAnimeAdapter.addLoadStateListener {
+            handleLoadingState(binding.rvListUpcomingAnime, binding.progressBarTopUpcomingAnime, it)
+        }
+    }
+
+    // Common function to handle RecyclerView loading state
+    private fun handleLoadingState(
+        recyclerView: RecyclerView,
+        progressBar: View,
+        loadState: CombinedLoadStates
+    ) {
+        when (loadState.refresh) {
+            is LoadState.Loading -> {
+                recyclerView.visibility = View.GONE
+                progressBar.visibility = View.VISIBLE
+            }
+            is LoadState.NotLoading -> {
+                recyclerView.visibility = View.VISIBLE
+                progressBar.visibility = View.GONE
+            }
+            is LoadState.Error -> {
+                // Handle error state here if needed
+            }
+        }
+    }
+
+    // Set click listeners for each RecyclerView
+    private fun setAnimeData() {
+        listAnimeAdapter.setOnItemClickCallback(object : ListAnimeAdapter.ActionAdapter {
+            override fun onItemClick(data: DetailGeneralResponse) {
+                startDetailActivity(DetailAnimeActivity::class.java, DetailAnimeActivity.DETAIL_ANIME, data)
+            }
+        })
+    }
+
+    private fun setMangaData() {
+        listMangaAdapter.setOnItemClickCallback(object : ListMangaAdapter.ActionAdapter {
+            override fun onItemClick(data: DetailGeneralResponse) {
+                startDetailActivity(DetailMangaActivity::class.java, DetailMangaActivity.DETAIL_MANGA, data)
+            }
+        })
+    }
+
+    private fun setPeopleData() {
+        listPeopleAdapter.setOnItemClickCallback(object : ListPeopleAdapter.ActionAdapter {
+            override fun onItemClick(data: DetailPeopleResponse) {
+//                startDetailActivity(DetailPeopleActivity::class.java, DetailPeopleActivity.DETAIL_PEOPLE, data)
+            }
+        })
+    }
+
+    private fun setUpcomingAnimeData() {
+        listUpcomingAnimeAdapter.setOnItemClickCallback(object : ListAnimeAdapter.ActionAdapter {
+            override fun onItemClick(data: DetailGeneralResponse) {
+                startDetailActivity(DetailAnimeActivity::class.java, DetailAnimeActivity.DETAIL_ANIME, data)
+            }
+        })
+    }
+
+    // Start detail activity for each data type
+    private fun startDetailActivity(
+        targetActivity: Class<*>,
+        extraKey: String,
+        data: DetailGeneralResponse
+    ) {
+        val intent = Intent(this@ListPaginationActivity, targetActivity)
+        intent.putExtra(extraKey, data)
+        startActivity(intent)
+    }
+
+    companion object {
+        const val SEE_ALL_PAGINATION = "SEE_ALL_PAGINATION"
+    }
+}

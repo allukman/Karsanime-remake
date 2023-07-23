@@ -11,6 +11,7 @@ import com.karsatech.karsanime.core.data.source.remote.network.AnimeService
 import com.karsatech.karsanime.core.data.source.remote.response.anime.DetailGeneralResponse
 import com.karsatech.karsanime.core.data.source.remote.response.anime.ListGeneralResponse
 import com.karsatech.karsanime.core.paging.AnimePagingSource
+import com.karsatech.karsanime.core.paging.UpcomingAnimePagingSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -55,6 +56,17 @@ class AnimeRepository @Inject constructor(private val animeService: AnimeService
             ),
             pagingSourceFactory = {
                 AnimePagingSource(animeService)
+            }
+        ).liveData
+    }
+
+    override fun getUpcomingAnimePagination(): LiveData<PagingData<DetailGeneralResponse>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 5
+            ),
+            pagingSourceFactory = {
+                UpcomingAnimePagingSource(animeService)
             }
         ).liveData
     }

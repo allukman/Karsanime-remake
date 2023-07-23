@@ -43,7 +43,7 @@ class MangaFragment : Fragment() {
         initializeRecyclerViews()
     }
 
-    private fun storyLoadingState() {
+    private fun listMangaLoadingState() {
         listMangaAdapter.addLoadStateListener {
             when (it.refresh) {
                 is LoadState.Loading -> {
@@ -87,7 +87,7 @@ class MangaFragment : Fragment() {
             adapter = listMangaAdapter
         }
 
-        storyLoadingState()
+        listMangaLoadingState()
         observeViewModelManga()
 
         binding.rvListManga.adapter = listMangaAdapter.withLoadStateFooter(

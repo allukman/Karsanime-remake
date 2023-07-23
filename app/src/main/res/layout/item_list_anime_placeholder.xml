@@ -55,7 +55,7 @@
         android:layout_width="120dp"
         android:layout_height="150dp"
         android:layout_marginStart="@dimen/dimen_16dp"
-        android:layout_marginBottom="@dimen/dimen_16dp"
+        android:layout_marginTop="@dimen/dimen_16dp"
         app:cardCornerRadius="@dimen/dimen_8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
