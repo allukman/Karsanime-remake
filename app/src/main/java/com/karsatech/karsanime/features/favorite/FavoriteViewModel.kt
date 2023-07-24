@@ -13,4 +13,6 @@ class FavoriteViewModel @Inject constructor(favoriteUseCase: FavoriteUseCase): V
 
     val favoriteManga = favoriteUseCase.getAllFavoriteManga().asLiveData()
 
+    val favoritePeople = favoriteUseCase.getAllFavoritePeople().asLiveData()
+
 }

@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.karsatech.karsanime.core.data.source.local.room.AnimeDao
 import com.karsatech.karsanime.core.data.source.local.room.FavoriteDatabase
 import com.karsatech.karsanime.core.data.source.local.room.MangaDao
+import com.karsatech.karsanime.core.data.source.local.room.PeopleDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -38,4 +39,7 @@ class DatabaseModule {
 
     @Provides
     fun provideMangaDao(database: FavoriteDatabase): MangaDao = database.mangaDao()
+
+    @Provides
+    fun providePeopleDao(database: FavoriteDatabase): PeopleDao = database.peopleDao()
 }

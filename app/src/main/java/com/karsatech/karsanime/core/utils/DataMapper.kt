@@ -1,11 +1,13 @@
 package com.karsatech.karsanime.core.utils
 
+import android.provider.Contacts
 import com.karsatech.karsanime.core.data.source.local.entity.AnimeEntity
 import com.karsatech.karsanime.core.data.source.local.entity.MangaEntity
+import com.karsatech.karsanime.core.data.source.local.entity.PeopleEntity
 import com.karsatech.karsanime.core.data.source.remote.response.anime.DetailGeneralResponse
 import com.karsatech.karsanime.core.domain.model.Anime
 import com.karsatech.karsanime.core.domain.model.Manga
-import com.karsatech.karsanime.core.domain.model.Tourism
+import com.karsatech.karsanime.core.domain.model.People
 
 object DataMapper {
     fun mapResponsesToEntities(input: List<DetailGeneralResponse>): List<AnimeEntity> {
@@ -66,6 +68,23 @@ object DataMapper {
         chapters = input.chapters,
         volumes = input.volumes,
         status = input.status
+    )
+
+    fun mapPeopleEntitiesToDomain(input: List<PeopleEntity>): List<People> =
+        input.map {
+            People(
+                peopleId = it.peopleId,
+                name = it.name,
+                image = it.image,
+                favorites = it.favorites
+            )
+        }
+
+    fun mapDomainToEntityPeople(input: People) = PeopleEntity(
+        peopleId = input.peopleId,
+        name = input.name,
+        image = input.image,
+        favorites = input.favorites
     )
 
 

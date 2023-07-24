@@ -2,6 +2,7 @@ package com.karsatech.karsanime.core.domain.usecase.favorite
 
 import com.karsatech.karsanime.core.domain.model.Anime
 import com.karsatech.karsanime.core.domain.model.Manga
+import com.karsatech.karsanime.core.domain.model.People
 import com.karsatech.karsanime.core.domain.repository.favorite.FavoriteRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -17,5 +18,10 @@ class FavoriteInteractor @Inject constructor(private val favoriteRepository: Fav
     override fun getFavoriteMangaById(favMangaId: String) = favoriteRepository.getFavoriteMangaById(favMangaId)
     override fun setFavoriteManga(favManga: Manga) = favoriteRepository.setFavoriteManga(favManga)
     override fun removeFavoriteManga(favMangaId: String) = favoriteRepository.removeFavoriteManga(favMangaId)
+
+    override fun getAllFavoritePeople() = favoriteRepository.getAllFavoritePeople()
+    override fun getFavoritePeopleById(favPeopleId: String) = favoriteRepository.getFavoritePeopleById(favPeopleId)
+    override fun setFavoritePeople(favPeople: People) = favoriteRepository.setFavoritePeople(favPeople)
+    override fun removeFavoritePeople(favPeopleId: String) = favoriteRepository.removeFavoritePeople(favPeopleId)
 
 }
