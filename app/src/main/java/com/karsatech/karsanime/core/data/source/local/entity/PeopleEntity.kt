@@ -19,7 +19,13 @@ data class PeopleEntity(
     @ColumnInfo(name = "image")
     var image: String,
 
+    @ColumnInfo(name = "birthday")
+    var birthday: String,
+
     @ColumnInfo(name = "favorites")
     var favorites: String,
+
+    @ColumnInfo(name = "about")
+    var about: String
 
     )

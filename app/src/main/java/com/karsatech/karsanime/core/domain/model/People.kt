@@ -8,5 +8,7 @@ data class People (
     val peopleId: String,
     val name: String,
     val image: String,
-    val favorites: String
+    val birthday: String,
+    val favorites: String,
+    val about: String
 ): Parcelable

@@ -17,6 +17,7 @@ import com.karsatech.karsanime.core.data.source.remote.response.anime.DetailGene
 import com.karsatech.karsanime.core.data.source.remote.response.people.DetailPeopleResponse
 import com.karsatech.karsanime.core.ui.PeopleAdapter
 import com.karsatech.karsanime.core.ui.AnimeAdapter
+import com.karsatech.karsanime.core.utils.DataMapper
 import com.karsatech.karsanime.core.utils.DataType
 import com.karsatech.karsanime.databinding.FragmentHomeBinding
 import com.karsatech.karsanime.features.anime.DetailAnimeActivity
@@ -205,8 +206,9 @@ class HomeFragment : Fragment() {
 
         animeUpcomingAdapter.setOnItemClickCallback(object : AnimeAdapter.ActionAdapter {
             override fun onItemClick(data: DetailGeneralResponse) {
+                val anime = DataMapper.mapApiResponseToAnimeModel(data)
                 val intent = Intent(activity, DetailAnimeActivity::class.java)
-                intent.putExtra(DETAIL_ANIME, data)
+                intent.putExtra(DETAIL_ANIME, anime)
                 startActivity(intent)
             }
         })
@@ -217,8 +219,9 @@ class HomeFragment : Fragment() {
 
         topAnimeAdapter.setOnItemClickCallback(object: AnimeAdapter.ActionAdapter {
             override fun onItemClick(data: DetailGeneralResponse) {
+                val anime = DataMapper.mapApiResponseToAnimeModel(data)
                 val intent = Intent(activity, DetailAnimeActivity::class.java)
-                intent.putExtra(DETAIL_ANIME, data)
+                intent.putExtra(DETAIL_ANIME, anime)
                 startActivity(intent)
             }
 
@@ -230,8 +233,9 @@ class HomeFragment : Fragment() {
 
         topMangaAdapter.setOnItemClickCallback(object : AnimeAdapter.ActionAdapter {
             override fun onItemClick(data: DetailGeneralResponse) {
+                val manga = DataMapper.mapApiResponseToMangaModel(data)
                 val intent = Intent(activity, DetailMangaActivity::class.java)
-                intent.putExtra(DETAIL_MANGA, data)
+                intent.putExtra(DETAIL_MANGA, manga)
                 startActivity(intent)
             }
 
@@ -243,8 +247,9 @@ class HomeFragment : Fragment() {
 
         topPeopleAdapter.setOnItemClickCallback(object : PeopleAdapter.ActionAdapter {
             override fun onItemClick(data: DetailPeopleResponse) {
+                val people = DataMapper.apiResponseToPeopleModel(data)
                 val intent = Intent(activity, DetailPeopleActivity::class.java)
-                intent.putExtra(DETAIL_PEOPLE, data)
+                intent.putExtra(DETAIL_PEOPLE, people)
                 startActivity(intent)
             }
 

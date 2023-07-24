@@ -24,42 +24,38 @@ class DetailMangaActivity : AppCompatActivity() {
 
     private val detailMangaViewModel: DetailMangaViewModel by viewModels()
     private lateinit var binding: ActivityDetailMangaBinding
-    private lateinit var data: DetailGeneralResponse
-    private lateinit var genreAdapter: GenreAdapter
+    private lateinit var data: Manga
     private var isFavorite = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailMangaBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        data = intent.getParcelableExtra<DetailGeneralResponse>(DETAIL_MANGA) as DetailGeneralResponse
+        data = intent.getParcelableExtra<Manga>(DETAIL_MANGA) as Manga
 
-        initializeRecyclerViews()
         setupData(data)
     }
 
-    private fun setupData(data: DetailGeneralResponse) {
+    private fun setupData(data: Manga) {
 
-        binding.title.text = data.title ?: "unknown"
-        binding.score.text = if (data.score == null) "0.0" else data.score.toString()
-        binding.textRanking.text = if (data.rank == null) "0" else data.rank.toString()
-        binding.textMember.text = if (data.members == null) "0" else data.members.toString()
-        binding.textPopularity.text = if (data.popularity == null) "0" else data.popularity.toString()
-        binding.textFavorites.text = if (data.favorite == null) "0" else data.favorite.toString()
-        binding.synopsis.text = data.synopsis ?: getString(R.string.error_anime_synopsis)
-        binding.status.text = data.status ?: getString(R.string.error_status)
-        binding.chapters.text = if (data.episodes == null) "0 chapters" else data.episodes.toString() + " chapters"
-        binding.volumes.text = if (data.volumes == null) "0 volumes" else data.volumes.toString() + " volumes"
+        binding.title.text = if (data.title == "null") "n/a" else data.title
+        binding.score.text = if (data.score == "null") "0.0" else data.score
+        binding.textRanking.text = if (data.rank == "null") "0" else data.rank
+        binding.textMember.text = if (data.members == "null") "0" else data.members
+        binding.textPopularity.text = if (data.popularity == "null") "0" else data.popularity
+        binding.textFavorites.text = if (data.favorites == "null") "0" else data.favorites
+        binding.synopsis.text = if (data.synopsis == "null") getString(R.string.error_anime_synopsis) else data.synopsis
+        binding.status.text = if (data.status == "null") getString(R.string.error_status) else data.status
+        binding.chapters.text = if (data.chapters == "null") "0 chapters" else data.chapters + " chapters"
+        binding.volumes.text = if (data.volumes == "null") "0 volumes" else data.volumes + " volumes"
 
         Glide.with(this)
-            .load(data.images!!.jpg!!.largeImageUrl)
+            .load(data.image)
             .into(binding.imagePoster)
-
-        setGenre(data.genres)
 
         binding.imagePoster.setOnClickListener {
             val intent = Intent(this, ImageActivity::class.java)
-            intent.putExtra(DETAIL_IMAGE, data.images.jpg!!.largeImageUrl)
+            intent.putExtra(DETAIL_IMAGE, data.image)
             startActivity(intent)
         }
 
@@ -68,43 +64,21 @@ class DetailMangaActivity : AppCompatActivity() {
         }
 
         binding.btnFavorite.setOnClickListener {
-            val favManga = Manga(
-                mangaId = data.malId.toString(),
-                title = data.title.toString(),
-                image = data.images.jpg?.largeImageUrl.toString(),
-                chapters = data.chapters.toString(),
-                volumes = data.volumes.toString(),
-                status = data.status.toString()
-            )
             if (isFavorite) {
-                detailMangaViewModel.setUnFavoriteManga(data.malId.toString())
+                detailMangaViewModel.setUnFavoriteManga(data.mangaId)
             } else {
-                detailMangaViewModel.setFavoriteManga(favManga)
+                detailMangaViewModel.setFavoriteManga(data)
             }
         }
 
-        detailMangaViewModel.getFavoriteMangaByMalId(data.malId.toString()).observe(this) { listManga ->
+        detailMangaViewModel.getFavoriteMangaByMalId(data.mangaId).observe(this) { listManga ->
             isFavorite = if (listManga.isEmpty()) {
-                Log.d("DetailAnimeActivity", "Not Favorite")
                 binding.ivFavorite.setImageResource(R.drawable.ic_baseline_unfavorite_24)
                 false
             } else {
-                Log.d("DetailAnimeActivity", "Favorite")
                 binding.ivFavorite.setImageResource(R.drawable.ic_baseline_favorite_24)
                 true
             }
-        }
-    }
-
-    private fun setGenre(data: ArrayList<Genres>) {
-        genreAdapter.submitList(data)
-    }
-
-    private fun initializeRecyclerViews() {
-        binding.rvGenre.apply {
-            layoutManager = FlexboxLayoutManager(this@DetailMangaActivity)
-            genreAdapter = GenreAdapter()
-            adapter = genreAdapter
         }
     }
 

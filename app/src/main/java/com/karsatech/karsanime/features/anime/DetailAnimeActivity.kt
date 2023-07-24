@@ -22,8 +22,7 @@ class DetailAnimeActivity : AppCompatActivity() {
 
     private val detailAnimeViewModel: DetailAnimeViewModel by viewModels()
     private lateinit var binding: ActivityDetailAnimeBinding
-    private lateinit var data: DetailGeneralResponse
-    private lateinit var genreAdapter: GenreAdapter
+    private lateinit var data: Anime
     private var isFavorite = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,38 +30,30 @@ class DetailAnimeActivity : AppCompatActivity() {
         binding = ActivityDetailAnimeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        data =
-            intent.getParcelableExtra<DetailGeneralResponse>(DETAIL_ANIME) as DetailGeneralResponse
-
-        initializeRecyclerViews()
+        data = intent.getParcelableExtra<Anime>(DETAIL_ANIME) as Anime
         setupData(data)
-
     }
 
-    private fun setupData(data: DetailGeneralResponse) {
+    private fun setupData(data: Anime) {
 
-        binding.title.text = data.title ?: "unknown"
-        binding.rating.text = data.rating ?: "unknown"
-        binding.score.text = if (data.score == null) "0.0" else data.score.toString()
-        binding.textRanking.text = if (data.rank == null) "0" else data.rank.toString()
-        binding.textMember.text = if (data.members == null) "0" else data.members.toString()
-        binding.textPopularity.text =
-            if (data.popularity == null) "0" else data.popularity.toString()
-        binding.textFavorites.text = if (data.favorite == null) "0" else data.favorite.toString()
-        binding.synopsis.text = data.synopsis ?: getString(R.string.error_anime_synopsis)
-        binding.status.text = data.status ?: getString(R.string.error_status)
-        binding.episodes.text =
-            if (data.episodes == null) "0 episodes" else data.episodes.toString() + " episodes"
+        binding.title.text = if (data.title == "null") "n/a" else data.title
+        binding.rating.text = if (data.rating == "null") "n/a" else data.rating
+        binding.score.text = if (data.score == "null") "0.0" else data.score
+        binding.textRanking.text = if (data.rank == "null") "0" else data.rank
+        binding.textMember.text = if (data.members == "null") "0" else data.members
+        binding.textPopularity.text = if (data.popularity == "null") "0" else data.popularity
+        binding.textFavorites.text = if (data.favorites == "null") "0" else data.favorites
+        binding.synopsis.text = if (data.synopsis == "null") getString(R.string.error_anime_synopsis) else data.synopsis
+        binding.status.text = if (data.status == "null") getString(R.string.error_status) else data.status
+        binding.episodes.text = if (data.episodes == "null") "0 episodes" else data.episodes + " episodes"
 
         Glide.with(this)
-            .load(data.images!!.jpg!!.largeImageUrl)
+            .load(data.image)
             .into(binding.imagePoster)
-
-        setGenre(data.genres)
 
         binding.imagePoster.setOnClickListener {
             val intent = Intent(this, ImageActivity::class.java)
-            intent.putExtra(DETAIL_IMAGE, data.images.jpg!!.largeImageUrl)
+            intent.putExtra(DETAIL_IMAGE, data.image)
             startActivity(intent)
         }
 
@@ -71,41 +62,21 @@ class DetailAnimeActivity : AppCompatActivity() {
         }
 
         binding.btnFavorite.setOnClickListener {
-            val favAnime = Anime(
-                animeId = data.malId.toString(),
-                title = data.title.toString(),
-                image = data.images.jpg?.largeImageUrl.toString(),
-                synopsis = data.synopsis.toString()
-            )
             if (isFavorite) {
-                detailAnimeViewModel.setUnFavorite(data.malId.toString())
+                detailAnimeViewModel.setUnFavorite(data.animeId)
             } else {
-                detailAnimeViewModel.setFavorite(favAnime)
+                detailAnimeViewModel.setFavorite(data)
             }
         }
 
-        detailAnimeViewModel.getFavoriteByMalId(data.malId.toString()).observe(this) { listAnime ->
+        detailAnimeViewModel.getFavoriteByMalId(data.animeId).observe(this) { listAnime ->
             isFavorite = if (listAnime.isEmpty()) {
-                Log.d("DetailAnimeActivity", "Not Favorite")
                 binding.ivFavorite.setImageResource(R.drawable.ic_baseline_unfavorite_24)
                 false
             } else {
-                Log.d("DetailAnimeActivity", "Favorite")
                 binding.ivFavorite.setImageResource(R.drawable.ic_baseline_favorite_24)
                 true
             }
-        }
-    }
-
-    private fun setGenre(data: ArrayList<Genres>) {
-        genreAdapter.submitList(data)
-    }
-
-    private fun initializeRecyclerViews() {
-        binding.rvGenre.apply {
-            layoutManager = FlexboxLayoutManager(this@DetailAnimeActivity)
-            genreAdapter = GenreAdapter()
-            adapter = genreAdapter
         }
     }
 

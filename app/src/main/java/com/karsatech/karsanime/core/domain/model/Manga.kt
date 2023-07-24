@@ -8,7 +8,13 @@ data class Manga (
     val mangaId: String,
     val title: String,
     val image: String,
+    val score: String,
+    val rank: String,
+    val members: String,
+    val popularity: String,
+    val favorites: String,
+    val synopsis: String,
+    val status: String,
     val chapters: String,
-    val volumes: String,
-    val status: String
+    val volumes: String
 ): Parcelable

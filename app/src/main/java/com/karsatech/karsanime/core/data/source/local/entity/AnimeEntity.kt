@@ -22,4 +22,28 @@ data class AnimeEntity(
     @ColumnInfo(name = "synopsis")
     var synopsis: String,
 
+    @ColumnInfo(name = "rating")
+    var rating: String,
+
+    @ColumnInfo(name = "score")
+    var score: String,
+
+    @ColumnInfo(name = "rank")
+    var rank: String,
+
+    @ColumnInfo(name = "members")
+    var members: String,
+
+    @ColumnInfo(name = "popularity")
+    var popularity: String,
+
+    @ColumnInfo(name = "favorites")
+    var favorites: String,
+
+    @ColumnInfo(name = "status")
+    var status: String,
+
+    @ColumnInfo(name = "episodes")
+    var episodes: String
+
 )

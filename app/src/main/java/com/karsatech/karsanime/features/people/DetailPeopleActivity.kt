@@ -22,7 +22,7 @@ class DetailPeopleActivity : AppCompatActivity() {
 
     private val detailPeopleViewModel: DetailPeopleViewModel by viewModels()
     private lateinit var binding: ActivityDetailPeopleBinding
-    private lateinit var data: DetailPeopleResponse
+    private lateinit var data: People
     private var isFavorite = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,25 +30,25 @@ class DetailPeopleActivity : AppCompatActivity() {
         binding = ActivityDetailPeopleBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        data = intent.getParcelableExtra<DetailPeopleResponse>(DETAIL_PEOPLE) as DetailPeopleResponse
+        data = intent.getParcelableExtra<People>(DETAIL_PEOPLE) as People
 
         setupData(data)
 
     }
 
-    private fun setupData(data: DetailPeopleResponse) {
-        binding.name.text = data.name
-        binding.birthday.text = data.birthday?.withDateFormat()
-        binding.favorite.text = data.favorites.toString()
+    private fun setupData(data: People) {
+        binding.name.text = if (data.name == "null") "n/a" else data.name
+        binding.birthday.text = if (data.birthday == "null") "n/a" else data.birthday.withDateFormat()
+        binding.favorite.text = if (data.favorites == "null") "0" else data.favorites
         binding.about.text = data.about
 
         Glide.with(this)
-            .load(data.images!!.jpg!!.imageUrl)
+            .load(data.image)
             .into(binding.civImagePeople)
 
         binding.civImagePeople.setOnClickListener {
             val intent = Intent(this, ImageActivity::class.java)
-            intent.putExtra(DETAIL_IMAGE, data.images.jpg!!.imageUrl)
+            intent.putExtra(DETAIL_IMAGE, data.image)
             startActivity(intent)
         }
 
@@ -57,26 +57,18 @@ class DetailPeopleActivity : AppCompatActivity() {
         }
 
         binding.btnFavorite.setOnClickListener {
-            val favPeople = People(
-                peopleId = data.malId.toString(),
-                name = data.name.toString(),
-                image = data.images.jpg?.imageUrl.toString(),
-                favorites = data.favorites.toString()
-            )
             if (isFavorite) {
-                detailPeopleViewModel.setUnFavoritePeople(data.malId.toString())
+                detailPeopleViewModel.setUnFavoritePeople(data.peopleId)
             } else {
-                detailPeopleViewModel.setFavoritePeople(favPeople)
+                detailPeopleViewModel.setFavoritePeople(data)
             }
         }
 
-        detailPeopleViewModel.getFavoritePeopleByMalId(data.malId.toString()).observe(this) { listPeople ->
+        detailPeopleViewModel.getFavoritePeopleByMalId(data.peopleId).observe(this) { listPeople ->
             isFavorite = if (listPeople.isEmpty()) {
-                Log.d("DetailAnimeActivity", "Not Favorite")
                 binding.ivFavorite.setImageResource(R.drawable.ic_baseline_unfavorite_24)
                 false
             } else {
-                Log.d("DetailAnimeActivity", "Favorite")
                 binding.ivFavorite.setImageResource(R.drawable.ic_baseline_favorite_24)
                 true
             }

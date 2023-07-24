@@ -19,13 +19,31 @@ data class MangaEntity(
     @ColumnInfo(name = "image")
     var image: String,
 
+    @ColumnInfo(name = "score")
+    var score: String,
+
+    @ColumnInfo(name = "ranking")
+    var ranking: String,
+
+    @ColumnInfo(name = "member")
+    var member: String,
+
+    @ColumnInfo(name = "popularity")
+    var popularity: String,
+
+    @ColumnInfo(name = "favorites")
+    var favorites: String,
+
+    @ColumnInfo(name = "synopsis")
+    var synopsis: String,
+
+    @ColumnInfo(name = "status")
+    var status: String,
+
     @ColumnInfo(name = "chapters")
     var chapters: String,
 
     @ColumnInfo(name = "volumes")
-    var volumes: String,
-
-    @ColumnInfo(name = "status")
-    var status: String,
+    var volumes: String
 
     )

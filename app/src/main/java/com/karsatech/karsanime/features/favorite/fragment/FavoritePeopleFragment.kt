@@ -1,5 +1,6 @@
 package com.karsatech.karsanime.features.favorite.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -17,6 +18,8 @@ import com.karsatech.karsanime.core.domain.model.People
 import com.karsatech.karsanime.databinding.FragmentFavoriteMangaBinding
 import com.karsatech.karsanime.databinding.FragmentFavoritePeopleBinding
 import com.karsatech.karsanime.features.favorite.FavoriteViewModel
+import com.karsatech.karsanime.features.people.DetailPeopleActivity
+import com.karsatech.karsanime.features.people.DetailPeopleActivity.Companion.DETAIL_PEOPLE
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -51,7 +54,9 @@ class FavoritePeopleFragment : Fragment() {
 
         favoritePeopleAdapter.setOnItemClickCallback(object : FavoritePeopleAdapter.ActionAdapter {
             override fun onItemClick(data: People) {
-                Log.d("FavoriteFragment", data.toString())
+                val intent = Intent(activity, DetailPeopleActivity::class.java)
+                intent.putExtra(DETAIL_PEOPLE, data)
+                startActivity(intent)
             }
         })
     }
