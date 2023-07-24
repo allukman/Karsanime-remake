@@ -38,6 +38,10 @@
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string name="see_full_detail">See full detail</string>
+    <string name="retry">Retry</string>
+    <string name="favorite_title">My Favorite</string>
+
     <!--    Image Description   -->
 
     <string name="desc_image_poster_upcoming_anime">Image Poster Upcoming Anime</string>
@@ -46,8 +50,7 @@
     <string name="image_description">Image</string>
     <string name="desc_back_button_from_detail_image">Back button from detail image</string>
     <string name="desc_detail_full_image">Detail full image</string>
-    <string name="see_full_detail">See full detail</string>
-    <string name="retry">Retry</string>
+
     <string name="desc_button_favorite">button favorite</string>
     <string name="desc_image_poster_anime">image poster anime</string>
 

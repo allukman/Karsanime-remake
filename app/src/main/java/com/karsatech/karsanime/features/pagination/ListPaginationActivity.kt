@@ -3,6 +3,7 @@ package com.karsatech.karsanime.features.pagination
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -40,11 +41,23 @@ class ListPaginationActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
 
         initializeRecyclerViews()
 
         val dataType = intent.getSerializableExtra(SEE_ALL_PAGINATION) as? DataType
         dataType?.let { setupList(it) } ?: Log.d("ListPaginationActivity", "Invalid type data")
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressedDispatcher.onBackPressed()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun initializeRecyclerViews() {

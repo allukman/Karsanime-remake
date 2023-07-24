@@ -4,21 +4,29 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.viewModels
 import com.bumptech.glide.Glide
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.karsatech.karsanime.R
 import com.karsatech.karsanime.core.data.source.remote.response.anime.DetailGeneralResponse
 import com.karsatech.karsanime.core.data.source.remote.response.anime.Genres
+import com.karsatech.karsanime.core.domain.model.Anime
+import com.karsatech.karsanime.core.domain.model.Manga
 import com.karsatech.karsanime.core.ui.GenreAdapter
 import com.karsatech.karsanime.databinding.ActivityDetailMangaBinding
+import com.karsatech.karsanime.features.anime.DetailAnimeViewModel
 import com.karsatech.karsanime.features.image.ImageActivity
 import com.karsatech.karsanime.features.image.ImageActivity.Companion.DETAIL_IMAGE
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DetailMangaActivity : AppCompatActivity() {
 
+    private val detailMangaViewModel: DetailMangaViewModel by viewModels()
     private lateinit var binding: ActivityDetailMangaBinding
     private lateinit var data: DetailGeneralResponse
     private lateinit var genreAdapter: GenreAdapter
+    private var isFavorite = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailMangaBinding.inflate(layoutInflater)
@@ -57,6 +65,34 @@ class DetailMangaActivity : AppCompatActivity() {
 
         binding.btnBack.setOnClickListener {
             onBackPressedDispatcher.onBackPressed()
+        }
+
+        binding.btnFavorite.setOnClickListener {
+            val favManga = Manga(
+                mangaId = data.malId.toString(),
+                title = data.title.toString(),
+                image = data.images.jpg?.largeImageUrl.toString(),
+                chapters = data.chapters.toString(),
+                volumes = data.volumes.toString(),
+                status = data.status.toString()
+            )
+            if (isFavorite) {
+                detailMangaViewModel.setUnFavoriteManga(data.malId.toString())
+            } else {
+                detailMangaViewModel.setFavoriteManga(favManga)
+            }
+        }
+
+        detailMangaViewModel.getFavoriteMangaByMalId(data.malId.toString()).observe(this) { listManga ->
+            isFavorite = if (listManga.isEmpty()) {
+                Log.d("DetailAnimeActivity", "Not Favorite")
+                binding.ivFavorite.setImageResource(R.drawable.ic_baseline_unfavorite_24)
+                false
+            } else {
+                Log.d("DetailAnimeActivity", "Favorite")
+                binding.ivFavorite.setImageResource(R.drawable.ic_baseline_favorite_24)
+                true
+            }
         }
     }
 

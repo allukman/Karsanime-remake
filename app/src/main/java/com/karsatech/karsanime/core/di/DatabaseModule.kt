@@ -4,8 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.karsatech.karsanime.core.data.source.local.room.AnimeDao
 import com.karsatech.karsanime.core.data.source.local.room.FavoriteDatabase
-import com.karsatech.karsanime.core.data.source.local.room.TourismDao
-import com.karsatech.karsanime.core.data.source.local.room.TourismDatabase
+import com.karsatech.karsanime.core.data.source.local.room.MangaDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -36,4 +35,7 @@ class DatabaseModule {
 
     @Provides
     fun provideAnimeDao(database: FavoriteDatabase): AnimeDao = database.animeDao()
+
+    @Provides
+    fun provideMangaDao(database: FavoriteDatabase): MangaDao = database.mangaDao()
 }

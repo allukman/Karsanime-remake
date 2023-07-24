@@ -1,5 +1,6 @@
 package com.karsatech.karsanime.core.paging
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
@@ -11,6 +12,7 @@ import com.karsatech.karsanime.databinding.ItemAnimeLoadingBinding
 class LoadingStateAdapter(private val retry: () -> Unit) : LoadStateAdapter<LoadingStateAdapter.LoadingStateViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, loadState: LoadState): LoadingStateViewHolder {
+        Log.d("LoadingStateAdapter", "onCreateViewHolder")
         val binding = ItemAnimeLoadingBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return LoadingStateViewHolder(binding, retry)
     }
@@ -24,6 +26,7 @@ class LoadingStateAdapter(private val retry: () -> Unit) : LoadStateAdapter<Load
         init {
             binding.retryButton.setOnClickListener { retry.invoke() }
         }
+
 
         fun bind(loadState: LoadState) {
             if (loadState is LoadState.Error) {

@@ -1,5 +1,6 @@
 package com.karsatech.karsanime
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -9,7 +10,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
 import com.karsatech.karsanime.features.anime.AnimeFragment
 import com.karsatech.karsanime.databinding.ActivityMainBinding
-import com.karsatech.karsanime.features.favorite.FavoriteFragment
+import com.karsatech.karsanime.features.favorite.FavoriteActivity
 import com.karsatech.karsanime.features.home.HomeFragment
 import com.karsatech.karsanime.features.manga.MangaFragment
 import com.karsatech.karsanime.features.people.PeopleFragment
@@ -69,8 +70,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 title = getString(R.string.menu_people)
             }
             R.id.nav_favorite -> {
-                fragment = FavoriteFragment()
-                title = getString(R.string.menu_favorite)
+                val intent = Intent(this, FavoriteActivity::class.java)
+                startActivity(intent)
+                return true
             }
             R.id.nav_setting -> {
                 fragment = SettingFragment()
