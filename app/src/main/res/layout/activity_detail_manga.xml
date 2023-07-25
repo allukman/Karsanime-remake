@@ -267,13 +267,6 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_genre"
-            android:layout_marginTop="@dimen/dimen_8dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/synopsis"/>
-
 
         <androidx.cardview.widget.CardView
             android:id="@+id/button_detail"
@@ -285,7 +278,7 @@
             android:layout_marginHorizontal="@dimen/dimen_48dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rv_genre">
+            app:layout_constraintTop_toBottomOf="@id/synopsis">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"

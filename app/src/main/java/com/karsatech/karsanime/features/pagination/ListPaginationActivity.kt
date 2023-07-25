@@ -18,10 +18,14 @@ import com.karsatech.karsanime.core.paging.LoadingStateAdapter
 import com.karsatech.karsanime.core.ui.ListAnimeAdapter
 import com.karsatech.karsanime.core.ui.ListMangaAdapter
 import com.karsatech.karsanime.core.ui.ListPeopleAdapter
+import com.karsatech.karsanime.core.utils.DataMapper
 import com.karsatech.karsanime.core.utils.DataType
 import com.karsatech.karsanime.databinding.ActivityListPaginationBinding
 import com.karsatech.karsanime.features.anime.DetailAnimeActivity
+import com.karsatech.karsanime.features.anime.DetailAnimeActivity.Companion.DETAIL_ANIME
 import com.karsatech.karsanime.features.manga.DetailMangaActivity
+import com.karsatech.karsanime.features.people.DetailPeopleActivity
+import com.karsatech.karsanime.features.people.DetailPeopleActivity.Companion.DETAIL_PEOPLE
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -232,7 +236,7 @@ class ListPaginationActivity : AppCompatActivity() {
     private fun setAnimeData() {
         listAnimeAdapter.setOnItemClickCallback(object : ListAnimeAdapter.ActionAdapter {
             override fun onItemClick(data: DetailGeneralResponse) {
-                startDetailActivity(DetailAnimeActivity::class.java, DetailAnimeActivity.DETAIL_ANIME, data)
+                startDetailActivity(DetailAnimeActivity::class.java, DETAIL_ANIME, data)
             }
         })
     }
@@ -248,7 +252,10 @@ class ListPaginationActivity : AppCompatActivity() {
     private fun setPeopleData() {
         listPeopleAdapter.setOnItemClickCallback(object : ListPeopleAdapter.ActionAdapter {
             override fun onItemClick(data: DetailPeopleResponse) {
-//                startDetailActivity(DetailPeopleActivity::class.java, DetailPeopleActivity.DETAIL_PEOPLE, data)
+                val people = DataMapper.apiResponseToPeopleModel(data)
+                val intent = Intent(this@ListPaginationActivity, DetailPeopleActivity::class.java)
+                intent.putExtra(DETAIL_PEOPLE, people)
+                startActivity(intent)
             }
         })
     }
@@ -256,7 +263,7 @@ class ListPaginationActivity : AppCompatActivity() {
     private fun setUpcomingAnimeData() {
         listUpcomingAnimeAdapter.setOnItemClickCallback(object : ListAnimeAdapter.ActionAdapter {
             override fun onItemClick(data: DetailGeneralResponse) {
-                startDetailActivity(DetailAnimeActivity::class.java, DetailAnimeActivity.DETAIL_ANIME, data)
+                startDetailActivity(DetailAnimeActivity::class.java, DETAIL_ANIME, data)
             }
         })
     }
@@ -267,8 +274,13 @@ class ListPaginationActivity : AppCompatActivity() {
         extraKey: String,
         data: DetailGeneralResponse
     ) {
+        val intentData = if (extraKey == DETAIL_ANIME) {
+            DataMapper.mapApiResponseToAnimeModel(data)
+        } else {
+            DataMapper.mapApiResponseToMangaModel(data)
+        }
         val intent = Intent(this@ListPaginationActivity, targetActivity)
-        intent.putExtra(extraKey, data)
+        intent.putExtra(extraKey, intentData)
         startActivity(intent)
     }
 

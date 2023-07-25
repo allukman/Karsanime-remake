@@ -40,7 +40,7 @@ class DetailMangaActivity : AppCompatActivity() {
 
         binding.title.text = if (data.title == "null") "n/a" else data.title
         binding.score.text = if (data.score == "null") "0.0" else data.score
-        binding.textRanking.text = if (data.rank == "null") "0" else data.rank
+        binding.textRanking.text = if (data.rank == "null") "0" else "#" + data.rank
         binding.textMember.text = if (data.members == "null") "0" else data.members
         binding.textPopularity.text = if (data.popularity == "null") "0" else data.popularity
         binding.textFavorites.text = if (data.favorites == "null") "0" else data.favorites

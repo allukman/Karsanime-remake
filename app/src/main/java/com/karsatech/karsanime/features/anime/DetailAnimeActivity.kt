@@ -2,16 +2,11 @@ package com.karsatech.karsanime.features.anime
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
-import com.google.android.flexbox.FlexboxLayoutManager
 import com.karsatech.karsanime.R
-import com.karsatech.karsanime.core.data.source.remote.response.anime.DetailGeneralResponse
-import com.karsatech.karsanime.core.data.source.remote.response.anime.Genres
 import com.karsatech.karsanime.core.domain.model.Anime
-import com.karsatech.karsanime.core.ui.GenreAdapter
 import com.karsatech.karsanime.databinding.ActivityDetailAnimeBinding
 import com.karsatech.karsanime.features.image.ImageActivity
 import com.karsatech.karsanime.features.image.ImageActivity.Companion.DETAIL_IMAGE
@@ -39,7 +34,7 @@ class DetailAnimeActivity : AppCompatActivity() {
         binding.title.text = if (data.title == "null") "n/a" else data.title
         binding.rating.text = if (data.rating == "null") "n/a" else data.rating
         binding.score.text = if (data.score == "null") "0.0" else data.score
-        binding.textRanking.text = if (data.rank == "null") "0" else data.rank
+        binding.textRanking.text = if (data.rank == "null") "0" else "#" + data.rank
         binding.textMember.text = if (data.members == "null") "0" else data.members
         binding.textPopularity.text = if (data.popularity == "null") "0" else data.popularity
         binding.textFavorites.text = if (data.favorites == "null") "0" else data.favorites
