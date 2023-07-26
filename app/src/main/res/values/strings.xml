@@ -35,6 +35,11 @@
     <string name="top_people">Top People</string>
     <string name="top_character">Top Character</string>
 
+    <string name="anime">Anime</string>
+    <string name="manga">Manga</string>
+    <string name="people">People</string>
+    <string name="character">Character</string>
+
     <string name="see_full_detail">See full detail</string>
     <string name="retry">Retry</string>
     <string name="favorite_title">My Favorite</string>

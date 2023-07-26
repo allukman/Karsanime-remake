@@ -8,3 +8,10 @@ enum class DataType {
     ANIME_THIS_SEASON,
     TOP_CHARACTER
 }
+
+enum class FilterType {
+    ANIME,
+    MANGA,
+    CHARACTER,
+    PEOPLE
+}

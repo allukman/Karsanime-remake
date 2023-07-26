@@ -2,7 +2,6 @@ package com.karsatech.karsanime.features.home
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,12 +24,9 @@ import com.karsatech.karsanime.features.anime.DetailAnimeActivity
 import com.karsatech.karsanime.features.anime.DetailAnimeActivity.Companion.DETAIL_ANIME
 import com.karsatech.karsanime.features.character.DetailCharacterActivity
 import com.karsatech.karsanime.features.character.DetailCharacterActivity.Companion.DETAIL_CHARACTER
-import com.karsatech.karsanime.features.manga.DetailMangaActivity
-import com.karsatech.karsanime.features.manga.DetailMangaActivity.Companion.DETAIL_MANGA
 import com.karsatech.karsanime.features.pagination.ListPaginationActivity
 import com.karsatech.karsanime.features.pagination.ListPaginationActivity.Companion.SEE_ALL_PAGINATION
-import com.karsatech.karsanime.features.people.DetailPeopleActivity
-import com.karsatech.karsanime.features.people.DetailPeopleActivity.Companion.DETAIL_PEOPLE
+import com.karsatech.karsanime.features.search.SearchActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -71,6 +67,11 @@ class HomeFragment : Fragment() {
         binding.topCharacterSeeAll.setOnClickListener {
             val intent = Intent(activity, ListPaginationActivity::class.java)
             intent.putExtra(SEE_ALL_PAGINATION, DataType.TOP_CHARACTER)
+            startActivity(intent)
+        }
+
+        binding.searchButton.setOnClickListener {
+            val intent = Intent(activity, SearchActivity::class.java)
             startActivity(intent)
         }
     }
@@ -114,13 +115,11 @@ class HomeFragment : Fragment() {
                 is Resource.Success -> {
                     hideLoadingState(binding.progressBarTopCharacter)
                     characters.data?.data?.let { setTopCharactersData(it) }
-
                 }
 
                 is Resource.Error -> {
                     hideLoadingState(binding.progressBarTopCharacter)
                     showErrorState(binding.errorTopCharacter, characters.message ?: getString(R.string.something_wrong))
-
                 }
             }
         }
