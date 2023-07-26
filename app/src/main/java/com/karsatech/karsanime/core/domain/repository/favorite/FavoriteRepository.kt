@@ -2,6 +2,7 @@ package com.karsatech.karsanime.core.domain.repository.favorite
 
 import com.karsatech.karsanime.core.data.source.local.LocalDataSource
 import com.karsatech.karsanime.core.domain.model.Anime
+import com.karsatech.karsanime.core.domain.model.Character
 import com.karsatech.karsanime.core.domain.model.Manga
 import com.karsatech.karsanime.core.domain.model.People
 import com.karsatech.karsanime.core.utils.AppExecutors
@@ -78,5 +79,26 @@ class FavoriteRepository @Inject constructor(
 
     override fun removeFavoritePeople(favPeopleId: String) {
         appExecutors.diskIO().execute { localDataSource.removeFavoritePeople(favPeopleId) }
+    }
+
+    override fun getAllFavoriteCharacter(): Flow<List<Character>> {
+        return localDataSource.getAllFavoriteCharacter().map {
+            DataMapper.mapCharacterEntitiesToDomain(it)
+        }
+    }
+
+    override fun getFavoriteCharacterById(favCharacterId: String): Flow<List<Character>> {
+        return localDataSource.getFavoriteCharacterById(favCharacterId).map {
+            DataMapper.mapCharacterEntitiesToDomain(it)
+        }
+    }
+
+    override fun setFavoriteCharacter(favCharacter: Character) {
+        val characterEntity = DataMapper.mapDomainToEntityCharacter(favCharacter)
+        appExecutors.diskIO().execute { localDataSource.setFavoriteCharacter(characterEntity) }
+    }
+
+    override fun removeFavoriteCharacter(favCharacterId: String) {
+        appExecutors.diskIO().execute { localDataSource.removeFavoriteCharacter(favCharacterId) }
     }
 }

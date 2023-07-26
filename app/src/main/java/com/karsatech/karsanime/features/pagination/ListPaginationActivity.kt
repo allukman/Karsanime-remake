@@ -16,6 +16,7 @@ import com.karsatech.karsanime.core.data.source.remote.response.anime.DetailAnim
 import com.karsatech.karsanime.core.data.source.remote.response.people.DetailPeopleItem
 import com.karsatech.karsanime.core.paging.LoadingStateAdapter
 import com.karsatech.karsanime.core.ui.ListAnimeAdapter
+import com.karsatech.karsanime.core.ui.ListCharacterAdapter
 import com.karsatech.karsanime.core.ui.ListMangaAdapter
 import com.karsatech.karsanime.core.ui.ListPeopleAdapter
 import com.karsatech.karsanime.core.utils.DataMapper
@@ -23,6 +24,8 @@ import com.karsatech.karsanime.core.utils.DataType
 import com.karsatech.karsanime.databinding.ActivityListPaginationBinding
 import com.karsatech.karsanime.features.anime.DetailAnimeActivity
 import com.karsatech.karsanime.features.anime.DetailAnimeActivity.Companion.DETAIL_ANIME
+import com.karsatech.karsanime.features.character.DetailCharacterActivity
+import com.karsatech.karsanime.features.character.DetailCharacterActivity.Companion.DETAIL_CHARACTER
 import com.karsatech.karsanime.features.manga.DetailMangaActivity
 import com.karsatech.karsanime.features.people.DetailPeopleActivity
 import com.karsatech.karsanime.features.people.DetailPeopleActivity.Companion.DETAIL_PEOPLE
@@ -37,7 +40,7 @@ class ListPaginationActivity : AppCompatActivity() {
     private lateinit var listAnimeAdapter: ListAnimeAdapter
     private lateinit var listMangaAdapter: ListMangaAdapter
     private lateinit var listPeopleAdapter: ListPeopleAdapter
-    private lateinit var listCharacterAdapter: ListPeopleAdapter
+    private lateinit var listCharacterAdapter: ListCharacterAdapter
     private lateinit var listUpcomingAnimeAdapter: ListAnimeAdapter
     private lateinit var listThisSeasonAnimeAdapter: ListAnimeAdapter
 
@@ -90,7 +93,7 @@ class ListPaginationActivity : AppCompatActivity() {
         }
         binding.rvListCharacter.apply {
             layoutManager = LinearLayoutManager(this@ListPaginationActivity, RecyclerView.VERTICAL, false)
-            listCharacterAdapter = ListPeopleAdapter()
+            listCharacterAdapter = ListCharacterAdapter()
             adapter = listCharacterAdapter
         }
         binding.rvListThisSeasonAnime.apply {
@@ -339,11 +342,11 @@ class ListPaginationActivity : AppCompatActivity() {
     }
 
     private fun setCharacterData() {
-        listCharacterAdapter.setOnItemClickCallback(object : ListPeopleAdapter.ActionAdapter {
+        listCharacterAdapter.setOnItemClickCallback(object : ListCharacterAdapter.ActionAdapter {
             override fun onItemClick(data: DetailPeopleItem) {
-                val people = DataMapper.apiResponseToPeopleModel(data)
-                val intent = Intent(this@ListPaginationActivity, DetailPeopleActivity::class.java)
-                intent.putExtra(DETAIL_PEOPLE, people)
+                val character = DataMapper.apiResponseToCharacterModel(data)
+                val intent = Intent(this@ListPaginationActivity, DetailCharacterActivity::class.java)
+                intent.putExtra(DETAIL_CHARACTER, character)
                 startActivity(intent)
             }
         })

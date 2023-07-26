@@ -1,11 +1,13 @@
 package com.karsatech.karsanime.core.utils
 
 import com.karsatech.karsanime.core.data.source.local.entity.AnimeEntity
+import com.karsatech.karsanime.core.data.source.local.entity.CharacterEntity
 import com.karsatech.karsanime.core.data.source.local.entity.MangaEntity
 import com.karsatech.karsanime.core.data.source.local.entity.PeopleEntity
 import com.karsatech.karsanime.core.data.source.remote.response.anime.DetailAnimeItem
 import com.karsatech.karsanime.core.data.source.remote.response.people.DetailPeopleItem
 import com.karsatech.karsanime.core.domain.model.Anime
+import com.karsatech.karsanime.core.domain.model.Character
 import com.karsatech.karsanime.core.domain.model.Manga
 import com.karsatech.karsanime.core.domain.model.People
 
@@ -97,6 +99,27 @@ object DataMapper {
         about = input.about
     )
 
+    fun mapCharacterEntitiesToDomain(input: List<CharacterEntity>): List<Character> =
+        input.map {
+            Character(
+                characterId = it.characterId,
+                name = it.name,
+                image = it.image,
+                favorites = it.favorites,
+                birthday = it.birthday,
+                about = it.about
+            )
+        }
+
+    fun mapDomainToEntityCharacter(input: Character) = CharacterEntity(
+        characterId = input.characterId,
+        name = input.name,
+        image = input.image,
+        favorites = input.favorites,
+        birthday = input.birthday,
+        about = input.about
+    )
+
     fun apiResponseToAnimeModel(input: DetailAnimeItem): Anime =
         Anime(
             animeId = input.malId.toString(),
@@ -138,4 +161,26 @@ object DataMapper {
             favorites = input.favorites.toString(),
             about = input.about.toString()
         )
+
+    fun apiResponseToCharacterModel(input: DetailPeopleItem): Character =
+        Character(
+            characterId = input.malId.toString(),
+            name = input.name.toString(),
+            image = input.images?.jpg?.imageUrl.toString(),
+            birthday = input.birthday.toString(),
+            favorites = input.favorites.toString(),
+            about = input.about.toString()
+        )
+
+    fun characterToPeopleModel(character: List<Character>): List<People> =
+        character.map {
+            People(
+                peopleId = it.characterId,
+                name = it.name,
+                image = it.image,
+                birthday = it.birthday,
+                favorites = it.favorites,
+                about = it.about
+            )
+        }
 }

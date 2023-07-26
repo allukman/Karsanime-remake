@@ -1,9 +1,11 @@
 package com.karsatech.karsanime.core.data.source.local
 
 import com.karsatech.karsanime.core.data.source.local.entity.AnimeEntity
+import com.karsatech.karsanime.core.data.source.local.entity.CharacterEntity
 import com.karsatech.karsanime.core.data.source.local.entity.MangaEntity
 import com.karsatech.karsanime.core.data.source.local.entity.PeopleEntity
 import com.karsatech.karsanime.core.data.source.local.room.AnimeDao
+import com.karsatech.karsanime.core.data.source.local.room.CharacterDao
 import com.karsatech.karsanime.core.data.source.local.room.MangaDao
 import com.karsatech.karsanime.core.data.source.local.room.PeopleDao
 import kotlinx.coroutines.flow.Flow
@@ -14,7 +16,8 @@ import javax.inject.Singleton
 class LocalDataSource @Inject constructor(
     private val animeDao: AnimeDao,
     private val mangaDao: MangaDao,
-    private val peopleDao: PeopleDao
+    private val peopleDao: PeopleDao,
+    private val characterDao: CharacterDao
 ) {
 
     fun getAllFavoriteAnime(): Flow<List<AnimeEntity>> = animeDao.getAllFavoriteAnime()
@@ -54,6 +57,19 @@ class LocalDataSource @Inject constructor(
 
     fun removeFavoritePeople(peopleId: String) {
         peopleDao.removeFavoritePeople(peopleId)
+    }
+
+    fun getAllFavoriteCharacter(): Flow<List<CharacterEntity>> = characterDao.getAllFavoriteCharacter()
+
+    fun getFavoriteCharacterById(characterId: String): Flow<List<CharacterEntity>> =
+        characterDao.getFavoriteCharacterById(characterId)
+
+    fun setFavoriteCharacter(character: CharacterEntity) {
+        characterDao.insertFavoriteCharacter(character)
+    }
+
+    fun removeFavoriteCharacter(characterId: String) {
+        characterDao.removeFavoriteCharacter(characterId)
     }
 
 }

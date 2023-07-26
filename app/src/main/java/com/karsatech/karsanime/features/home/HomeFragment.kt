@@ -158,9 +158,9 @@ class HomeFragment : Fragment() {
 
         topCharacterAdapter.setOnItemClickCallback(object : PeopleAdapter.ActionAdapter {
             override fun onItemClick(data: DetailPeopleItem) {
-                val people = DataMapper.apiResponseToPeopleModel(data)
+                val character = DataMapper.apiResponseToCharacterModel(data)
                 val intent = Intent(activity, DetailCharacterActivity::class.java)
-                intent.putExtra(DETAIL_CHARACTER, people)
+                intent.putExtra(DETAIL_CHARACTER, character)
                 startActivity(intent)
             }
         })

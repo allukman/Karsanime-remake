@@ -1,6 +1,7 @@
 package com.karsatech.karsanime.core.domain.repository.favorite
 
 import com.karsatech.karsanime.core.domain.model.Anime
+import com.karsatech.karsanime.core.domain.model.Character
 import com.karsatech.karsanime.core.domain.model.Manga
 import com.karsatech.karsanime.core.domain.model.People
 import kotlinx.coroutines.flow.Flow
@@ -21,5 +22,10 @@ interface IFavoriteRepository {
     fun getFavoritePeopleById(favPeopleId: String): Flow<List<People>>
     fun setFavoritePeople(favPeople: People)
     fun removeFavoritePeople(favPeopleId: String)
+
+    fun getAllFavoriteCharacter(): Flow<List<Character>>
+    fun getFavoriteCharacterById(favCharacterId: String): Flow<List<Character>>
+    fun setFavoriteCharacter(favCharacter: Character)
+    fun removeFavoriteCharacter(favCharacterId: String)
 
 }
