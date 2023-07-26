@@ -2,15 +2,15 @@ package com.karsatech.karsanime.core.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.karsatech.karsanime.core.data.source.remote.network.MangaService
-import com.karsatech.karsanime.core.data.source.remote.response.anime.DetailAnimeItem
+import com.karsatech.karsanime.core.data.source.remote.network.PeopleService
+import com.karsatech.karsanime.core.data.source.remote.response.people.DetailPeopleItem
 
-class MangaPagingSource(private val mangaService: MangaService): PagingSource<Int, DetailAnimeItem>() {
+class CharactersPagingSource (private val peopleService: PeopleService): PagingSource<Int, DetailPeopleItem>() {
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, DetailAnimeItem> =
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, DetailPeopleItem> =
         try {
             val position = params.key ?: INITIAL_PAGE_INDEX
-            val responseData = mangaService.getTopManga(position, 25).data
+            val responseData = peopleService.getTopCharacters(position, 25).data
 
             LoadResult.Page(
                 data = responseData,
@@ -21,7 +21,7 @@ class MangaPagingSource(private val mangaService: MangaService): PagingSource<In
             LoadResult.Error(e)
         }
 
-    override fun getRefreshKey(state: PagingState<Int, DetailAnimeItem>): Int? =
+    override fun getRefreshKey(state: PagingState<Int, DetailPeopleItem>): Int? =
         state.anchorPosition?.let { anchorPosition ->
             val anchorPage = state.closestPageToPosition(anchorPosition)
             anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)

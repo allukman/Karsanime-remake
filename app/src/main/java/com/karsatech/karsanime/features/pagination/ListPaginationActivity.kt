@@ -12,8 +12,8 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.karsatech.karsanime.R
-import com.karsatech.karsanime.core.data.source.remote.response.anime.DetailGeneralResponse
-import com.karsatech.karsanime.core.data.source.remote.response.people.DetailPeopleResponse
+import com.karsatech.karsanime.core.data.source.remote.response.anime.DetailAnimeItem
+import com.karsatech.karsanime.core.data.source.remote.response.people.DetailPeopleItem
 import com.karsatech.karsanime.core.paging.LoadingStateAdapter
 import com.karsatech.karsanime.core.ui.ListAnimeAdapter
 import com.karsatech.karsanime.core.ui.ListMangaAdapter
@@ -235,7 +235,7 @@ class ListPaginationActivity : AppCompatActivity() {
     // Set click listeners for each RecyclerView
     private fun setAnimeData() {
         listAnimeAdapter.setOnItemClickCallback(object : ListAnimeAdapter.ActionAdapter {
-            override fun onItemClick(data: DetailGeneralResponse) {
+            override fun onItemClick(data: DetailAnimeItem) {
                 startDetailActivity(DetailAnimeActivity::class.java, DETAIL_ANIME, data)
             }
         })
@@ -243,7 +243,7 @@ class ListPaginationActivity : AppCompatActivity() {
 
     private fun setMangaData() {
         listMangaAdapter.setOnItemClickCallback(object : ListMangaAdapter.ActionAdapter {
-            override fun onItemClick(data: DetailGeneralResponse) {
+            override fun onItemClick(data: DetailAnimeItem) {
                 startDetailActivity(DetailMangaActivity::class.java, DetailMangaActivity.DETAIL_MANGA, data)
             }
         })
@@ -251,7 +251,7 @@ class ListPaginationActivity : AppCompatActivity() {
 
     private fun setPeopleData() {
         listPeopleAdapter.setOnItemClickCallback(object : ListPeopleAdapter.ActionAdapter {
-            override fun onItemClick(data: DetailPeopleResponse) {
+            override fun onItemClick(data: DetailPeopleItem) {
                 val people = DataMapper.apiResponseToPeopleModel(data)
                 val intent = Intent(this@ListPaginationActivity, DetailPeopleActivity::class.java)
                 intent.putExtra(DETAIL_PEOPLE, people)
@@ -262,7 +262,7 @@ class ListPaginationActivity : AppCompatActivity() {
 
     private fun setUpcomingAnimeData() {
         listUpcomingAnimeAdapter.setOnItemClickCallback(object : ListAnimeAdapter.ActionAdapter {
-            override fun onItemClick(data: DetailGeneralResponse) {
+            override fun onItemClick(data: DetailAnimeItem) {
                 startDetailActivity(DetailAnimeActivity::class.java, DETAIL_ANIME, data)
             }
         })
@@ -272,12 +272,12 @@ class ListPaginationActivity : AppCompatActivity() {
     private fun startDetailActivity(
         targetActivity: Class<*>,
         extraKey: String,
-        data: DetailGeneralResponse
+        data: DetailAnimeItem
     ) {
         val intentData = if (extraKey == DETAIL_ANIME) {
-            DataMapper.mapApiResponseToAnimeModel(data)
+            DataMapper.apiResponseToAnimeModel(data)
         } else {
-            DataMapper.mapApiResponseToMangaModel(data)
+            DataMapper.apiResponseToMangaModel(data)
         }
         val intent = Intent(this@ListPaginationActivity, targetActivity)
         intent.putExtra(extraKey, intentData)

@@ -22,6 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/dimen_4dp"
         android:ellipsize="end"
+        android:textAlignment="center"
         android:maxLines="1"
         app:layout_constraintLeft_toLeftOf="@id/civ_image_people"
         app:layout_constraintRight_toRightOf="@id/civ_image_people"

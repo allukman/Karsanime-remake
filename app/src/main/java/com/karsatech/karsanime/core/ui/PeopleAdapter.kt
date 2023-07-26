@@ -5,26 +5,26 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.karsatech.karsanime.core.data.source.remote.response.people.DetailPeopleResponse
+import com.karsatech.karsanime.core.data.source.remote.response.people.DetailPeopleItem
 import com.karsatech.karsanime.core.utils.UiUtils.loadImage
 import com.karsatech.karsanime.databinding.ItemListPeopleBinding
 
-class PeopleAdapter: ListAdapter<DetailPeopleResponse, PeopleAdapter.RecyclerViewHolder>(DIFF_CALLBACK) {
+class PeopleAdapter: ListAdapter<DetailPeopleItem, PeopleAdapter.RecyclerViewHolder>(DIFF_CALLBACK) {
 
     private lateinit var actionAdapter: ActionAdapter
 
     companion object {
-        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<DetailPeopleResponse>() {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<DetailPeopleItem>() {
             override fun areItemsTheSame(
-                oldItem: DetailPeopleResponse,
-                newItem: DetailPeopleResponse
+                oldItem: DetailPeopleItem,
+                newItem: DetailPeopleItem
             ): Boolean {
                 return oldItem == newItem
             }
 
             override fun areContentsTheSame(
-                oldItem: DetailPeopleResponse,
-                newItem: DetailPeopleResponse
+                oldItem: DetailPeopleItem,
+                newItem: DetailPeopleItem
             ): Boolean {
                 return oldItem == newItem
             }
@@ -51,7 +51,7 @@ class PeopleAdapter: ListAdapter<DetailPeopleResponse, PeopleAdapter.RecyclerVie
 
     inner class RecyclerViewHolder(private val bind: ItemListPeopleBinding) :
         RecyclerView.ViewHolder(bind.root) {
-        fun bind(data: DetailPeopleResponse) {
+        fun bind(data: DetailPeopleItem) {
             with(bind) {
                 civImagePeople.loadImage(data.images?.jpg?.imageUrl, itemView.context, progressBar)
                 name.text = data.name
@@ -64,6 +64,6 @@ class PeopleAdapter: ListAdapter<DetailPeopleResponse, PeopleAdapter.RecyclerVie
     }
 
     interface ActionAdapter {
-        fun onItemClick(data: DetailPeopleResponse)
+        fun onItemClick(data: DetailPeopleItem)
     }
 }

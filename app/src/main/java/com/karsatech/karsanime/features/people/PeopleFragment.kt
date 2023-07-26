@@ -2,29 +2,19 @@ package com.karsatech.karsanime.features.people
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.facebook.shimmer.ShimmerFrameLayout
-import com.karsatech.karsanime.R
-import com.karsatech.karsanime.core.data.Resource
-import com.karsatech.karsanime.core.data.source.remote.response.anime.DetailGeneralResponse
-import com.karsatech.karsanime.core.data.source.remote.response.people.DetailPeopleResponse
+import com.karsatech.karsanime.core.data.source.remote.response.people.DetailPeopleItem
 import com.karsatech.karsanime.core.paging.LoadingStateAdapter
-import com.karsatech.karsanime.core.ui.AnimeAdapter
-import com.karsatech.karsanime.core.ui.ListAnimeAdapter
 import com.karsatech.karsanime.core.ui.ListPeopleAdapter
-import com.karsatech.karsanime.core.ui.PeopleAdapter
+import com.karsatech.karsanime.core.utils.DataMapper
 import com.karsatech.karsanime.databinding.FragmentPeopleBinding
-import com.karsatech.karsanime.features.anime.DetailAnimeActivity
-import com.karsatech.karsanime.features.anime.DetailAnimeActivity.Companion.DETAIL_ANIME
 import com.karsatech.karsanime.features.people.DetailPeopleActivity.Companion.DETAIL_PEOPLE
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -80,9 +70,10 @@ class PeopleFragment : Fragment() {
 
     private fun setPeopleData() {
         listPeopleAdapter.setOnItemClickCallback(object : ListPeopleAdapter.ActionAdapter {
-            override fun onItemClick(data: DetailPeopleResponse) {
+            override fun onItemClick(data: DetailPeopleItem) {
+                val people = DataMapper.apiResponseToPeopleModel(data)
                 val intent = Intent(activity, DetailPeopleActivity::class.java)
-                intent.putExtra(DETAIL_PEOPLE, data)
+                intent.putExtra(DETAIL_PEOPLE, people)
                 startActivity(intent)
             }
         })

@@ -8,9 +8,8 @@ import androidx.paging.PagingData
 import androidx.paging.liveData
 import com.karsatech.karsanime.core.data.Resource
 import com.karsatech.karsanime.core.data.source.remote.network.MangaService
-import com.karsatech.karsanime.core.data.source.remote.response.anime.DetailGeneralResponse
-import com.karsatech.karsanime.core.data.source.remote.response.anime.ListGeneralResponse
-import com.karsatech.karsanime.core.paging.AnimePagingSource
+import com.karsatech.karsanime.core.data.source.remote.response.anime.AnimeResponse
+import com.karsatech.karsanime.core.data.source.remote.response.anime.DetailAnimeItem
 import com.karsatech.karsanime.core.paging.MangaPagingSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -22,7 +21,7 @@ import javax.inject.Singleton
 @Singleton
 class MangaRepository @Inject constructor(private val mangaService: MangaService): IMangaRepository{
 
-    override fun getTopManga(): Flow<Resource<ListGeneralResponse>> {
+    override fun getTopManga(): Flow<Resource<AnimeResponse>> {
         return flow {
             emit(Resource.Loading())
             try {
@@ -35,7 +34,7 @@ class MangaRepository @Inject constructor(private val mangaService: MangaService
         }.flowOn(Dispatchers.IO)
     }
 
-    override fun getTopMangaPagination(): LiveData<PagingData<DetailGeneralResponse>> {
+    override fun getTopMangaPagination(): LiveData<PagingData<DetailAnimeItem>> {
         return Pager(
             config = PagingConfig(
                 pageSize = 5

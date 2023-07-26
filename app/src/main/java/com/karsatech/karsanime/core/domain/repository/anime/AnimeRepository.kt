@@ -8,8 +8,8 @@ import androidx.paging.PagingData
 import androidx.paging.liveData
 import com.karsatech.karsanime.core.data.Resource
 import com.karsatech.karsanime.core.data.source.remote.network.AnimeService
-import com.karsatech.karsanime.core.data.source.remote.response.anime.DetailGeneralResponse
-import com.karsatech.karsanime.core.data.source.remote.response.anime.ListGeneralResponse
+import com.karsatech.karsanime.core.data.source.remote.response.anime.AnimeResponse
+import com.karsatech.karsanime.core.data.source.remote.response.anime.DetailAnimeItem
 import com.karsatech.karsanime.core.paging.AnimePagingSource
 import com.karsatech.karsanime.core.paging.UpcomingAnimePagingSource
 import kotlinx.coroutines.Dispatchers
@@ -23,7 +23,7 @@ import javax.inject.Singleton
 class AnimeRepository @Inject constructor(private val animeService: AnimeService):
     IAnimeRepository {
 
-    override fun getTopAnime(): Flow<Resource<ListGeneralResponse>> {
+    override fun getTopAnime(): Flow<Resource<AnimeResponse>> {
         return flow {
             emit(Resource.Loading())
             try {
@@ -36,7 +36,7 @@ class AnimeRepository @Inject constructor(private val animeService: AnimeService
         }.flowOn(Dispatchers.IO)
     }
 
-    override fun getUpcomingAnime(): Flow<Resource<ListGeneralResponse>> {
+    override fun getUpcomingAnime(): Flow<Resource<AnimeResponse>> {
         return flow {
             emit(Resource.Loading())
             try {
@@ -49,7 +49,20 @@ class AnimeRepository @Inject constructor(private val animeService: AnimeService
         }.flowOn(Dispatchers.IO)
     }
 
-    override fun getTopAnimePagination(): LiveData<PagingData<DetailGeneralResponse>> {
+    override fun getAnimeThisSeason(): Flow<Resource<AnimeResponse>> {
+        return flow {
+            emit(Resource.Loading())
+            try {
+                val response = animeService.getAnimeThisSeason(1,10)
+                emit(Resource.Success(response))
+            } catch (e: Exception) {
+                emit(Resource.Error(e.toString()))
+                Log.e("AnimeRepository", "getAnimeThisSeason : $e")
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    override fun getTopAnimePagination(): LiveData<PagingData<DetailAnimeItem>> {
         return Pager(
             config = PagingConfig(
                 pageSize = 5
@@ -60,7 +73,7 @@ class AnimeRepository @Inject constructor(private val animeService: AnimeService
         ).liveData
     }
 
-    override fun getUpcomingAnimePagination(): LiveData<PagingData<DetailGeneralResponse>> {
+    override fun getUpcomingAnimePagination(): LiveData<PagingData<DetailAnimeItem>> {
         return Pager(
             config = PagingConfig(
                 pageSize = 5

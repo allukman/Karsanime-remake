@@ -5,26 +5,26 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.karsatech.karsanime.core.data.source.remote.response.anime.DetailGeneralResponse
+import com.karsatech.karsanime.core.data.source.remote.response.anime.DetailAnimeItem
 import com.karsatech.karsanime.core.utils.UiUtils.loadImage
 import com.karsatech.karsanime.databinding.ItemListUpcomingBinding
 
-class AnimeAdapter : ListAdapter<DetailGeneralResponse, AnimeAdapter.RecyclerViewHolder>(DIFF_CALLBACK) {
+class AnimeAdapter : ListAdapter<DetailAnimeItem, AnimeAdapter.RecyclerViewHolder>(DIFF_CALLBACK) {
 
     private lateinit var actionAdapter: ActionAdapter
 
     companion object {
-        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<DetailGeneralResponse>() {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<DetailAnimeItem>() {
             override fun areItemsTheSame(
-                oldItem: DetailGeneralResponse,
-                newItem: DetailGeneralResponse
+                oldItem: DetailAnimeItem,
+                newItem: DetailAnimeItem
             ): Boolean {
                 return oldItem == newItem
             }
 
             override fun areContentsTheSame(
-                oldItem: DetailGeneralResponse,
-                newItem: DetailGeneralResponse
+                oldItem: DetailAnimeItem,
+                newItem: DetailAnimeItem
             ): Boolean {
                 return oldItem == newItem
             }
@@ -51,7 +51,7 @@ class AnimeAdapter : ListAdapter<DetailGeneralResponse, AnimeAdapter.RecyclerVie
 
     inner class RecyclerViewHolder(private val bind: ItemListUpcomingBinding) :
         RecyclerView.ViewHolder(bind.root) {
-        fun bind(data: DetailGeneralResponse) {
+        fun bind(data: DetailAnimeItem) {
             with(bind) {
              title.text = data.title
              imagePoster.loadImage(data.images!!.jpg!!.largeImageUrl, itemView.context, progressBar)
@@ -65,6 +65,6 @@ class AnimeAdapter : ListAdapter<DetailGeneralResponse, AnimeAdapter.RecyclerVie
     }
 
     interface ActionAdapter {
-        fun onItemClick(data: DetailGeneralResponse)
+        fun onItemClick(data: DetailAnimeItem)
     }
 }

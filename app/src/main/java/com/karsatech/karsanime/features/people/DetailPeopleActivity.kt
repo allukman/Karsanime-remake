@@ -2,17 +2,13 @@ package com.karsatech.karsanime.features.people
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.karsatech.karsanime.R
-import com.karsatech.karsanime.core.data.source.remote.response.people.DetailPeopleResponse
-import com.karsatech.karsanime.core.domain.model.Anime
 import com.karsatech.karsanime.core.domain.model.People
 import com.karsatech.karsanime.core.utils.UiUtils.withDateFormat
 import com.karsatech.karsanime.databinding.ActivityDetailPeopleBinding
-import com.karsatech.karsanime.features.anime.DetailAnimeViewModel
 import com.karsatech.karsanime.features.image.ImageActivity
 import com.karsatech.karsanime.features.image.ImageActivity.Companion.DETAIL_IMAGE
 import dagger.hilt.android.AndroidEntryPoint

@@ -1,11 +1,10 @@
 package com.karsatech.karsanime.core.utils
 
-import android.provider.Contacts
 import com.karsatech.karsanime.core.data.source.local.entity.AnimeEntity
 import com.karsatech.karsanime.core.data.source.local.entity.MangaEntity
 import com.karsatech.karsanime.core.data.source.local.entity.PeopleEntity
-import com.karsatech.karsanime.core.data.source.remote.response.anime.DetailGeneralResponse
-import com.karsatech.karsanime.core.data.source.remote.response.people.DetailPeopleResponse
+import com.karsatech.karsanime.core.data.source.remote.response.anime.DetailAnimeItem
+import com.karsatech.karsanime.core.data.source.remote.response.people.DetailPeopleItem
 import com.karsatech.karsanime.core.domain.model.Anime
 import com.karsatech.karsanime.core.domain.model.Manga
 import com.karsatech.karsanime.core.domain.model.People
@@ -98,7 +97,7 @@ object DataMapper {
         about = input.about
     )
 
-    fun mapApiResponseToAnimeModel(input: DetailGeneralResponse): Anime =
+    fun apiResponseToAnimeModel(input: DetailAnimeItem): Anime =
         Anime(
             animeId = input.malId.toString(),
             title = input.title.toString(),
@@ -109,12 +108,12 @@ object DataMapper {
             rank = input.rank.toString(),
             members = input.members.toString(),
             popularity = input.popularity.toString(),
-            favorites = input.favorite.toString(),
+            favorites = input.favorites.toString(),
             status = input.status.toString(),
             episodes = input.episodes.toString()
         )
 
-    fun mapApiResponseToMangaModel(input: DetailGeneralResponse): Manga =
+    fun apiResponseToMangaModel(input: DetailAnimeItem): Manga =
         Manga(
             mangaId = input.malId.toString(),
             title = input.title.toString(),
@@ -124,13 +123,13 @@ object DataMapper {
             rank = input.rank.toString(),
             members = input.members.toString(),
             popularity = input.popularity.toString(),
-            favorites = input.favorite.toString(),
+            favorites = input.favorites.toString(),
             status = input.status.toString(),
             chapters = input.chapters.toString(),
             volumes = input.volumes.toString()
         )
 
-    fun apiResponseToPeopleModel(input: DetailPeopleResponse): People =
+    fun apiResponseToPeopleModel(input: DetailPeopleItem): People =
         People(
             peopleId = input.malId.toString(),
             name = input.name.toString(),

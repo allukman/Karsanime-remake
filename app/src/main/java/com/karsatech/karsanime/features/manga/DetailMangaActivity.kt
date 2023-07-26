@@ -1,20 +1,13 @@
 package com.karsatech.karsanime.features.manga
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
-import com.google.android.flexbox.FlexboxLayoutManager
 import com.karsatech.karsanime.R
-import com.karsatech.karsanime.core.data.source.remote.response.anime.DetailGeneralResponse
-import com.karsatech.karsanime.core.data.source.remote.response.anime.Genres
-import com.karsatech.karsanime.core.domain.model.Anime
 import com.karsatech.karsanime.core.domain.model.Manga
-import com.karsatech.karsanime.core.ui.GenreAdapter
 import com.karsatech.karsanime.databinding.ActivityDetailMangaBinding
-import com.karsatech.karsanime.features.anime.DetailAnimeViewModel
 import com.karsatech.karsanime.features.image.ImageActivity
 import com.karsatech.karsanime.features.image.ImageActivity.Companion.DETAIL_IMAGE
 import dagger.hilt.android.AndroidEntryPoint

@@ -8,8 +8,9 @@ import androidx.paging.PagingData
 import androidx.paging.liveData
 import com.karsatech.karsanime.core.data.Resource
 import com.karsatech.karsanime.core.data.source.remote.network.PeopleService
-import com.karsatech.karsanime.core.data.source.remote.response.people.DetailPeopleResponse
-import com.karsatech.karsanime.core.data.source.remote.response.people.ListPeopleResponse
+import com.karsatech.karsanime.core.data.source.remote.response.people.DetailPeopleItem
+import com.karsatech.karsanime.core.data.source.remote.response.people.PeopleResponse
+import com.karsatech.karsanime.core.paging.CharactersPagingSource
 import com.karsatech.karsanime.core.paging.PeoplePagingSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -21,7 +22,7 @@ import javax.inject.Singleton
 @Singleton
 class PeopleRepository @Inject constructor(private val peopleService: PeopleService) : IPeopleRepository{
 
-    override fun getTopPeople(): Flow<Resource<ListPeopleResponse>> {
+    override fun getTopPeople(): Flow<Resource<PeopleResponse>> {
         return flow {
             emit(Resource.Loading())
             try {
@@ -34,13 +35,38 @@ class PeopleRepository @Inject constructor(private val peopleService: PeopleServ
         }.flowOn(Dispatchers.IO)
     }
 
-    override fun getTopPeoplePagination(): LiveData<PagingData<DetailPeopleResponse>> {
+    override fun getTopCharacters(): Flow<Resource<PeopleResponse>> {
+        return flow {
+            emit(Resource.Loading())
+            try {
+                val response = peopleService.getTopCharacters(1,10)
+                emit(Resource.Success(response))
+            } catch (e: Exception) {
+                emit(Resource.Error(e.toString()))
+                Log.e("PeopleRepository", "getTopCharacter : $e")
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+
+    override fun getTopPeoplePagination(): LiveData<PagingData<DetailPeopleItem>> {
         return Pager(
             config = PagingConfig(
                 pageSize = 5
             ),
             pagingSourceFactory = {
                 PeoplePagingSource(peopleService)
+            }
+        ).liveData
+    }
+
+    override fun getTopCharactersPagination(): LiveData<PagingData<DetailPeopleItem>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 5
+            ),
+            pagingSourceFactory = {
+                CharactersPagingSource(peopleService)
             }
         ).liveData
     }

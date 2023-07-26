@@ -4,28 +4,27 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.karsatech.karsanime.core.data.source.remote.response.anime.DetailGeneralResponse
+import com.karsatech.karsanime.core.data.source.remote.response.anime.DetailAnimeItem
 import com.karsatech.karsanime.core.utils.UiUtils.loadImage
 import com.karsatech.karsanime.databinding.ItemListAnimeBinding
 
-class ListAnimeAdapter : PagingDataAdapter<DetailGeneralResponse, ListAnimeAdapter.RecyclerViewHolder>(DIFF_CALLBACK) {
+class ListAnimeAdapter : PagingDataAdapter<DetailAnimeItem, ListAnimeAdapter.RecyclerViewHolder>(DIFF_CALLBACK) {
 
     private lateinit var actionAdapter: ActionAdapter
 
     companion object {
-        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<DetailGeneralResponse>() {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<DetailAnimeItem>() {
             override fun areItemsTheSame(
-                oldItem: DetailGeneralResponse,
-                newItem: DetailGeneralResponse
+                oldItem: DetailAnimeItem,
+                newItem: DetailAnimeItem
             ): Boolean {
                 return oldItem == newItem
             }
 
             override fun areContentsTheSame(
-                oldItem: DetailGeneralResponse,
-                newItem: DetailGeneralResponse
+                oldItem: DetailAnimeItem,
+                newItem: DetailAnimeItem
             ): Boolean {
                 return oldItem == newItem
             }
@@ -52,7 +51,7 @@ class ListAnimeAdapter : PagingDataAdapter<DetailGeneralResponse, ListAnimeAdapt
 
     inner class RecyclerViewHolder(private val bind: ItemListAnimeBinding) :
         RecyclerView.ViewHolder(bind.root) {
-        fun bind(data: DetailGeneralResponse) {
+        fun bind(data: DetailAnimeItem) {
             with(bind) {
                 title.text = data.title
                 description.text = data.synopsis
@@ -67,6 +66,6 @@ class ListAnimeAdapter : PagingDataAdapter<DetailGeneralResponse, ListAnimeAdapt
     }
 
     interface ActionAdapter {
-        fun onItemClick(data: DetailGeneralResponse)
+        fun onItemClick(data: DetailAnimeItem)
     }
 }

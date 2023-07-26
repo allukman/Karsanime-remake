@@ -3,11 +3,11 @@ package com.karsatech.karsanime.core.paging
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.karsatech.karsanime.core.data.source.remote.network.PeopleService
-import com.karsatech.karsanime.core.data.source.remote.response.people.DetailPeopleResponse
+import com.karsatech.karsanime.core.data.source.remote.response.people.DetailPeopleItem
 
-class PeoplePagingSource(private val peopleService: PeopleService): PagingSource<Int, DetailPeopleResponse>() {
+class PeoplePagingSource(private val peopleService: PeopleService): PagingSource<Int, DetailPeopleItem>() {
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, DetailPeopleResponse> =
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, DetailPeopleItem> =
         try {
             val position = params.key ?: INITIAL_PAGE_INDEX
             val responseData = peopleService.getTopPeople(position, 25).data
@@ -21,7 +21,7 @@ class PeoplePagingSource(private val peopleService: PeopleService): PagingSource
             LoadResult.Error(e)
         }
 
-    override fun getRefreshKey(state: PagingState<Int, DetailPeopleResponse>): Int? =
+    override fun getRefreshKey(state: PagingState<Int, DetailPeopleItem>): Int? =
         state.anchorPosition?.let { anchorPosition ->
             val anchorPage = state.closestPageToPosition(anchorPosition)
             anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)

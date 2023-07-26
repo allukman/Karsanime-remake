@@ -9,13 +9,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(animeUseCase: AnimeUseCase, mangaUseCase: MangaUseCase, peopleUseCase: PeopleUseCase) : ViewModel() {
+class HomeViewModel @Inject constructor(animeUseCase: AnimeUseCase,peopleUseCase: PeopleUseCase) : ViewModel() {
 
-    val upcomingAnime = animeUseCase.getUpcomingAnime().asLiveData()
+    val animeThisSeason = animeUseCase.getAnimeThisSeason().asLiveData()
 
-    val topAnime = animeUseCase.getTopAnime().asLiveData()
-
-    val topManga = mangaUseCase.getTopManga().asLiveData()
-
-    val topPeople = peopleUseCase.getTopPeople().asLiveData()
+    val topCharacters = peopleUseCase.getTopCharacters().asLiveData()
 }

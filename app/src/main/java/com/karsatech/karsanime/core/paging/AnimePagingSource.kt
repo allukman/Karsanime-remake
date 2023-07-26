@@ -3,11 +3,11 @@ package com.karsatech.karsanime.core.paging
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.karsatech.karsanime.core.data.source.remote.network.AnimeService
-import com.karsatech.karsanime.core.data.source.remote.response.anime.DetailGeneralResponse
+import com.karsatech.karsanime.core.data.source.remote.response.anime.DetailAnimeItem
 
-class AnimePagingSource(private val animeService: AnimeService): PagingSource<Int, DetailGeneralResponse>() {
+class AnimePagingSource(private val animeService: AnimeService): PagingSource<Int, DetailAnimeItem>() {
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, DetailGeneralResponse> =
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, DetailAnimeItem> =
         try {
             val position = params.key ?: INITIAL_PAGE_INDEX
             val responseData = animeService.getTopAnime(position, 25).data
@@ -21,7 +21,7 @@ class AnimePagingSource(private val animeService: AnimeService): PagingSource<In
             LoadResult.Error(e)
         }
 
-    override fun getRefreshKey(state: PagingState<Int, DetailGeneralResponse>): Int? =
+    override fun getRefreshKey(state: PagingState<Int, DetailAnimeItem>): Int? =
         state.anchorPosition?.let { anchorPosition ->
             val anchorPage = state.closestPageToPosition(anchorPosition)
             anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)

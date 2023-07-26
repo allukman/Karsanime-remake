@@ -5,25 +5,25 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.karsatech.karsanime.core.data.source.remote.response.anime.Genres
+import com.karsatech.karsanime.core.data.source.remote.response.anime.AnimeItem
 import com.karsatech.karsanime.databinding.ItemListGenreBinding
 
-class GenreAdapter : ListAdapter<Genres, GenreAdapter.RecyclerViewHolder>(DIFF_CALLBACK) {
+class GenreAdapter : ListAdapter<AnimeItem, GenreAdapter.RecyclerViewHolder>(DIFF_CALLBACK) {
 
     private lateinit var actionAdapter: ActionAdapter
 
     companion object {
-        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Genres>() {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<AnimeItem>() {
             override fun areItemsTheSame(
-                oldItem: Genres,
-                newItem: Genres
+                oldItem: AnimeItem,
+                newItem: AnimeItem
             ): Boolean {
                 return oldItem == newItem
             }
 
             override fun areContentsTheSame(
-                oldItem: Genres,
-                newItem: Genres
+                oldItem: AnimeItem,
+                newItem: AnimeItem
             ): Boolean {
                 return oldItem == newItem
             }
@@ -50,7 +50,7 @@ class GenreAdapter : ListAdapter<Genres, GenreAdapter.RecyclerViewHolder>(DIFF_C
 
     inner class RecyclerViewHolder(private val bind: ItemListGenreBinding) :
         RecyclerView.ViewHolder(bind.root) {
-        fun bind(data: Genres) {
+        fun bind(data: AnimeItem) {
             with(bind) {
                 title.text = data.name
 
@@ -63,6 +63,6 @@ class GenreAdapter : ListAdapter<Genres, GenreAdapter.RecyclerViewHolder>(DIFF_C
     }
 
     interface ActionAdapter {
-        fun onItemClick(data: Genres)
+        fun onItemClick(data: AnimeItem)
     }
 }

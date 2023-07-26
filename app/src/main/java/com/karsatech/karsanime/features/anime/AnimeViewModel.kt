@@ -1,6 +1,7 @@
 package com.karsatech.karsanime.features.anime
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.karsatech.karsanime.core.domain.usecase.anime.AnimeUseCase
@@ -10,6 +11,8 @@ import javax.inject.Inject
 @HiltViewModel
 class AnimeViewModel @Inject constructor(animeUseCase: AnimeUseCase) : ViewModel() {
 
-    val topAnimePagination = animeUseCase.getTopAnimePagination().cachedIn(viewModelScope)
+    val upcomingAnime = animeUseCase.getUpcomingAnime().asLiveData()
+
+    val topAnime = animeUseCase.getTopAnime().asLiveData()
 
 }

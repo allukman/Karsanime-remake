@@ -2,6 +2,7 @@ package com.karsatech.karsanime.features.home
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,10 +14,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.karsatech.karsanime.R
 import com.karsatech.karsanime.core.data.Resource
-import com.karsatech.karsanime.core.data.source.remote.response.anime.DetailGeneralResponse
-import com.karsatech.karsanime.core.data.source.remote.response.people.DetailPeopleResponse
-import com.karsatech.karsanime.core.ui.PeopleAdapter
+import com.karsatech.karsanime.core.data.source.remote.response.anime.DetailAnimeItem
+import com.karsatech.karsanime.core.data.source.remote.response.people.DetailPeopleItem
 import com.karsatech.karsanime.core.ui.AnimeAdapter
+import com.karsatech.karsanime.core.ui.PeopleAdapter
 import com.karsatech.karsanime.core.utils.DataMapper
 import com.karsatech.karsanime.core.utils.DataType
 import com.karsatech.karsanime.databinding.FragmentHomeBinding
@@ -38,10 +39,8 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var animeUpcomingAdapter: AnimeAdapter
-    private lateinit var topAnimeAdapter: AnimeAdapter
-    private lateinit var topMangaAdapter: AnimeAdapter
-    private lateinit var topPeopleAdapter: PeopleAdapter
+    private lateinit var animeThisSeasonAdapter: AnimeAdapter
+    private lateinit var topCharacterAdapter: PeopleAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,137 +55,75 @@ class HomeFragment : Fragment() {
         initializeRecyclerViews()
         initOnClick()
 
-        observeViewModelUpcoming()
-        observeViewModelTopPeople()
-        observeViewModelTopAnime()
+        observeViewModelAnime()
+        observeViewModelCharacters()
     }
 
     private fun initOnClick() {
-        binding.upcomingSeeAll.setOnClickListener {
+        binding.thisSeasonSeeAll.setOnClickListener {
             val intent = Intent(activity, ListPaginationActivity::class.java)
             intent.putExtra(SEE_ALL_PAGINATION, DataType.UPCOMING_ANIME)
             startActivity(intent)
         }
 
-        binding.topAnimeSeeAll.setOnClickListener {
-            val intent = Intent(activity, ListPaginationActivity::class.java)
-            intent.putExtra(SEE_ALL_PAGINATION, DataType.TOP_ANIME)
-            startActivity(intent)
-        }
-
-        binding.topMangaSeeAll.setOnClickListener {
-            val intent = Intent(activity, ListPaginationActivity::class.java)
-            intent.putExtra(SEE_ALL_PAGINATION, DataType.TOP_MANGA)
-            startActivity(intent)
-        }
-
-        binding.topPeopleSeeAll.setOnClickListener {
+        binding.topCharacterSeeAll.setOnClickListener {
             val intent = Intent(activity, ListPaginationActivity::class.java)
             intent.putExtra(SEE_ALL_PAGINATION, DataType.TOP_PEOPLE)
             startActivity(intent)
         }
     }
     private fun initializeRecyclerViews() {
-        binding.rvUpcoming.apply {
+        binding.rvThisSeason.apply {
             layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
-            animeUpcomingAdapter = AnimeAdapter()
-            adapter = animeUpcomingAdapter
+            animeThisSeasonAdapter = AnimeAdapter()
+            adapter = animeThisSeasonAdapter
         }
 
-        binding.rvTopAnime.apply {
+        binding.rvTopCharacter.apply {
             layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
-            topAnimeAdapter = AnimeAdapter()
-            adapter = topAnimeAdapter
-        }
-
-        binding.rvTopManga.apply {
-            layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
-            topMangaAdapter = AnimeAdapter()
-            adapter = topMangaAdapter
-        }
-
-        binding.rvTopPeople.apply {
-            layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
-            topPeopleAdapter = PeopleAdapter()
-            adapter = topPeopleAdapter
+            topCharacterAdapter = PeopleAdapter()
+            adapter = topCharacterAdapter
         }
     }
 
-    private fun observeViewModelUpcoming() {
-        homeViewModel.upcomingAnime.observe(viewLifecycleOwner) { upcoming ->
-            when (upcoming) {
-                is Resource.Loading -> showLoadingState(binding.progressBarUpcoming)
-
-                is Resource.Success -> {
-                    hideLoadingState(binding.progressBarUpcoming)
-                    upcoming.data?.data?.let { setUpcomingData(it) }
-                    observeViewModelTopManga()
-                }
-
-                is Resource.Error -> {
-                    hideLoadingState(binding.progressBarUpcoming)
-                    showErrorState(binding.errorUpcoming, upcoming.message ?: getString(R.string.something_wrong))
-                    observeViewModelTopManga()
-                }
-            }
-        }
-    }
-
-    private fun observeViewModelTopPeople() {
-        homeViewModel.topPeople.observe(viewLifecycleOwner) { people ->
-            when (people) {
-                is Resource.Loading -> showLoadingState(binding.progressBarTopPeople)
-
-                is Resource.Success -> {
-                    hideLoadingState(binding.progressBarTopPeople)
-                    people.data?.data?.let { setTopPeopleData(it) }
-
-                }
-
-                is Resource.Error -> {
-                    hideLoadingState(binding.progressBarTopPeople)
-                    showErrorState(binding.errorTopPeople, people.message ?: getString(R.string.something_wrong))
-
-                }
-            }
-        }
-    }
-
-    private fun observeViewModelTopAnime() {
-        homeViewModel.topAnime.observe(viewLifecycleOwner) { anime ->
+    private fun observeViewModelAnime() {
+        homeViewModel.animeThisSeason.observe(viewLifecycleOwner) { anime ->
             when (anime) {
-                is Resource.Loading -> showLoadingState(binding.progressBarAnime)
+                is Resource.Loading -> showLoadingState(binding.progressBarThisSeason)
 
                 is Resource.Success -> {
-                    hideLoadingState(binding.progressBarAnime)
-                    anime.data?.data?.let { setTopAnimeData(it) }
+                    hideLoadingState(binding.progressBarThisSeason)
+                    anime.data?.data?.let { setAnimeThisSeasonData(it) }
                 }
 
                 is Resource.Error -> {
-                    hideLoadingState(binding.progressBarAnime)
-                    showErrorState(binding.errorTopAnime, anime.message ?: getString(R.string.something_wrong))
+                    hideLoadingState(binding.progressBarThisSeason)
+                    showErrorState(binding.errorThisSeason, anime.message ?: getString(R.string.something_wrong))
                 }
             }
         }
     }
 
-    private fun observeViewModelTopManga() {
-        homeViewModel.topManga.observe(viewLifecycleOwner) { manga ->
-            when (manga) {
-                is Resource.Loading -> showLoadingState(binding.progressBarManga)
+    private fun observeViewModelCharacters() {
+        homeViewModel.topCharacters.observe(viewLifecycleOwner) { characters ->
+            when (characters) {
+                is Resource.Loading -> showLoadingState(binding.progressBarTopCharacter)
 
                 is Resource.Success -> {
-                    hideLoadingState(binding.progressBarManga)
-                    manga.data?.data?.let { setTopMangaData(it) }
+                    hideLoadingState(binding.progressBarTopCharacter)
+                    characters.data?.data?.let { setTopCharactersData(it) }
+
                 }
 
                 is Resource.Error -> {
-                    hideLoadingState(binding.progressBarManga)
-                    showErrorState(binding.errorTopManga, manga.message ?: getString(R.string.something_wrong))
+                    hideLoadingState(binding.progressBarTopCharacter)
+                    showErrorState(binding.errorTopCharacter, characters.message ?: getString(R.string.something_wrong))
+
                 }
             }
         }
     }
+
 
     private fun showLoadingState(progressBar: ShimmerFrameLayout) {
         progressBar.visibility = View.VISIBLE
@@ -201,12 +138,12 @@ class HomeFragment : Fragment() {
         errorTextView.text = errorMessage
     }
 
-    private fun setUpcomingData(data: List<DetailGeneralResponse?>) {
-        animeUpcomingAdapter.submitList(data)
+    private fun setAnimeThisSeasonData(data: List<DetailAnimeItem?>) {
+        animeThisSeasonAdapter.submitList(data)
 
-        animeUpcomingAdapter.setOnItemClickCallback(object : AnimeAdapter.ActionAdapter {
-            override fun onItemClick(data: DetailGeneralResponse) {
-                val anime = DataMapper.mapApiResponseToAnimeModel(data)
+        animeThisSeasonAdapter.setOnItemClickCallback(object : AnimeAdapter.ActionAdapter {
+            override fun onItemClick(data: DetailAnimeItem) {
+                val anime = DataMapper.apiResponseToAnimeModel(data)
                 val intent = Intent(activity, DetailAnimeActivity::class.java)
                 intent.putExtra(DETAIL_ANIME, anime)
                 startActivity(intent)
@@ -214,45 +151,16 @@ class HomeFragment : Fragment() {
         })
     }
 
-    private fun setTopAnimeData(data: List<DetailGeneralResponse?>) {
-        topAnimeAdapter.submitList(data)
+    private fun setTopCharactersData(data: List<DetailPeopleItem?>) {
+        topCharacterAdapter.submitList(data)
 
-        topAnimeAdapter.setOnItemClickCallback(object: AnimeAdapter.ActionAdapter {
-            override fun onItemClick(data: DetailGeneralResponse) {
-                val anime = DataMapper.mapApiResponseToAnimeModel(data)
-                val intent = Intent(activity, DetailAnimeActivity::class.java)
-                intent.putExtra(DETAIL_ANIME, anime)
-                startActivity(intent)
-            }
-
-        })
-    }
-
-    private fun setTopMangaData(data: List<DetailGeneralResponse?>) {
-        topMangaAdapter.submitList(data)
-
-        topMangaAdapter.setOnItemClickCallback(object : AnimeAdapter.ActionAdapter {
-            override fun onItemClick(data: DetailGeneralResponse) {
-                val manga = DataMapper.mapApiResponseToMangaModel(data)
-                val intent = Intent(activity, DetailMangaActivity::class.java)
-                intent.putExtra(DETAIL_MANGA, manga)
-                startActivity(intent)
-            }
-
-        })
-    }
-
-    private fun setTopPeopleData(data: List<DetailPeopleResponse?>) {
-        topPeopleAdapter.submitList(data)
-
-        topPeopleAdapter.setOnItemClickCallback(object : PeopleAdapter.ActionAdapter {
-            override fun onItemClick(data: DetailPeopleResponse) {
+        topCharacterAdapter.setOnItemClickCallback(object : PeopleAdapter.ActionAdapter {
+            override fun onItemClick(data: DetailPeopleItem) {
                 val people = DataMapper.apiResponseToPeopleModel(data)
                 val intent = Intent(activity, DetailPeopleActivity::class.java)
                 intent.putExtra(DETAIL_PEOPLE, people)
                 startActivity(intent)
             }
-
         })
     }
 
