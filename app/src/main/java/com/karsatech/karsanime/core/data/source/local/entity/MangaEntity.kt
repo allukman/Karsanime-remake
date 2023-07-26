@@ -8,8 +8,10 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "favorite_manga")
 data class MangaEntity(
 
-    @PrimaryKey
-    @NonNull
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id_favorite_manga")
+    var idFavoriteManga: Int = 0,
+
     @ColumnInfo(name = "mangaId")
     var mangaId: String,
 

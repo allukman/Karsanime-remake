@@ -8,8 +8,10 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "favorite_character")
 data class CharacterEntity(
 
-    @PrimaryKey
-    @NonNull
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id_favorite_character")
+    var idFavoriteCharacter: Int = 0,
+
     @ColumnInfo(name = "characterId")
     var characterId: String,
 

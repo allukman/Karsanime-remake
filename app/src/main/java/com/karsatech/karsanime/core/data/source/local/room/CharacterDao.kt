@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface CharacterDao {
 
-    @Query("SELECT * FROM favorite_character")
+    @Query("SELECT * FROM favorite_character ORDER BY id_favorite_character DESC")
     fun getAllFavoriteCharacter(): Flow<List<CharacterEntity>>
 
     @Query("SELECT * from favorite_character WHERE characterId= :characterId")

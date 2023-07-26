@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface MangaDao {
 
-    @Query("SELECT * FROM favorite_manga")
+    @Query("SELECT * FROM favorite_manga ORDER BY id_favorite_manga DESC")
     fun getAllFavoriteManga(): Flow<List<MangaEntity>>
 
     @Query("SELECT * from favorite_manga WHERE mangaId= :mangaId")

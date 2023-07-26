@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface AnimeDao {
 
-    @Query("SELECT * FROM favorite_anime")
+    @Query("SELECT * FROM favorite_anime ORDER BY id_favorite_anime DESC")
     fun getAllFavoriteAnime(): Flow<List<AnimeEntity>>
 
     @Query("SELECT * from favorite_anime WHERE animeId= :animeId")
