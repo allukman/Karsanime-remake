@@ -45,8 +45,19 @@ class FavoritePeopleFragment : Fragment() {
         initializeRecyclerViews()
 
         favoriteViewModel.favoritePeople.observe(viewLifecycleOwner) { favoritePeople ->
-            setFavoritePeopleData(favoritePeople)
+            if (favoritePeople.isEmpty()) {
+                showEmpty(true)
+            } else {
+                showEmpty(false)
+                setFavoritePeopleData(favoritePeople)
+            }
         }
+    }
+
+    private fun showEmpty(show: Boolean) {
+        binding.lottieEmpty.visibility = if (show) View.VISIBLE else View.GONE
+        binding.tvEmpty.visibility = if (show) View.VISIBLE else View.GONE
+        binding.rvFavoritePeople.visibility = if (show) View.GONE else View.VISIBLE
     }
 
     private fun setFavoritePeopleData(data: List<People>) {

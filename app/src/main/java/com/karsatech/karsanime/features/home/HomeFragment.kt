@@ -23,6 +23,8 @@ import com.karsatech.karsanime.core.utils.DataType
 import com.karsatech.karsanime.databinding.FragmentHomeBinding
 import com.karsatech.karsanime.features.anime.DetailAnimeActivity
 import com.karsatech.karsanime.features.anime.DetailAnimeActivity.Companion.DETAIL_ANIME
+import com.karsatech.karsanime.features.character.DetailCharacterActivity
+import com.karsatech.karsanime.features.character.DetailCharacterActivity.Companion.DETAIL_CHARACTER
 import com.karsatech.karsanime.features.manga.DetailMangaActivity
 import com.karsatech.karsanime.features.manga.DetailMangaActivity.Companion.DETAIL_MANGA
 import com.karsatech.karsanime.features.pagination.ListPaginationActivity
@@ -62,13 +64,13 @@ class HomeFragment : Fragment() {
     private fun initOnClick() {
         binding.thisSeasonSeeAll.setOnClickListener {
             val intent = Intent(activity, ListPaginationActivity::class.java)
-            intent.putExtra(SEE_ALL_PAGINATION, DataType.UPCOMING_ANIME)
+            intent.putExtra(SEE_ALL_PAGINATION, DataType.ANIME_THIS_SEASON)
             startActivity(intent)
         }
 
         binding.topCharacterSeeAll.setOnClickListener {
             val intent = Intent(activity, ListPaginationActivity::class.java)
-            intent.putExtra(SEE_ALL_PAGINATION, DataType.TOP_PEOPLE)
+            intent.putExtra(SEE_ALL_PAGINATION, DataType.TOP_CHARACTER)
             startActivity(intent)
         }
     }
@@ -157,8 +159,8 @@ class HomeFragment : Fragment() {
         topCharacterAdapter.setOnItemClickCallback(object : PeopleAdapter.ActionAdapter {
             override fun onItemClick(data: DetailPeopleItem) {
                 val people = DataMapper.apiResponseToPeopleModel(data)
-                val intent = Intent(activity, DetailPeopleActivity::class.java)
-                intent.putExtra(DETAIL_PEOPLE, people)
+                val intent = Intent(activity, DetailCharacterActivity::class.java)
+                intent.putExtra(DETAIL_CHARACTER, people)
                 startActivity(intent)
             }
         })

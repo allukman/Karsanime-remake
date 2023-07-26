@@ -19,4 +19,6 @@ interface IAnimeRepository {
 
     fun getUpcomingAnimePagination(): LiveData<PagingData<DetailAnimeItem>>
 
+    fun getAnimeThisSeasonPagination(): LiveData<PagingData<DetailAnimeItem>>
+
 }

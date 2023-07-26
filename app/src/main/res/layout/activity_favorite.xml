@@ -41,7 +41,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/dark"
+                style="@style/description"
                 app:tabTextColor="@color/white"
+                app:tabTextAppearance="@style/description"
                 app:tabIndicatorColor="@color/elm"
                 app:tabIndicatorHeight="@dimen/dimen_4dp" />
 

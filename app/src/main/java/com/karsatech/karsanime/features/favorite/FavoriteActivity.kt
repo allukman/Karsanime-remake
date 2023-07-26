@@ -40,9 +40,9 @@ class FavoriteActivity : AppCompatActivity() {
 
     private fun settingViewPager() {
         binding.apply {
-            val detailUserPagerAdapter = FavoriteViewPagerAdapter(this@FavoriteActivity)
+            val favoritePagerAdapter = FavoriteViewPagerAdapter(this@FavoriteActivity)
 
-            viewPager.adapter = detailUserPagerAdapter
+            viewPager.adapter = favoritePagerAdapter
             TabLayoutMediator(tabLayout, viewPager) { tab, position ->
                 tab.text = resources.getString(TAB_TITLES[position])
             }.attach()
@@ -54,7 +54,7 @@ class FavoriteActivity : AppCompatActivity() {
     companion object {
         @StringRes
         private val TAB_TITLES = intArrayOf(
-            R.string.menu_anime, R.string.menu_manga, R.string.menu_people
+            R.string.menu_anime, R.string.menu_manga, R.string.menu_people, R.string.menu_character
         )
     }
 }

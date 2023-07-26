@@ -16,6 +16,9 @@
         android:theme="@style/Theme.Karsanime"
         tools:targetApi="31">
         <activity
+            android:name=".features.character.DetailCharacterActivity"
+            android:exported="false" />
+        <activity
             android:name=".features.favorite.FavoriteActivity"
             android:exported="false" />
         <activity

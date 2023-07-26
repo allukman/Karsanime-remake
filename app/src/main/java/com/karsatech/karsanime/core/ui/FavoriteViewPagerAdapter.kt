@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.karsatech.karsanime.features.favorite.fragment.FavoriteAnimeFragment
+import com.karsatech.karsanime.features.favorite.fragment.FavoriteCharacterFragment
 import com.karsatech.karsanime.features.favorite.fragment.FavoriteMangaFragment
 import com.karsatech.karsanime.features.favorite.fragment.FavoritePeopleFragment
 
@@ -16,11 +17,12 @@ class FavoriteViewPagerAdapter (activity: AppCompatActivity): FragmentStateAdapt
             0 -> fragment = FavoriteAnimeFragment()
             1 -> fragment = FavoriteMangaFragment()
             2 -> fragment = FavoritePeopleFragment()
+            3 -> fragment = FavoriteCharacterFragment()
         }
         return fragment as Fragment
     }
 
     companion object {
-        private const val ITEM_COUNT = 3
+        private const val ITEM_COUNT = 4
     }
 }

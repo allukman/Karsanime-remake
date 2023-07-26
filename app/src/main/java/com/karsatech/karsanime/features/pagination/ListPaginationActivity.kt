@@ -37,7 +37,10 @@ class ListPaginationActivity : AppCompatActivity() {
     private lateinit var listAnimeAdapter: ListAnimeAdapter
     private lateinit var listMangaAdapter: ListMangaAdapter
     private lateinit var listPeopleAdapter: ListPeopleAdapter
+    private lateinit var listCharacterAdapter: ListPeopleAdapter
     private lateinit var listUpcomingAnimeAdapter: ListAnimeAdapter
+    private lateinit var listThisSeasonAnimeAdapter: ListAnimeAdapter
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -85,6 +88,17 @@ class ListPaginationActivity : AppCompatActivity() {
             listUpcomingAnimeAdapter = ListAnimeAdapter()
             adapter = listUpcomingAnimeAdapter
         }
+        binding.rvListCharacter.apply {
+            layoutManager = LinearLayoutManager(this@ListPaginationActivity, RecyclerView.VERTICAL, false)
+            listCharacterAdapter = ListPeopleAdapter()
+            adapter = listCharacterAdapter
+        }
+        binding.rvListThisSeasonAnime.apply {
+            layoutManager = LinearLayoutManager(this@ListPaginationActivity, RecyclerView.VERTICAL, false)
+            listThisSeasonAnimeAdapter = ListAnimeAdapter()
+            adapter = listThisSeasonAnimeAdapter
+        }
+
     }
 
     private fun setupList(dataType: DataType) {
@@ -101,6 +115,12 @@ class ListPaginationActivity : AppCompatActivity() {
             DataType.TOP_PEOPLE -> {
                 R.string.top_people
             }
+            DataType.ANIME_THIS_SEASON -> {
+                R.string.this_season
+            }
+            DataType.TOP_CHARACTER -> {
+                R.string.top_character
+            }
         }
         supportActionBar?.title = getString(titleResId)
 
@@ -116,6 +136,12 @@ class ListPaginationActivity : AppCompatActivity() {
             }
             DataType.TOP_PEOPLE -> {
                 initPeopleData()
+            }
+            DataType.ANIME_THIS_SEASON -> {
+                initThisSeasonAnimeData()
+            }
+            DataType.TOP_CHARACTER -> {
+                initCharacterData()
             }
         }
     }
@@ -161,6 +187,26 @@ class ListPaginationActivity : AppCompatActivity() {
         setUpcomingAnimeData()
     }
 
+    private fun initCharacterData() {
+        listCharacterLoadingState()
+        observeViewModelCharacter()
+        binding.layoutTopCharacter.visibility = View.VISIBLE
+        binding.rvListCharacter.adapter = listCharacterAdapter.withLoadStateFooter(
+            footer = LoadingStateAdapter { listCharacterAdapter.retry() }
+        )
+        setCharacterData()
+    }
+
+    private fun initThisSeasonAnimeData() {
+        listThisSeasonAnimeLoadingState()
+        observeViewModelThisSeasonAnime()
+        binding.layoutThisSeasonAnime.visibility = View.VISIBLE
+        binding.rvListThisSeasonAnime.adapter = listThisSeasonAnimeAdapter.withLoadStateFooter(
+            footer = LoadingStateAdapter { listThisSeasonAnimeAdapter.retry() }
+        )
+        setThisSeasonAnimeData()
+    }
+
     // Observers
     private fun observeViewModelAnime() {
         listPaginationViewModel.topAnimePagination.observe(this) { anime ->
@@ -186,6 +232,18 @@ class ListPaginationActivity : AppCompatActivity() {
         }
     }
 
+    private fun observeViewModelCharacter() {
+        listPaginationViewModel.topCharacterPagination.observe(this) { character ->
+            listCharacterAdapter.submitData(lifecycle, character)
+        }
+    }
+
+    private fun observeViewModelThisSeasonAnime() {
+        listPaginationViewModel.thisSeasonAnimePagination.observe(this) { anime ->
+            listThisSeasonAnimeAdapter.submitData(lifecycle, anime)
+        }
+    }
+
     // Loading state for each RecyclerView
     private fun listAnimeLoadingState() {
         listAnimeAdapter.addLoadStateListener {
@@ -208,6 +266,18 @@ class ListPaginationActivity : AppCompatActivity() {
     private fun listUpcomingAnimeLoadingState() {
         listUpcomingAnimeAdapter.addLoadStateListener {
             handleLoadingState(binding.rvListUpcomingAnime, binding.progressBarTopUpcomingAnime, it)
+        }
+    }
+
+    private fun listCharacterLoadingState() {
+        listCharacterAdapter.addLoadStateListener {
+            handleLoadingState(binding.rvListCharacter, binding.progressBarTopCharacter, it)
+        }
+    }
+
+    private fun listThisSeasonAnimeLoadingState() {
+        listThisSeasonAnimeAdapter.addLoadStateListener {
+            handleLoadingState(binding.rvListThisSeasonAnime, binding.progressBarThisSeasonAnime, it)
         }
     }
 
@@ -262,6 +332,25 @@ class ListPaginationActivity : AppCompatActivity() {
 
     private fun setUpcomingAnimeData() {
         listUpcomingAnimeAdapter.setOnItemClickCallback(object : ListAnimeAdapter.ActionAdapter {
+            override fun onItemClick(data: DetailAnimeItem) {
+                startDetailActivity(DetailAnimeActivity::class.java, DETAIL_ANIME, data)
+            }
+        })
+    }
+
+    private fun setCharacterData() {
+        listCharacterAdapter.setOnItemClickCallback(object : ListPeopleAdapter.ActionAdapter {
+            override fun onItemClick(data: DetailPeopleItem) {
+                val people = DataMapper.apiResponseToPeopleModel(data)
+                val intent = Intent(this@ListPaginationActivity, DetailPeopleActivity::class.java)
+                intent.putExtra(DETAIL_PEOPLE, people)
+                startActivity(intent)
+            }
+        })
+    }
+
+    private fun setThisSeasonAnimeData() {
+        listThisSeasonAnimeAdapter.setOnItemClickCallback(object : ListAnimeAdapter.ActionAdapter {
             override fun onItemClick(data: DetailAnimeItem) {
                 startDetailActivity(DetailAnimeActivity::class.java, DETAIL_ANIME, data)
             }

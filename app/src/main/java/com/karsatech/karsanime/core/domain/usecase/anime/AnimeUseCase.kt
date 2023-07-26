@@ -10,8 +10,8 @@ import kotlinx.coroutines.flow.Flow
 interface AnimeUseCase {
     fun getTopAnime(): Flow<Resource<AnimeResponse>>
     fun getUpcomingAnime(): Flow<Resource<AnimeResponse>>
-
     fun getAnimeThisSeason(): Flow<Resource<AnimeResponse>>
     fun getTopAnimePagination() : LiveData<PagingData<DetailAnimeItem>>
     fun getUpcomingAnimePagination() : LiveData<PagingData<DetailAnimeItem>>
+    fun getThisSeasonAnimePagination() : LiveData<PagingData<DetailAnimeItem>>
 }

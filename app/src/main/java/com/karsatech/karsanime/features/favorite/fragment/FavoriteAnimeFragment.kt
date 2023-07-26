@@ -2,11 +2,10 @@ package com.karsatech.karsanime.features.favorite.fragment
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -42,8 +41,19 @@ class FavoriteAnimeFragment : Fragment() {
         initializeRecyclerViews()
 
         favoriteViewModel.favoriteAnime.observe(viewLifecycleOwner) { favoriteAnime ->
-            setFavoriteAnimeData(favoriteAnime)
+            if (favoriteAnime.isEmpty()) {
+                showEmpty(true)
+            } else {
+                showEmpty(false)
+                setFavoriteAnimeData(favoriteAnime)
+            }
         }
+    }
+
+    private fun showEmpty(show: Boolean) {
+        binding.lottieEmpty.visibility = if (show) View.VISIBLE else View.GONE
+        binding.tvEmpty.visibility = if (show) View.VISIBLE else View.GONE
+        binding.rvFavoriteAnime.visibility = if (show) View.GONE else View.VISIBLE
     }
 
     private fun setFavoriteAnimeData(data: List<Anime>) {

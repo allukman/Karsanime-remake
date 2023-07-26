@@ -4,5 +4,7 @@ enum class DataType {
     UPCOMING_ANIME,
     TOP_ANIME,
     TOP_MANGA,
-    TOP_PEOPLE
+    TOP_PEOPLE,
+    ANIME_THIS_SEASON,
+    TOP_CHARACTER
 }

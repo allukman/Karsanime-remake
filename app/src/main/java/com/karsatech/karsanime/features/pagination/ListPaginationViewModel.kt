@@ -23,4 +23,8 @@ class ListPaginationViewModel @Inject constructor(
     val topPeoplePagination = peopleUseCase.getTopPeoplePagination().cachedIn(viewModelScope)
 
     val upcomingAnimePagination = animeUseCase.getUpcomingAnimePagination().cachedIn(viewModelScope)
+
+    val thisSeasonAnimePagination = animeUseCase.getThisSeasonAnimePagination().cachedIn(viewModelScope)
+
+    val topCharacterPagination = peopleUseCase.getTopCharactersPagination().cachedIn(viewModelScope)
 }
