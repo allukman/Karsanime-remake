@@ -11,6 +11,8 @@ import com.karsatech.karsanime.core.data.source.remote.network.MangaService
 import com.karsatech.karsanime.core.data.source.remote.response.anime.AnimeResponse
 import com.karsatech.karsanime.core.data.source.remote.response.anime.DetailAnimeItem
 import com.karsatech.karsanime.core.paging.MangaPagingSource
+import com.karsatech.karsanime.core.paging.SearchAnimePagingSource
+import com.karsatech.karsanime.core.paging.SearchMangaPagingSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -41,6 +43,17 @@ class MangaRepository @Inject constructor(private val mangaService: MangaService
             ),
             pagingSourceFactory = {
                 MangaPagingSource(mangaService)
+            }
+        ).liveData
+    }
+
+    override fun getSearchMangaPagination(query: String): LiveData<PagingData<DetailAnimeItem>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 5
+            ),
+            pagingSourceFactory = {
+                SearchMangaPagingSource(mangaService, query)
             }
         ).liveData
     }

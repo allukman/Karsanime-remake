@@ -7,5 +7,6 @@ class MangaInteractor @Inject constructor(private val mangaRepository: MangaRepo
 
     override fun getTopManga() = mangaRepository.getTopManga()
     override fun getTopMangaPagination() = mangaRepository.getTopMangaPagination()
+    override fun getSearchMangaPagination(query: String) = mangaRepository.getSearchMangaPagination(query)
 
 }

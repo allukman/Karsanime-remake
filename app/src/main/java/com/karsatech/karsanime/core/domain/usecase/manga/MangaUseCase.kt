@@ -11,4 +11,6 @@ interface MangaUseCase {
     fun getTopManga(): Flow<Resource<AnimeResponse>>
 
     fun getTopMangaPagination() : LiveData<PagingData<DetailAnimeItem>>
+
+    fun getSearchMangaPagination(query: String): LiveData<PagingData<DetailAnimeItem>>
 }

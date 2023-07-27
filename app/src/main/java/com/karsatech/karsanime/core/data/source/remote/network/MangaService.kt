@@ -12,4 +12,11 @@ interface MangaService {
         @Query("limit") limit: Int
     ) : AnimeResponse
 
+    @GET("manga")
+    suspend fun searchManga(
+        @Query("q") query: String,
+        @Query("page") page: Int,
+        @Query("limit") limit: Int
+    ): AnimeResponse
+
 }

@@ -13,4 +13,6 @@ interface IMangaRepository {
 
     fun getTopMangaPagination(): LiveData<PagingData<DetailAnimeItem>>
 
+    fun getSearchMangaPagination(query: String): LiveData<PagingData<DetailAnimeItem>>
+
 }

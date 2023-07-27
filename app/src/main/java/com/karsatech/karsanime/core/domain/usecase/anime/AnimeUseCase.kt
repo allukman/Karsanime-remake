@@ -14,4 +14,5 @@ interface AnimeUseCase {
     fun getTopAnimePagination() : LiveData<PagingData<DetailAnimeItem>>
     fun getUpcomingAnimePagination() : LiveData<PagingData<DetailAnimeItem>>
     fun getThisSeasonAnimePagination() : LiveData<PagingData<DetailAnimeItem>>
+    fun getSearchAnimePagination(query: String): LiveData<PagingData<DetailAnimeItem>>
 }

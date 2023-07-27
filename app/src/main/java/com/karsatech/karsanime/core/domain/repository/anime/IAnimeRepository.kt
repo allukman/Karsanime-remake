@@ -21,4 +21,6 @@ interface IAnimeRepository {
 
     fun getAnimeThisSeasonPagination(): LiveData<PagingData<DetailAnimeItem>>
 
+    fun getSearchAnimePagination(query: String): LiveData<PagingData<DetailAnimeItem>>
+
 }

@@ -12,6 +12,9 @@ import com.karsatech.karsanime.core.data.source.remote.response.people.DetailPeo
 import com.karsatech.karsanime.core.data.source.remote.response.people.PeopleResponse
 import com.karsatech.karsanime.core.paging.CharactersPagingSource
 import com.karsatech.karsanime.core.paging.PeoplePagingSource
+import com.karsatech.karsanime.core.paging.SearchAnimePagingSource
+import com.karsatech.karsanime.core.paging.SearchCharacterPagingSource
+import com.karsatech.karsanime.core.paging.SearchPeoplePagingSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -67,6 +70,28 @@ class PeopleRepository @Inject constructor(private val peopleService: PeopleServ
             ),
             pagingSourceFactory = {
                 CharactersPagingSource(peopleService)
+            }
+        ).liveData
+    }
+
+    override fun getSearchPeoplePagination(query: String): LiveData<PagingData<DetailPeopleItem>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 5
+            ),
+            pagingSourceFactory = {
+                SearchPeoplePagingSource(peopleService, query)
+            }
+        ).liveData
+    }
+
+    override fun getSearchCharacterPagination(query: String): LiveData<PagingData<DetailPeopleItem>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 5
+            ),
+            pagingSourceFactory = {
+                SearchCharacterPagingSource(peopleService, query)
             }
         ).liveData
     }
