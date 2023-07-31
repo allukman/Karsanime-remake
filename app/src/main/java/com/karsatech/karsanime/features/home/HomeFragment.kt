@@ -20,8 +20,8 @@ import com.karsatech.karsanime.core.ui.PeopleAdapter
 import com.karsatech.karsanime.core.utils.DataMapper
 import com.karsatech.karsanime.core.utils.DataType
 import com.karsatech.karsanime.databinding.FragmentHomeBinding
-import com.karsatech.karsanime.features.anime.DetailAnimeActivity
-import com.karsatech.karsanime.features.anime.DetailAnimeActivity.Companion.DETAIL_ANIME
+import com.karsatech.karsanime.features.anime.detail.DetailAnimeActivity
+import com.karsatech.karsanime.features.anime.detail.DetailAnimeActivity.Companion.DETAIL_ANIME
 import com.karsatech.karsanime.features.character.DetailCharacterActivity
 import com.karsatech.karsanime.features.character.DetailCharacterActivity.Companion.DETAIL_CHARACTER
 import com.karsatech.karsanime.features.pagination.ListPaginationActivity

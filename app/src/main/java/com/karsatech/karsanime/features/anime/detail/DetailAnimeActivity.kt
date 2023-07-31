@@ -1,4 +1,4 @@
-package com.karsatech.karsanime.features.anime
+package com.karsatech.karsanime.features.anime.detail
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,6 +8,8 @@ import com.bumptech.glide.Glide
 import com.karsatech.karsanime.R
 import com.karsatech.karsanime.core.domain.model.Anime
 import com.karsatech.karsanime.databinding.ActivityDetailAnimeBinding
+import com.karsatech.karsanime.features.anime.full.FullDetailAnimeActivity
+import com.karsatech.karsanime.features.anime.full.FullDetailAnimeActivity.Companion.ANIME_ID
 import com.karsatech.karsanime.features.image.ImageActivity
 import com.karsatech.karsanime.features.image.ImageActivity.Companion.DETAIL_IMAGE
 import dagger.hilt.android.AndroidEntryPoint
@@ -46,6 +48,26 @@ class DetailAnimeActivity : AppCompatActivity() {
             .load(data.image)
             .into(binding.imagePoster)
 
+        setOnClick()
+
+        binding.btnDetail.setOnClickListener {
+            val intent = Intent(this, FullDetailAnimeActivity::class.java)
+            intent.putExtra(ANIME_ID, data.animeId)
+            startActivity(intent)
+        }
+
+        detailAnimeViewModel.getFavoriteByMalId(data.animeId).observe(this) { listAnime ->
+            isFavorite = if (listAnime.isEmpty()) {
+                binding.ivFavorite.setImageResource(R.drawable.ic_baseline_unfavorite_24)
+                false
+            } else {
+                binding.ivFavorite.setImageResource(R.drawable.ic_baseline_favorite_24)
+                true
+            }
+        }
+    }
+
+    private fun setOnClick() {
         binding.imagePoster.setOnClickListener {
             val intent = Intent(this, ImageActivity::class.java)
             intent.putExtra(DETAIL_IMAGE, data.image)
@@ -64,15 +86,7 @@ class DetailAnimeActivity : AppCompatActivity() {
             }
         }
 
-        detailAnimeViewModel.getFavoriteByMalId(data.animeId).observe(this) { listAnime ->
-            isFavorite = if (listAnime.isEmpty()) {
-                binding.ivFavorite.setImageResource(R.drawable.ic_baseline_unfavorite_24)
-                false
-            } else {
-                binding.ivFavorite.setImageResource(R.drawable.ic_baseline_favorite_24)
-                true
-            }
-        }
+
     }
 
     companion object {

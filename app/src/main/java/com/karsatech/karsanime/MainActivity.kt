@@ -2,14 +2,13 @@ package com.karsatech.karsanime
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
-import com.karsatech.karsanime.features.anime.AnimeFragment
+import com.karsatech.karsanime.features.anime.list.AnimeFragment
 import com.karsatech.karsanime.databinding.ActivityMainBinding
 import com.karsatech.karsanime.features.favorite.FavoriteActivity
 import com.karsatech.karsanime.features.home.HomeFragment
@@ -48,35 +47,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 .commit()
             supportActionBar?.title = getString(R.string.app_name)
         }
-
-        Log.d("MainActivity", "onCreate()")
     }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d("MainActivity", "onDestroy()")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.d("MainActivity", "onResume()")
-    }
-
-    override fun onStart() {
-        super.onStart()
-        Log.d("MainActivity", "onStart()")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Log.d("MainActivity", "onPause()")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.d("MainActivity", "onStop()")
-    }
-
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         var fragment: Fragment? = null
         var title = getString(R.string.app_name)

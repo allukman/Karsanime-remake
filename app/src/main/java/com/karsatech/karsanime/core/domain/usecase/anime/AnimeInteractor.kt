@@ -19,4 +19,10 @@ class AnimeInteractor @Inject constructor(private val animeRepository: AnimeRepo
 
     override fun getSearchAnimePagination(query: String) = animeRepository.getSearchAnimePagination(query)
 
+    override fun getRandomAnime() = animeRepository.getRandomAnime()
+
+    override fun getAnimeSeasonalPagination(year: String, season: String) = animeRepository.getAnimeSeasonalPagination(year, season)
+
+    override fun getFullDetailAnime(id: String) = animeRepository.getFullDetailAnime(id)
+
 }

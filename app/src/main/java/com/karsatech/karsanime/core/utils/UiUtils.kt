@@ -14,8 +14,10 @@ import com.bumptech.glide.request.RequestListener
 import com.karsatech.karsanime.R
 import de.hdodenhof.circleimageview.CircleImageView
 import java.text.SimpleDateFormat
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.util.Calendar
 import java.util.Locale
 
 object UiUtils {
@@ -86,6 +88,21 @@ object UiUtils {
 
         val outputFormat = SimpleDateFormat("MMMM, yyyy", Locale.US)
         return outputFormat.format(date)
+    }
+
+    fun getCurrentYear(): Int {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val currentDate = LocalDate.now()
+            return currentDate.year
+        } else {
+            val calendar = Calendar.getInstance()
+            return calendar.get(Calendar.YEAR)
+        }
+    }
+
+    fun String.capitalizeFirstLetter(): String {
+        if (isEmpty()) return this
+        return substring(0, 1).uppercase(Locale.getDefault()) + substring(1)
     }
 
 }

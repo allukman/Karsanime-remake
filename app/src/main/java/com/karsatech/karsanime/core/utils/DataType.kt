@@ -15,3 +15,10 @@ enum class FilterType {
     CHARACTER,
     PEOPLE
 }
+
+enum class SeasonType {
+    Winter,
+    Spring,
+    Summer,
+    Fall
+}

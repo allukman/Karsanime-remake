@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.karsatech.karsanime.core.data.source.local.adapter.FavoriteAnimeAdapter
 import com.karsatech.karsanime.core.domain.model.Anime
 import com.karsatech.karsanime.databinding.FragmentFavoriteAnimeBinding
-import com.karsatech.karsanime.features.anime.DetailAnimeActivity
-import com.karsatech.karsanime.features.anime.DetailAnimeActivity.Companion.DETAIL_ANIME
+import com.karsatech.karsanime.features.anime.detail.DetailAnimeActivity
+import com.karsatech.karsanime.features.anime.detail.DetailAnimeActivity.Companion.DETAIL_ANIME
 import com.karsatech.karsanime.features.favorite.FavoriteViewModel
 import dagger.hilt.android.AndroidEntryPoint
 

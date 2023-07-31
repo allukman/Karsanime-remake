@@ -12,7 +12,6 @@ import com.karsatech.karsanime.core.data.source.remote.response.people.DetailPeo
 import com.karsatech.karsanime.core.data.source.remote.response.people.PeopleResponse
 import com.karsatech.karsanime.core.paging.CharactersPagingSource
 import com.karsatech.karsanime.core.paging.PeoplePagingSource
-import com.karsatech.karsanime.core.paging.SearchAnimePagingSource
 import com.karsatech.karsanime.core.paging.SearchCharacterPagingSource
 import com.karsatech.karsanime.core.paging.SearchPeoplePagingSource
 import kotlinx.coroutines.Dispatchers

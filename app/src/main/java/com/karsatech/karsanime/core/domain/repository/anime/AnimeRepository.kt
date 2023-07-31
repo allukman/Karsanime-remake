@@ -8,9 +8,12 @@ import androidx.paging.PagingData
 import androidx.paging.liveData
 import com.karsatech.karsanime.core.data.Resource
 import com.karsatech.karsanime.core.data.source.remote.network.AnimeService
+import com.karsatech.karsanime.core.data.source.remote.response.RandomAnimeResponse
 import com.karsatech.karsanime.core.data.source.remote.response.anime.AnimeResponse
 import com.karsatech.karsanime.core.data.source.remote.response.anime.DetailAnimeItem
+import com.karsatech.karsanime.core.data.source.remote.response.anime.DetailAnimeResponse
 import com.karsatech.karsanime.core.paging.AnimePagingSource
+import com.karsatech.karsanime.core.paging.AnimeSeasonalPagingSource
 import com.karsatech.karsanime.core.paging.SearchAnimePagingSource
 import com.karsatech.karsanime.core.paging.ThisSeasonAnimePagingSource
 import com.karsatech.karsanime.core.paging.UpcomingAnimePagingSource
@@ -108,4 +111,40 @@ class AnimeRepository @Inject constructor(private val animeService: AnimeService
         ).liveData
     }
 
+    override fun getRandomAnime(): Flow<Resource<RandomAnimeResponse>> {
+        return flow {
+            emit(Resource.Loading())
+            try {
+                val response = animeService.getRandomAnime()
+                emit(Resource.Success(response))
+            } catch (e: Exception) {
+                emit(Resource.Error(e.toString()))
+                Log.e("AnimeRepository", "getRandomAnime : $e")
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    override fun getAnimeSeasonalPagination(year: String, season: String): LiveData<PagingData<DetailAnimeItem>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 5
+            ),
+            pagingSourceFactory = {
+                AnimeSeasonalPagingSource(animeService, year, season)
+            }
+        ).liveData
+    }
+
+    override fun getFullDetailAnime(id: String): Flow<Resource<DetailAnimeResponse>> {
+        return flow {
+            emit(Resource.Loading())
+            try {
+                val response = animeService.getFullDetailAnime(id)
+                emit(Resource.Success(response))
+            } catch (e: Exception) {
+                emit(Resource.Error(e.toString()))
+                Log.e("AnimeRepository", "getTopAnime : $e")
+            }
+        }.flowOn(Dispatchers.IO)
+    }
 }

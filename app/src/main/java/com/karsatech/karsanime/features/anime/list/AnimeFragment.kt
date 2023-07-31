@@ -1,4 +1,4 @@
-package com.karsatech.karsanime.features.anime
+package com.karsatech.karsanime.features.anime.list
 
 import android.content.Intent
 import android.os.Bundle
@@ -15,11 +15,11 @@ import com.karsatech.karsanime.R
 import com.karsatech.karsanime.core.data.Resource
 import com.karsatech.karsanime.core.data.source.remote.response.anime.DetailAnimeItem
 import com.karsatech.karsanime.core.ui.AnimeAdapter
-import com.karsatech.karsanime.core.ui.ListAnimeAdapter
-import com.karsatech.karsanime.core.ui.PeopleAdapter
 import com.karsatech.karsanime.core.utils.DataMapper
 import com.karsatech.karsanime.core.utils.DataType
 import com.karsatech.karsanime.databinding.FragmentAnimeBinding
+import com.karsatech.karsanime.features.anime.season.AnimeSeasonActivity
+import com.karsatech.karsanime.features.anime.detail.DetailAnimeActivity
 import com.karsatech.karsanime.features.pagination.ListPaginationActivity
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -29,6 +29,7 @@ class AnimeFragment : Fragment() {
     private val animeViewModel: AnimeViewModel by viewModels()
     private var _binding: FragmentAnimeBinding? = null
     private val binding get() = _binding!!
+    private var randomInt = 0
 
     private lateinit var animeUpcomingAdapter: AnimeAdapter
     private lateinit var topAnimeAdapter: AnimeAdapter
@@ -51,7 +52,6 @@ class AnimeFragment : Fragment() {
         observeViewModelUpcoming()
         observeViewModelTopAnime()
     }
-
     private fun observeViewModelUpcoming() {
         animeViewModel.upcomingAnime.observe(viewLifecycleOwner) { upcoming ->
             when (upcoming) {
@@ -88,6 +88,33 @@ class AnimeFragment : Fragment() {
         }
     }
 
+    private fun getRandomAnime() {
+        animeViewModel.getRandomAnime(randomInt).observe(viewLifecycleOwner) { anime ->
+            when (anime) {
+                is Resource.Loading -> {
+                    binding.progressBar.visibility = View.VISIBLE
+                    binding.tvRandom.visibility = View.GONE
+                }
+
+                is Resource.Success -> {
+                    binding.progressBar.visibility = View.GONE
+                    binding.tvRandom.visibility = View.VISIBLE
+
+                    val data = DataMapper.apiResponseToAnimeModel(anime.data!!.data)
+                    val intent = Intent(activity, DetailAnimeActivity::class.java)
+                    intent.putExtra(DetailAnimeActivity.DETAIL_ANIME, data)
+                    startActivity(intent)
+                    randomInt++
+                }
+
+                is Resource.Error -> {
+                    binding.progressBar.visibility = View.GONE
+                    binding.tvRandom.visibility = View.VISIBLE
+                    randomInt++
+                }
+            }
+        }
+    }
 
     private fun setUpcomingData(data: List<DetailAnimeItem?>) {
         animeUpcomingAdapter.submitList(data)
@@ -138,6 +165,15 @@ class AnimeFragment : Fragment() {
         binding.topAnimeSeeAll.setOnClickListener {
             val intent = Intent(activity, ListPaginationActivity::class.java)
             intent.putExtra(ListPaginationActivity.SEE_ALL_PAGINATION, DataType.TOP_ANIME)
+            startActivity(intent)
+        }
+
+        binding.btnRandom.setOnClickListener {
+            getRandomAnime()
+        }
+
+        binding.btnSeason.setOnClickListener {
+            val intent = Intent(activity, AnimeSeasonActivity::class.java)
             startActivity(intent)
         }
     }

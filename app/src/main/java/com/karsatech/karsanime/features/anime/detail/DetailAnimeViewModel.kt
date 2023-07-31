@@ -1,4 +1,4 @@
-package com.karsatech.karsanime.features.anime
+package com.karsatech.karsanime.features.anime.detail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData

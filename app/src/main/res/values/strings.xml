@@ -50,11 +50,44 @@
     <string name="desc_apps_logo">Apps logo</string>
     <string name="desc_back_button_from_detail_image">Back button from detail image</string>
     <string name="desc_detail_full_image">Detail full image</string>
-
     <string name="desc_button_favorite">button favorite</string>
     <string name="desc_image_poster_anime">image poster anime</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="desc_image_thumbnail_anime">Image Thumbnail Anime</string>
+
+    <!--    Sample     -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="sample_title">Tate no Yuusha no Nariagari Season 3</string>
+    <string name="sample_rating">PG-13 - Teens 13 or older</string>
+    <string name="sample_type">TV</string>
+    <string name="sample_year">2022</string>
+    <string name="simple_season">Fall</string>
+    <string name="sample_airing">Airing from Apr 5, 2009 to Jul 4, 2010</string>
+    <string name="sample_description">After a horrific alchemy experiment goes wrong in the Elric household, brothers Edward and Alphonse are left in a catastrophic new reality. Ignoring the alchemical principle banning human transmutation, the boys attempted to bring their recently deceased mother back to life. Instead, they suffered brutal personal loss: Alphonse\'s body disintegrated while Edward lost a leg and then sacrificed an arm to keep Alphonse\'s soul in the physical realm by binding it to a hulking suit of armor.\n\nThe brothers are rescued by their neighbor Pinako Rockbell and her granddaughter Winry. Known as a bio-mechanical engineering prodigy, Winry creates prosthetic limbs for Edward by utilizing \\</string>
+    <string name="sample_ranking">#20</string>
+    <string name="sample_popularity">2415</string>
+    <string name="sample_member">67584</string>
+    <string name="sample_favorites">21341</string>
+    <string name="text_info_title">Title</string>
+    <string name="text_info_title_english">Title English</string>
+    <string name="text_info_title_japanese">Title Japanese</string>
+    <string name="text_info_source">Source</string>
+    <string name="text_info_episodes">Episodes</string>
+    <string name="text_info_airing">Airing</string>
+    <string name="text_info_airing_from">Airing from</string>
+    <string name="text_info_airing_to">Airing to</string>
+    <string name="text_info_duration">Duration</string>
+    <string name="text_info_score">Score</string>
+
+    <string name="sample_title_english">Fullmetal Alchemist: Brotherhood</string>
+    <string name="sample_title_japanese">鋼の錬金術師 FULLMETAL ALCHEMIST</string>
+    <string name="sample_source">Manga</string>
+    <string name="sample_episodes">64 episodes</string>
+    <string name="sample_info_airing">currently not airing</string>
+    <string name="sample_airing_from">Mei 5, 2009</string>
+    <string name="sample_airing_to">Jul 4, 2010</string>
+    <string name="sample_duration">24 min per episodes</string>
+    <string name="sample_info_score">9.1 (2034175)</string>
+    <string name="more_info">More info</string>
 
 
 </resources>

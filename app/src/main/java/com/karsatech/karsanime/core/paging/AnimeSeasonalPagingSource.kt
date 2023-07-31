@@ -1,18 +1,18 @@
 package com.karsatech.karsanime.core.paging
 
-import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.karsatech.karsanime.core.data.source.remote.network.AnimeService
 import com.karsatech.karsanime.core.data.source.remote.response.anime.DetailAnimeItem
 
-class AnimePagingSource(private val animeService: AnimeService): PagingSource<Int, DetailAnimeItem>() {
+class AnimeSeasonalPagingSource (private val animeService: AnimeService, private val year: String, private val season: String): PagingSource<Int, DetailAnimeItem>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, DetailAnimeItem> =
         try {
-            val position = params.key ?: INITIAL_PAGE_INDEX
 
-            val responseData = animeService.getTopAnime(position, 25).data
+            val position = params.key ?: INITIAL_PAGE_INDEX
+            val responseData = animeService.getSeasonalAnime(year, season, position, 25).data
+
 
             LoadResult.Page(
                 data = responseData,

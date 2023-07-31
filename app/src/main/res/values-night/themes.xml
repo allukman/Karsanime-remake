@@ -38,6 +38,11 @@
         <item name="android:fontFamily">@font/nunito_regular</item>
     </style>
 
+    <style name="sub_title_bold">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/nunito_bold</item>
+    </style>
     <style name="title">
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/white</item>

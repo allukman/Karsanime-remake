@@ -24,7 +24,7 @@ import com.karsatech.karsanime.core.ui.ListPeopleAdapter
 import com.karsatech.karsanime.core.utils.DataMapper
 import com.karsatech.karsanime.core.utils.FilterType
 import com.karsatech.karsanime.databinding.ActivitySearchBinding
-import com.karsatech.karsanime.features.anime.DetailAnimeActivity
+import com.karsatech.karsanime.features.anime.detail.DetailAnimeActivity
 import com.karsatech.karsanime.features.character.DetailCharacterActivity
 import com.karsatech.karsanime.features.manga.DetailMangaActivity
 import com.karsatech.karsanime.features.people.DetailPeopleActivity
@@ -100,6 +100,7 @@ class SearchActivity : AppCompatActivity() {
                         Toast.makeText(this@SearchActivity, "Anime", Toast.LENGTH_SHORT).show()
                         searchType = FilterType.ANIME
                         binding.searchButton.queryHint = "Search in anime"
+                        supportActionBar?.title = "Search anime"
                         true
                     }
 
@@ -107,6 +108,7 @@ class SearchActivity : AppCompatActivity() {
                         Toast.makeText(this@SearchActivity, "Manga", Toast.LENGTH_SHORT).show()
                         searchType = FilterType.MANGA
                         binding.searchButton.queryHint = "Search in manga"
+                        supportActionBar?.title = "Search manga"
                         true
                     }
 
@@ -114,6 +116,7 @@ class SearchActivity : AppCompatActivity() {
                         Toast.makeText(this@SearchActivity, "Character", Toast.LENGTH_SHORT).show()
                         searchType = FilterType.CHARACTER
                         binding.searchButton.queryHint = "Search in character"
+                        supportActionBar?.title = "Search manga"
                         true
                     }
 
@@ -121,9 +124,9 @@ class SearchActivity : AppCompatActivity() {
                         Toast.makeText(this@SearchActivity, "People", Toast.LENGTH_SHORT).show()
                         searchType = FilterType.PEOPLE
                         binding.searchButton.queryHint = "Search in people"
+                        supportActionBar?.title = "Search people"
                         true
                     }
-
                     else -> false
                 }
             }
