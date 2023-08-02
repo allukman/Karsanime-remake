@@ -85,8 +85,6 @@ class DetailAnimeActivity : AppCompatActivity() {
                 detailAnimeViewModel.setFavorite(data)
             }
         }
-
-
     }
 
     companion object {

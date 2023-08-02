@@ -25,4 +25,6 @@ class AnimeInteractor @Inject constructor(private val animeRepository: AnimeRepo
 
     override fun getFullDetailAnime(id: String) = animeRepository.getFullDetailAnime(id)
 
+    override fun getRecommendationAnime(id: String) = animeRepository.getRecommendationAnime(id)
+
 }

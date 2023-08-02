@@ -19,4 +19,6 @@ class FullDetailAnimeViewModel @Inject constructor(private val animeUseCase: Ani
 
     fun setUnFavorite(favId: String) = favoriteUseCase.removeFavoriteAnime(favId)
 
+    fun getRecommendationAnime(id: String) = animeUseCase.getRecommendationAnime(id).asLiveData()
+
 }

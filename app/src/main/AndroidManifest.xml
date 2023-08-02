@@ -16,8 +16,11 @@
         android:theme="@style/Theme.Karsanime"
         tools:targetApi="31">
         <activity
+            android:name=".features.WebViewActivity"
+            android:exported="false" />
+        <activity
             android:name=".features.anime.full.FullDetailAnimeActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".features.anime.season.AnimeSeasonActivity"
             android:exported="false" />

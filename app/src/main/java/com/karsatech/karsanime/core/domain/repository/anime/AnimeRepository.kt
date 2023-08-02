@@ -9,6 +9,7 @@ import androidx.paging.liveData
 import com.karsatech.karsanime.core.data.Resource
 import com.karsatech.karsanime.core.data.source.remote.network.AnimeService
 import com.karsatech.karsanime.core.data.source.remote.response.RandomAnimeResponse
+import com.karsatech.karsanime.core.data.source.remote.response.RecommendationAnimeResponse
 import com.karsatech.karsanime.core.data.source.remote.response.anime.AnimeResponse
 import com.karsatech.karsanime.core.data.source.remote.response.anime.DetailAnimeItem
 import com.karsatech.karsanime.core.data.source.remote.response.anime.DetailAnimeResponse
@@ -143,7 +144,20 @@ class AnimeRepository @Inject constructor(private val animeService: AnimeService
                 emit(Resource.Success(response))
             } catch (e: Exception) {
                 emit(Resource.Error(e.toString()))
-                Log.e("AnimeRepository", "getTopAnime : $e")
+                Log.e("AnimeRepository", "getFullDetailAnime : $e")
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    override fun getRecommendationAnime(id: String): Flow<Resource<RecommendationAnimeResponse>> {
+        return flow {
+            emit(Resource.Loading())
+            try {
+                val response = animeService.getRecommendationAnime(id)
+                emit(Resource.Success(response))
+            } catch (e: Exception) {
+                emit(Resource.Error(e.toString()))
+                Log.e("AnimeRepository", "getRecommendationAnime : $e")
             }
         }.flowOn(Dispatchers.IO)
     }

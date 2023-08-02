@@ -88,6 +88,15 @@
     <string name="sample_duration">24 min per episodes</string>
     <string name="sample_info_score">9.1 (2034175)</string>
     <string name="more_info">More info</string>
+    <string name="text_info_broadcast">Broadcast</string>
+    <string name="trailer">Trailer</string>
+    <string name="theme">Theme</string>
+    <string name="sample_theme">1: again by YUI (eps 1-14)</string>
+    <string name="external">External</string>
+    <string name="openings">Openings</string>
+    <string name="endings">Endings</string>
+    <string name="streaming">Streaming</string>
+    <string name="recommendations">Recommendations</string>
 
 
 </resources>

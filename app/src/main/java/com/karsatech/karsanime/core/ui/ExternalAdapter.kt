@@ -5,27 +5,27 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.karsatech.karsanime.core.data.source.remote.response.RecommendationItem
-import com.karsatech.karsanime.core.data.source.remote.response.anime.DetailAnimeItem
-import com.karsatech.karsanime.core.utils.UiUtils.loadImage
-import com.karsatech.karsanime.databinding.ItemListUpcomingBinding
+import com.karsatech.karsanime.core.data.source.remote.response.anime.AnimeItem
+import com.karsatech.karsanime.core.data.source.remote.response.anime.ExternalItem
+import com.karsatech.karsanime.databinding.ItemExternalBinding
+import com.karsatech.karsanime.databinding.ItemThemeBinding
 
-class AnimeAdapter :ListAdapter<DetailAnimeItem, AnimeAdapter.RecyclerViewHolder>(DIFF_CALLBACK) {
+class ExternalAdapter : ListAdapter<ExternalItem, ExternalAdapter.RecyclerViewHolder>(DIFF_CALLBACK) {
 
     private lateinit var actionAdapter: ActionAdapter
 
     companion object {
-        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<DetailAnimeItem>() {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ExternalItem>() {
             override fun areItemsTheSame(
-                oldItem: DetailAnimeItem,
-                newItem: DetailAnimeItem
+                oldItem: ExternalItem,
+                newItem: ExternalItem
             ): Boolean {
                 return oldItem == newItem
             }
 
             override fun areContentsTheSame(
-                oldItem: DetailAnimeItem,
-                newItem: DetailAnimeItem
+                oldItem: ExternalItem,
+                newItem: ExternalItem
             ): Boolean {
                 return oldItem == newItem
             }
@@ -33,7 +33,7 @@ class AnimeAdapter :ListAdapter<DetailAnimeItem, AnimeAdapter.RecyclerViewHolder
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {
-        val bind = ItemListUpcomingBinding.inflate(
+        val bind = ItemExternalBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
@@ -50,14 +50,13 @@ class AnimeAdapter :ListAdapter<DetailAnimeItem, AnimeAdapter.RecyclerViewHolder
         this.actionAdapter = onItemClickCallback
     }
 
-    inner class RecyclerViewHolder(private val bind: ItemListUpcomingBinding) :
+    inner class RecyclerViewHolder(private val bind: ItemExternalBinding) :
         RecyclerView.ViewHolder(bind.root) {
-        fun bind(data: DetailAnimeItem) {
+        fun bind(data: ExternalItem) {
             with(bind) {
-                title.text = data.title
-                imagePoster.loadImage(data.images!!.jpg!!.largeImageUrl, itemView.context, progressBar)
+                tvTitle.text = data.name
 
-                itemView.setOnClickListener {
+                tvTitle.setOnClickListener {
                     actionAdapter.onItemClick(data)
                 }
 
@@ -66,6 +65,6 @@ class AnimeAdapter :ListAdapter<DetailAnimeItem, AnimeAdapter.RecyclerViewHolder
     }
 
     interface ActionAdapter {
-        fun onItemClick(data: DetailAnimeItem)
+        fun onItemClick(data: ExternalItem)
     }
 }

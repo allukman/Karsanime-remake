@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.paging.PagingData
 import com.karsatech.karsanime.core.data.Resource
 import com.karsatech.karsanime.core.data.source.remote.response.RandomAnimeResponse
+import com.karsatech.karsanime.core.data.source.remote.response.RecommendationAnimeResponse
 import com.karsatech.karsanime.core.data.source.remote.response.anime.AnimeResponse
 import com.karsatech.karsanime.core.data.source.remote.response.anime.DetailAnimeItem
 import com.karsatech.karsanime.core.data.source.remote.response.anime.DetailAnimeResponse
@@ -30,5 +31,7 @@ interface IAnimeRepository {
     fun getAnimeSeasonalPagination(year: String, season: String): LiveData<PagingData<DetailAnimeItem>>
 
     fun getFullDetailAnime(id: String): Flow<Resource<DetailAnimeResponse>>
+
+    fun getRecommendationAnime(id: String): Flow<Resource<RecommendationAnimeResponse>>
 
 }

@@ -1,6 +1,7 @@
 package com.karsatech.karsanime.core.data.source.remote.network
 
 import com.karsatech.karsanime.core.data.source.remote.response.RandomAnimeResponse
+import com.karsatech.karsanime.core.data.source.remote.response.RecommendationAnimeResponse
 import com.karsatech.karsanime.core.data.source.remote.response.anime.AnimeResponse
 import com.karsatech.karsanime.core.data.source.remote.response.anime.DetailAnimeItem
 import com.karsatech.karsanime.core.data.source.remote.response.anime.DetailAnimeResponse
@@ -50,5 +51,10 @@ interface AnimeService {
     suspend fun getFullDetailAnime(
         @Path("id") id: String
     ) : DetailAnimeResponse
+
+    @GET("anime/{id}/recommendations")
+    suspend fun getRecommendationAnime(
+        @Path("id") id: String
+    ) : RecommendationAnimeResponse
 
 }

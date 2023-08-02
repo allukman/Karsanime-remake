@@ -6,26 +6,26 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.karsatech.karsanime.core.data.source.remote.response.RecommendationItem
-import com.karsatech.karsanime.core.data.source.remote.response.anime.DetailAnimeItem
 import com.karsatech.karsanime.core.utils.UiUtils.loadImage
 import com.karsatech.karsanime.databinding.ItemListUpcomingBinding
 
-class AnimeAdapter :ListAdapter<DetailAnimeItem, AnimeAdapter.RecyclerViewHolder>(DIFF_CALLBACK) {
+class RecommendationAnimeAdapter :
+    ListAdapter<RecommendationItem, RecommendationAnimeAdapter.RecyclerViewHolder>(DIFF_CALLBACK) {
 
     private lateinit var actionAdapter: ActionAdapter
 
     companion object {
-        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<DetailAnimeItem>() {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<RecommendationItem>() {
             override fun areItemsTheSame(
-                oldItem: DetailAnimeItem,
-                newItem: DetailAnimeItem
+                oldItem: RecommendationItem,
+                newItem: RecommendationItem
             ): Boolean {
                 return oldItem == newItem
             }
 
             override fun areContentsTheSame(
-                oldItem: DetailAnimeItem,
-                newItem: DetailAnimeItem
+                oldItem: RecommendationItem,
+                newItem: RecommendationItem
             ): Boolean {
                 return oldItem == newItem
             }
@@ -52,10 +52,16 @@ class AnimeAdapter :ListAdapter<DetailAnimeItem, AnimeAdapter.RecyclerViewHolder
 
     inner class RecyclerViewHolder(private val bind: ItemListUpcomingBinding) :
         RecyclerView.ViewHolder(bind.root) {
-        fun bind(data: DetailAnimeItem) {
+        fun bind(data: RecommendationItem) {
             with(bind) {
-                title.text = data.title
-                imagePoster.loadImage(data.images!!.jpg!!.largeImageUrl, itemView.context, progressBar)
+                val anime = data.entry
+
+                title.text = anime?.title
+                imagePoster.loadImage(
+                    anime?.images?.jpg?.largeImageUrl,
+                    itemView.context,
+                    progressBar
+                )
 
                 itemView.setOnClickListener {
                     actionAdapter.onItemClick(data)
@@ -66,6 +72,6 @@ class AnimeAdapter :ListAdapter<DetailAnimeItem, AnimeAdapter.RecyclerViewHolder
     }
 
     interface ActionAdapter {
-        fun onItemClick(data: DetailAnimeItem)
+        fun onItemClick(data: RecommendationItem)
     }
 }

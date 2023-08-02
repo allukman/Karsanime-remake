@@ -5,10 +5,12 @@
 
     <color name="grey">#F6F3F3</color>
     <color name="grey_text">#808080</color>
+    <color name="grey_text_secondary">#CAC7C7</color>
     <color name="dark">#171d25</color>
 
     <color name="elm">#206b82</color>
     <color name="elm_secondary">#279BBF</color>
+    <color name="blue">#2196f3</color>
 
     <color name="shimmer">#DDDDDD</color>
     <color name="pink_salmon">#FA8072</color>
