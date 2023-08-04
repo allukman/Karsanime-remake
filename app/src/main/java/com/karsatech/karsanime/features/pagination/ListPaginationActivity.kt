@@ -44,7 +44,6 @@ class ListPaginationActivity : AppCompatActivity() {
     private lateinit var listUpcomingAnimeAdapter: ListAnimeAdapter
     private lateinit var listThisSeasonAnimeAdapter: ListAnimeAdapter
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityListPaginationBinding.inflate(layoutInflater)

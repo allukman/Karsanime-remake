@@ -49,6 +49,7 @@
         <item name="android:textColor">@color/white</item>
         <item name="android:fontFamily">@font/nunito_bold</item>
     </style>
+
     <style name="title">
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/white</item>
@@ -59,5 +60,10 @@
         <item name="android:textSize">32sp</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:fontFamily">@font/nunito_regular</item>
+    </style>
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Karsanime" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your dark theme here. -->
+        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
     </style>
 </resources>

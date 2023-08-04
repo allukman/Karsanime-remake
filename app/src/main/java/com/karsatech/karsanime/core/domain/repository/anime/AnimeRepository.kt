@@ -8,11 +8,15 @@ import androidx.paging.PagingData
 import androidx.paging.liveData
 import com.karsatech.karsanime.core.data.Resource
 import com.karsatech.karsanime.core.data.source.remote.network.AnimeService
-import com.karsatech.karsanime.core.data.source.remote.response.RandomAnimeResponse
 import com.karsatech.karsanime.core.data.source.remote.response.RecommendationAnimeResponse
 import com.karsatech.karsanime.core.data.source.remote.response.anime.AnimeResponse
+import com.karsatech.karsanime.core.data.source.remote.response.anime.AnimeStatisticResponse
+import com.karsatech.karsanime.core.data.source.remote.response.anime.CharacterAnimeResponse
 import com.karsatech.karsanime.core.data.source.remote.response.anime.DetailAnimeItem
 import com.karsatech.karsanime.core.data.source.remote.response.anime.DetailAnimeResponse
+import com.karsatech.karsanime.core.data.source.remote.response.anime.EpisodesAnimeResponse
+import com.karsatech.karsanime.core.data.source.remote.response.anime.NewsAnimeResponse
+import com.karsatech.karsanime.core.data.source.remote.response.anime.RandomAnimeResponse
 import com.karsatech.karsanime.core.paging.AnimePagingSource
 import com.karsatech.karsanime.core.paging.AnimeSeasonalPagingSource
 import com.karsatech.karsanime.core.paging.SearchAnimePagingSource
@@ -161,4 +165,57 @@ class AnimeRepository @Inject constructor(private val animeService: AnimeService
             }
         }.flowOn(Dispatchers.IO)
     }
+
+    override fun getStatisticAnime(id: String): Flow<Resource<AnimeStatisticResponse>> {
+        return flow {
+            emit(Resource.Loading())
+            try {
+                val response = animeService.getStatisticAnime(id)
+                emit(Resource.Success(response))
+            } catch (e: Exception) {
+                emit(Resource.Error(e.toString()))
+                Log.e("AnimeRepository", "getStatisticAnime : $e")
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    override fun getCharacterAnime(id: String): Flow<Resource<CharacterAnimeResponse>> {
+        return flow {
+            emit(Resource.Loading())
+            try {
+                val response = animeService.getCharacterAnime(id)
+                emit(Resource.Success(response))
+            } catch (e: Exception) {
+                emit(Resource.Error(e.toString()))
+                Log.e("AnimeRepository", "getCharacterAnime : $e")
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    override fun getEpisodesAnime(id: String): Flow<Resource<EpisodesAnimeResponse>> {
+        return flow {
+            emit(Resource.Loading())
+            try {
+                val response = animeService.getEpisodesAnime(id)
+                emit(Resource.Success(response))
+            } catch (e: Exception) {
+                emit(Resource.Error(e.toString()))
+                Log.e("AnimeRepository", "getEpisodesAnime : $e")
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    override fun getNewsAnime(id: String): Flow<Resource<NewsAnimeResponse>> {
+        return flow {
+            emit(Resource.Loading())
+            try {
+                val response = animeService.getNewsAnime(id)
+                emit(Resource.Success(response))
+            } catch (e: Exception) {
+                emit(Resource.Error(e.toString()))
+                Log.e("AnimeRepository", "getNewsAnime : $e")
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
 }

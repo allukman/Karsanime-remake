@@ -11,14 +11,15 @@ import javax.inject.Inject
 @HiltViewModel
 class FullDetailAnimeViewModel @Inject constructor(private val animeUseCase: AnimeUseCase, private val favoriteUseCase: FavoriteUseCase) : ViewModel() {
 
-    fun getFullDetailAnime(id: String) = animeUseCase.getFullDetailAnime(id).asLiveData()
-
     fun getFavoriteByMalId(favId: String) = favoriteUseCase.getFavoriteAnimeById(favId).asLiveData()
 
     fun setFavorite(favAnime: Anime) = favoriteUseCase.setFavoriteAnime(favAnime)
 
     fun setUnFavorite(favId: String) = favoriteUseCase.removeFavoriteAnime(favId)
 
+    fun getFullDetailAnime(id: String) = animeUseCase.getFullDetailAnime(id).asLiveData()
+
     fun getRecommendationAnime(id: String) = animeUseCase.getRecommendationAnime(id).asLiveData()
+
 
 }

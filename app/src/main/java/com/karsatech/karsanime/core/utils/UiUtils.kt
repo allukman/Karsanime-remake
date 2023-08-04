@@ -105,4 +105,8 @@ object UiUtils {
         return substring(0, 1).uppercase(Locale.getDefault()) + substring(1)
     }
 
+    fun Int.formatWithThousandsSeparator(): String {
+        return String.format("%,d", this).replace(",", ".")
+    }
+
 }

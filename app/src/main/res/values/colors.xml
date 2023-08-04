@@ -10,8 +10,13 @@
 
     <color name="elm">#206b82</color>
     <color name="elm_secondary">#279BBF</color>
-    <color name="blue">#2196f3</color>
 
     <color name="shimmer">#DDDDDD</color>
     <color name="pink_salmon">#FA8072</color>
+
+    <color name="green">#4CAF50</color>
+    <color name="blue">#2196f3</color>
+    <color name="yellow">#FFEB3B</color>
+    <color name="red">#F44336</color>
+
 </resources>

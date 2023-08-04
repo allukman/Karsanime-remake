@@ -3,11 +3,15 @@ package com.karsatech.karsanime.core.domain.usecase.anime
 import androidx.lifecycle.LiveData
 import androidx.paging.PagingData
 import com.karsatech.karsanime.core.data.Resource
-import com.karsatech.karsanime.core.data.source.remote.response.RandomAnimeResponse
 import com.karsatech.karsanime.core.data.source.remote.response.RecommendationAnimeResponse
 import com.karsatech.karsanime.core.data.source.remote.response.anime.AnimeResponse
+import com.karsatech.karsanime.core.data.source.remote.response.anime.AnimeStatisticResponse
+import com.karsatech.karsanime.core.data.source.remote.response.anime.CharacterAnimeResponse
 import com.karsatech.karsanime.core.data.source.remote.response.anime.DetailAnimeItem
 import com.karsatech.karsanime.core.data.source.remote.response.anime.DetailAnimeResponse
+import com.karsatech.karsanime.core.data.source.remote.response.anime.EpisodesAnimeResponse
+import com.karsatech.karsanime.core.data.source.remote.response.anime.NewsAnimeResponse
+import com.karsatech.karsanime.core.data.source.remote.response.anime.RandomAnimeResponse
 import kotlinx.coroutines.flow.Flow
 
 interface AnimeUseCase {
@@ -22,4 +26,8 @@ interface AnimeUseCase {
     fun getAnimeSeasonalPagination(year: String, season: String): LiveData<PagingData<DetailAnimeItem>>
     fun getFullDetailAnime(id: String): Flow<Resource<DetailAnimeResponse>>
     fun getRecommendationAnime(id: String): Flow<Resource<RecommendationAnimeResponse>>
+    fun getStatisticAnime(id: String): Flow<Resource<AnimeStatisticResponse>>
+    fun getCharacterAnime(id: String): Flow<Resource<CharacterAnimeResponse>>
+    fun getEpisodesAnime(id: String): Flow<Resource<EpisodesAnimeResponse>>
+    fun getNewsAnime(id: String): Flow<Resource<NewsAnimeResponse>>
 }

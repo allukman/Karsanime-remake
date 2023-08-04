@@ -1,4 +1,4 @@
-package com.karsatech.karsanime.core.data.source.remote.response
+package com.karsatech.karsanime.core.data.source.remote.response.anime
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName

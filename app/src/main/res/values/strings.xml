@@ -45,6 +45,39 @@
     <string name="favorite_title">My Favorite</string>
     <string name="empty_favorite">You don\'t have any favorite yet</string>
 
+    <string name="statistic">Statistic</string>
+    <string name="watching">Watching</string>
+    <string name="completed">Completed</string>
+    <string name="on_hold">On hold</string>
+    <string name="dropped">Dropped</string>
+    <string name="plan_to_watch">Plan to watch</string>
+
+    <string name="text_info_title">Title</string>
+    <string name="text_info_title_english">Title English</string>
+    <string name="text_info_title_japanese">Title Japanese</string>
+    <string name="text_info_source">Source</string>
+    <string name="text_info_episodes">Episodes</string>
+    <string name="text_info_airing">Airing</string>
+    <string name="text_info_airing_from">Airing from</string>
+    <string name="text_info_airing_to">Airing to</string>
+    <string name="text_info_duration">Duration</string>
+    <string name="text_info_score">Score</string>
+
+    <string name="more_info">More info</string>
+    <string name="text_info_broadcast">Broadcast</string>
+    <string name="trailer">Trailer</string>
+    <string name="theme">Theme</string>
+    <string name="sample_theme">1: again by YUI (eps 1-14)</string>
+    <string name="external">External</string>
+    <string name="openings">Openings</string>
+    <string name="endings">Endings</string>
+    <string name="streaming">Streaming</string>
+    <string name="recommendations">Recommendations</string>
+    <string name="synopsis">Synopsis</string>
+    <string name="list_character">List Character</string>
+    <string name="list_episodes">List Episodes</string>
+    <string name="list_anime_staff">List anime staff</string>
+
     <!--    Image Description   -->
 
     <string name="desc_apps_logo">Apps logo</string>
@@ -67,17 +100,6 @@
     <string name="sample_popularity">2415</string>
     <string name="sample_member">67584</string>
     <string name="sample_favorites">21341</string>
-    <string name="text_info_title">Title</string>
-    <string name="text_info_title_english">Title English</string>
-    <string name="text_info_title_japanese">Title Japanese</string>
-    <string name="text_info_source">Source</string>
-    <string name="text_info_episodes">Episodes</string>
-    <string name="text_info_airing">Airing</string>
-    <string name="text_info_airing_from">Airing from</string>
-    <string name="text_info_airing_to">Airing to</string>
-    <string name="text_info_duration">Duration</string>
-    <string name="text_info_score">Score</string>
-
     <string name="sample_title_english">Fullmetal Alchemist: Brotherhood</string>
     <string name="sample_title_japanese">鋼の錬金術師 FULLMETAL ALCHEMIST</string>
     <string name="sample_source">Manga</string>
@@ -87,16 +109,13 @@
     <string name="sample_airing_to">Jul 4, 2010</string>
     <string name="sample_duration">24 min per episodes</string>
     <string name="sample_info_score">9.1 (2034175)</string>
-    <string name="more_info">More info</string>
-    <string name="text_info_broadcast">Broadcast</string>
-    <string name="trailer">Trailer</string>
-    <string name="theme">Theme</string>
-    <string name="sample_theme">1: again by YUI (eps 1-14)</string>
-    <string name="external">External</string>
-    <string name="openings">Openings</string>
-    <string name="endings">Endings</string>
-    <string name="streaming">Streaming</string>
-    <string name="recommendations">Recommendations</string>
 
+    <string name="title_activity_statistic">ActivityStatistic</string>
 
+    <!--    Placeholder     -->
+
+    <string name="format_statistic">%1$s (%2$s)</string>
+    <string name="staff">Staff</string>
+    <string name="anime_news">Anime News</string>
+    <string name="reviews">Reviews</string>
 </resources>
