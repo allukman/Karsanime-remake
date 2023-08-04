@@ -11,7 +11,9 @@ import com.karsatech.karsanime.core.data.source.remote.response.anime.DetailAnim
 import com.karsatech.karsanime.core.data.source.remote.response.anime.DetailAnimeResponse
 import com.karsatech.karsanime.core.data.source.remote.response.anime.EpisodesAnimeResponse
 import com.karsatech.karsanime.core.data.source.remote.response.anime.NewsAnimeResponse
+import com.karsatech.karsanime.core.data.source.remote.response.anime.PictureAnimeResponse
 import com.karsatech.karsanime.core.data.source.remote.response.anime.RandomAnimeResponse
+import com.karsatech.karsanime.core.data.source.remote.response.anime.ReviewAnimeResponse
 import kotlinx.coroutines.flow.Flow
 
 interface AnimeUseCase {
@@ -30,4 +32,6 @@ interface AnimeUseCase {
     fun getCharacterAnime(id: String): Flow<Resource<CharacterAnimeResponse>>
     fun getEpisodesAnime(id: String): Flow<Resource<EpisodesAnimeResponse>>
     fun getNewsAnime(id: String): Flow<Resource<NewsAnimeResponse>>
+    fun getReviewAnime(id: String): Flow<Resource<ReviewAnimeResponse>>
+    fun getPicturesAnime(id: String): Flow<Resource<PictureAnimeResponse>>
 }

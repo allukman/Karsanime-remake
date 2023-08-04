@@ -7,7 +7,9 @@ import com.karsatech.karsanime.core.data.source.remote.response.anime.CharacterA
 import com.karsatech.karsanime.core.data.source.remote.response.anime.DetailAnimeResponse
 import com.karsatech.karsanime.core.data.source.remote.response.anime.EpisodesAnimeResponse
 import com.karsatech.karsanime.core.data.source.remote.response.anime.NewsAnimeResponse
+import com.karsatech.karsanime.core.data.source.remote.response.anime.PictureAnimeResponse
 import com.karsatech.karsanime.core.data.source.remote.response.anime.RandomAnimeResponse
+import com.karsatech.karsanime.core.data.source.remote.response.anime.ReviewAnimeResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -79,4 +81,14 @@ interface AnimeService {
     suspend fun getNewsAnime(
         @Path("id") id: String
     ) : NewsAnimeResponse
+
+    @GET("anime/{id}/reviews")
+    suspend fun getReviewsAnime(
+        @Path("id") id: String
+    ) : ReviewAnimeResponse
+
+    @GET("anime/{id}/pictures")
+    suspend fun getPicturesAnime(
+        @Path("id") id: String
+    ) : PictureAnimeResponse
 }

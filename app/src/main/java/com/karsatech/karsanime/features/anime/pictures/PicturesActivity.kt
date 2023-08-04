@@ -1,70 +1,74 @@
-package com.karsatech.karsanime.features.anime.review
+package com.karsatech.karsanime.features.anime.pictures
 
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.karsatech.karsanime.R
 import com.karsatech.karsanime.core.data.Resource
+import com.karsatech.karsanime.core.data.source.remote.response.anime.PictureItem
 import com.karsatech.karsanime.core.data.source.remote.response.anime.ReviewItem
+import com.karsatech.karsanime.core.ui.PicturesAdapter
 import com.karsatech.karsanime.core.ui.ReviewAdapter
-import com.karsatech.karsanime.databinding.ActivityReviewBinding
+import com.karsatech.karsanime.databinding.ActivityPicturesBinding
+import com.karsatech.karsanime.features.anime.review.ReviewActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ReviewActivity : AppCompatActivity() {
+class PicturesActivity : AppCompatActivity() {
 
-    private val reviewViewModel: ReviewViewModel by viewModels()
-
-    private lateinit var binding: ActivityReviewBinding
-    private lateinit var reviewAdapter: ReviewAdapter
+    private val picturesViewModel: PicturesViewModel by viewModels()
+    private lateinit var binding: ActivityPicturesBinding
+    private lateinit var picturesAdapter: PicturesAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityReviewBinding.inflate(layoutInflater)
+        binding = ActivityPicturesBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
-        supportActionBar?.title = "Anime Review"
+        supportActionBar?.title = "Anime Pictures"
 
-        val animeId = intent.getStringExtra(REVIEW_ANIME_ID)
+        val animeId = intent.getStringExtra(PICTURES_ANIME_ID)
 
         initializeRecyclerViews()
         observeViewModel(animeId.toString())
     }
 
     private fun initializeRecyclerViews() {
-        binding.rvAnimeReview.apply {
-            layoutManager = LinearLayoutManager(this@ReviewActivity, RecyclerView.VERTICAL, false)
-            reviewAdapter = ReviewAdapter(this)
-            adapter = reviewAdapter
+        binding.rvAnimePictures.apply {
+            layoutManager = GridLayoutManager(this@PicturesActivity, 3)
+            picturesAdapter = PicturesAdapter(this@PicturesActivity)
+            adapter = picturesAdapter
         }
     }
 
-    private fun setAnimeReviewData(data: List<ReviewItem?>) {
-        reviewAdapter.submitList(data)
+    private fun setAnimePicturesData(data: List<PictureItem?>) {
+        picturesAdapter.submitList(data)
     }
 
     private fun observeViewModel(id: String) {
-        reviewViewModel.getReviewAnime(id).observe(this) { anime ->
+        picturesViewModel.getPicturesAnime(id).observe(this) { anime ->
             when (anime) {
-                is Resource.Loading -> showLoadingState(binding.progressAnimeReview)
+                is Resource.Loading -> showLoadingState(binding.progressAnimePictures)
 
                 is Resource.Success -> {
-                    hideLoadingState(binding.progressAnimeReview)
-                    anime.data?.data?.let { setAnimeReviewData(it) }
+                    hideLoadingState(binding.progressAnimePictures)
+                    anime.data?.data?.let { setAnimePicturesData(it) }
                 }
 
                 is Resource.Error -> {
-                    hideLoadingState(binding.progressAnimeReview)
-                    showErrorState(binding.errorAnimeReview, anime.message ?: getString(R.string.something_wrong))
+                    hideLoadingState(binding.progressAnimePictures)
+                    showErrorState(binding.errorAnimePictures, anime.message ?: getString(R.string.something_wrong))
                 }
             }
         }
@@ -80,11 +84,11 @@ class ReviewActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun showLoadingState(progressBar: ShimmerFrameLayout) {
+    private fun showLoadingState(progressBar: ProgressBar) {
         progressBar.visibility = View.VISIBLE
     }
 
-    private fun hideLoadingState(progressBar: ShimmerFrameLayout) {
+    private fun hideLoadingState(progressBar: ProgressBar) {
         progressBar.visibility = View.GONE
     }
 
@@ -94,6 +98,6 @@ class ReviewActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val REVIEW_ANIME_ID = "REVIEW_ANIME_ID"
+        const val PICTURES_ANIME_ID = "PICTURES_ANIME_ID"
     }
 }

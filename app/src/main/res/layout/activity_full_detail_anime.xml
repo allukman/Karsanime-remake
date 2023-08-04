@@ -67,7 +67,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/dimen_16dp"
-                android:text="@string/list_character"
+                android:text="@string/anime_character"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -92,7 +92,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/dimen_16dp"
-                android:text="@string/list_episodes"
+                android:text="@string/anime_episodes"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -135,14 +135,39 @@
             android:background="@drawable/rounded_background_2"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_episodes">
+            app:layout_constraintTop_toBottomOf="@id/btn_news">
 
             <TextView
                 style="@style/description_bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/dimen_16dp"
-                android:text="@string/reviews"
+                android:text="@string/anime_reviews"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/btn_pictures"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_24dp"
+            android:layout_marginTop="@dimen/dimen_8dp"
+            android:background="@drawable/rounded_background_2"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_reviews">
+
+            <TextView
+                style="@style/description_bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dimen_16dp"
+                android:text="@string/anime_pictures"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -154,7 +179,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/dimen_24dp"
-            app:layout_constraintTop_toBottomOf="@id/btn_news" />
+            app:layout_constraintTop_toBottomOf="@id/btn_pictures" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

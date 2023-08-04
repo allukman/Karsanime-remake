@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".features.anime.review.ReviewActivity">
+    tools:context=".features.anime.pictures.PicturesActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
@@ -26,7 +26,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_anime_review"
+        android:id="@+id/layout_anime_pictures"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -35,13 +35,13 @@
         app:layout_constraintTop_toBottomOf="@id/appbar">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_anime_review"
+            android:id="@+id/rv_anime_pictures"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/error_anime_review"
+            android:id="@+id/error_anime_pictures"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -53,35 +53,16 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
-        <com.facebook.shimmer.ShimmerFrameLayout
-            android:id="@+id/progress_anime_review"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:shimmer_auto_start="true">
-
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <include layout="@layout/item_list_anime_placeholder" />
-
-                    <include layout="@layout/item_list_anime_placeholder" />
-
-                    <include layout="@layout/item_list_anime_placeholder" />
-
-                    <include layout="@layout/item_list_anime_placeholder" />
-
-                    <include layout="@layout/item_list_anime_placeholder" />
-                </LinearLayout>
-            </ScrollView>
-        </com.facebook.shimmer.ShimmerFrameLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ProgressBar
+        android:id="@+id/progress_anime_pictures"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminateTint="?attr/colorAccent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

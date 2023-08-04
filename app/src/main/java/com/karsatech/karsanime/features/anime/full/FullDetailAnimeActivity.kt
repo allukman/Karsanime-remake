@@ -34,6 +34,10 @@ import com.karsatech.karsanime.features.anime.episodes.EpisodesActivity.Companio
 import com.karsatech.karsanime.features.anime.episodes.EpisodesActivity.Companion.EPISODES_ANIME_TITLE
 import com.karsatech.karsanime.features.anime.news.NewsActivity
 import com.karsatech.karsanime.features.anime.news.NewsActivity.Companion.NEWS_ANIME_ID
+import com.karsatech.karsanime.features.anime.pictures.PicturesActivity
+import com.karsatech.karsanime.features.anime.pictures.PicturesActivity.Companion.PICTURES_ANIME_ID
+import com.karsatech.karsanime.features.anime.review.ReviewActivity
+import com.karsatech.karsanime.features.anime.review.ReviewActivity.Companion.REVIEW_ANIME_ID
 import com.karsatech.karsanime.features.anime.statistic.StatisticActivity
 import com.karsatech.karsanime.features.anime.statistic.StatisticActivity.Companion.STATISTIC_ANIME_ID
 import com.karsatech.karsanime.features.anime.statistic.StatisticActivity.Companion.STATISTIC_ANIME_TITLE
@@ -84,27 +88,47 @@ class FullDetailAnimeActivity : AppCompatActivity() {
             adapter = genreAdapter
         }
         binding.midView.rvOpenings.apply {
-            layoutManager = LinearLayoutManager(this@FullDetailAnimeActivity, LinearLayoutManager.VERTICAL, false)
+            layoutManager = LinearLayoutManager(
+                this@FullDetailAnimeActivity,
+                LinearLayoutManager.VERTICAL,
+                false
+            )
             openingThemeAdapter = ThemeAdapter()
             adapter = openingThemeAdapter
         }
         binding.midView.rvEndings.apply {
-            layoutManager = LinearLayoutManager(this@FullDetailAnimeActivity, LinearLayoutManager.VERTICAL, false)
+            layoutManager = LinearLayoutManager(
+                this@FullDetailAnimeActivity,
+                LinearLayoutManager.VERTICAL,
+                false
+            )
             endingThemeAdapter = ThemeAdapter()
             adapter = endingThemeAdapter
         }
         binding.midView.rvExternal.apply {
-            layoutManager = LinearLayoutManager(this@FullDetailAnimeActivity, LinearLayoutManager.VERTICAL, false)
+            layoutManager = LinearLayoutManager(
+                this@FullDetailAnimeActivity,
+                LinearLayoutManager.VERTICAL,
+                false
+            )
             externalAdapter = ExternalAdapter()
             adapter = externalAdapter
         }
         binding.midView.rvStreaming.apply {
-            layoutManager = LinearLayoutManager(this@FullDetailAnimeActivity, LinearLayoutManager.VERTICAL, false)
+            layoutManager = LinearLayoutManager(
+                this@FullDetailAnimeActivity,
+                LinearLayoutManager.VERTICAL,
+                false
+            )
             streamingAdapter = ExternalAdapter()
             adapter = streamingAdapter
         }
         binding.midView.rvRecommendation.apply {
-            layoutManager = LinearLayoutManager(this@FullDetailAnimeActivity, LinearLayoutManager.HORIZONTAL, false)
+            layoutManager = LinearLayoutManager(
+                this@FullDetailAnimeActivity,
+                LinearLayoutManager.HORIZONTAL,
+                false
+            )
             recommendationAdapter = RecommendationAnimeAdapter()
             adapter = recommendationAdapter
         }
@@ -240,7 +264,8 @@ class FullDetailAnimeActivity : AppCompatActivity() {
     private fun setRecommendationsData(data: List<RecommendationItem?>) {
         recommendationAdapter.submitList(data)
 
-        recommendationAdapter.setOnItemClickCallback(object : RecommendationAnimeAdapter.ActionAdapter {
+        recommendationAdapter.setOnItemClickCallback(object :
+            RecommendationAnimeAdapter.ActionAdapter {
             override fun onItemClick(data: RecommendationItem) {
 
             }
@@ -301,37 +326,44 @@ class FullDetailAnimeActivity : AppCompatActivity() {
         binding.topView.year.text = if (data.year != null) data.year.toString() else ""
         binding.topView.season.text = data.season ?: ""
         binding.topView.score.text = "${data.score} (${data.scoredBy})"
-        binding.topView.textRanking.text = if (data.rank != null) "#${data.rank.formatWithThousandsSeparator()}" else "n/a"
-        binding.topView.textPopularity.text = if (data.popularity != null) "#${data.popularity.formatWithThousandsSeparator()}" else "n/a"
-        binding.topView.textMember.text = if (data.members != null) data.members.formatWithThousandsSeparator() else "n/a"
-        binding.topView.textFavorites.text = if (data.favorites != null) data.favorites.formatWithThousandsSeparator() else "n/a"
+        binding.topView.textRanking.text =
+            if (data.rank != null) "#${data.rank.formatWithThousandsSeparator()}" else "n/a"
+        binding.topView.textPopularity.text =
+            if (data.popularity != null) "#${data.popularity.formatWithThousandsSeparator()}" else "n/a"
+        binding.topView.textMember.text =
+            if (data.members != null) data.members.formatWithThousandsSeparator() else "n/a"
+        binding.topView.textFavorites.text =
+            if (data.favorites != null) data.favorites.formatWithThousandsSeparator() else "n/a"
         binding.topView.synopsis.text = data.synopsis ?: ""
         binding.midView.infoTitle.text = data.title ?: ""
         binding.midView.infoTitleEnglish.text = data.titleEnglish ?: ""
         binding.midView.infoTitleJapanese.text = data.titleJapanese ?: ""
         binding.midView.infoSource.text = data.source ?: ""
-        binding.midView.infoEpisodes.text = if (data.episodes != null) data.episodes.toString() else ""
+        binding.midView.infoEpisodes.text =
+            if (data.episodes != null) data.episodes.toString() else ""
         binding.midView.infoAiring.text = data.aired?.string ?: ""
         binding.midView.infoAiringFrom.text = data.aired?.from?.withDateFormat()
         binding.midView.infoAiringTo.text = data.aired?.to?.withDateFormat()
         binding.midView.infoDuration.text = data.duration ?: ""
         binding.midView.infoBroadcast.text = data.broadcast?.string ?: ""
 
-        binding.midView.youtubePlayer.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
+        binding.midView.youtubePlayer.addYouTubePlayerListener(object :
+            AbstractYouTubePlayerListener() {
             override fun onReady(youTubePlayer: YouTubePlayer) {
                 youTubePlayer.loadVideo(data.trailer?.youtubeId.toString(), 0f)
             }
         })
 
-        fullDetailAnimeViewModel.getFavoriteByMalId(data.malId.toString()).observe(this) { listAnime ->
-            isFavorite = if (listAnime.isEmpty()) {
-                binding.topView.imageFavorite.setImageResource(R.drawable.ic_baseline_unfavorite_24)
-                false
-            } else {
-                binding.topView.imageFavorite.setImageResource(R.drawable.ic_baseline_favorite_24)
-                true
+        fullDetailAnimeViewModel.getFavoriteByMalId(data.malId.toString())
+            .observe(this) { listAnime ->
+                isFavorite = if (listAnime.isEmpty()) {
+                    binding.topView.imageFavorite.setImageResource(R.drawable.ic_baseline_unfavorite_24)
+                    false
+                } else {
+                    binding.topView.imageFavorite.setImageResource(R.drawable.ic_baseline_favorite_24)
+                    true
+                }
             }
-        }
 
         val anime = DataMapper.apiResponseToAnimeModel(data)
         binding.topView.btnFavorite.setOnClickListener {
@@ -366,6 +398,18 @@ class FullDetailAnimeActivity : AppCompatActivity() {
         binding.btnNews.setOnClickListener {
             val intent = Intent(this, NewsActivity::class.java)
             intent.putExtra(NEWS_ANIME_ID, data.malId.toString())
+            startActivity(intent)
+        }
+
+        binding.btnReviews.setOnClickListener {
+            val intent = Intent(this, ReviewActivity::class.java)
+            intent.putExtra(REVIEW_ANIME_ID, data.malId.toString())
+            startActivity(intent)
+        }
+
+        binding.btnPictures.setOnClickListener {
+            val intent = Intent(this, PicturesActivity::class.java)
+            intent.putExtra(PICTURES_ANIME_ID, data.malId.toString())
             startActivity(intent)
         }
     }

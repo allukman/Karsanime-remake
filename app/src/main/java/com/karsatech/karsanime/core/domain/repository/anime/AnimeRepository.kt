@@ -16,7 +16,9 @@ import com.karsatech.karsanime.core.data.source.remote.response.anime.DetailAnim
 import com.karsatech.karsanime.core.data.source.remote.response.anime.DetailAnimeResponse
 import com.karsatech.karsanime.core.data.source.remote.response.anime.EpisodesAnimeResponse
 import com.karsatech.karsanime.core.data.source.remote.response.anime.NewsAnimeResponse
+import com.karsatech.karsanime.core.data.source.remote.response.anime.PictureAnimeResponse
 import com.karsatech.karsanime.core.data.source.remote.response.anime.RandomAnimeResponse
+import com.karsatech.karsanime.core.data.source.remote.response.anime.ReviewAnimeResponse
 import com.karsatech.karsanime.core.paging.AnimePagingSource
 import com.karsatech.karsanime.core.paging.AnimeSeasonalPagingSource
 import com.karsatech.karsanime.core.paging.SearchAnimePagingSource
@@ -214,6 +216,32 @@ class AnimeRepository @Inject constructor(private val animeService: AnimeService
             } catch (e: Exception) {
                 emit(Resource.Error(e.toString()))
                 Log.e("AnimeRepository", "getNewsAnime : $e")
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    override fun getReviewAnime(id: String): Flow<Resource<ReviewAnimeResponse>> {
+        return flow {
+            emit(Resource.Loading())
+            try {
+                val response = animeService.getReviewsAnime(id)
+                emit(Resource.Success(response))
+            } catch (e: Exception) {
+                emit(Resource.Error(e.toString()))
+                Log.e("AnimeRepository", "getReviewsAnime : $e")
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    override fun getPictureAnime(id: String): Flow<Resource<PictureAnimeResponse>> {
+        return flow {
+            emit(Resource.Loading())
+            try {
+                val response = animeService.getPicturesAnime(id)
+                emit(Resource.Success(response))
+            } catch (e: Exception) {
+                emit(Resource.Error(e.toString()))
+                Log.e("AnimeRepository", "getPicturesAnime : $e")
             }
         }.flowOn(Dispatchers.IO)
     }

@@ -1,6 +1,9 @@
 package com.karsatech.karsanime.core.domain.usecase.anime
 
+import com.karsatech.karsanime.core.data.Resource
+import com.karsatech.karsanime.core.data.source.remote.response.anime.PictureAnimeResponse
 import com.karsatech.karsanime.core.domain.repository.anime.AnimeRepository
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class AnimeInteractor @Inject constructor(private val animeRepository: AnimeRepository) :
@@ -34,5 +37,9 @@ class AnimeInteractor @Inject constructor(private val animeRepository: AnimeRepo
     override fun getEpisodesAnime(id: String) = animeRepository.getEpisodesAnime(id)
 
     override fun getNewsAnime(id: String) = animeRepository.getNewsAnime(id)
+
+    override fun getReviewAnime(id: String) = animeRepository.getReviewAnime(id)
+
+    override fun getPicturesAnime(id: String) = animeRepository.getPictureAnime(id)
 
 }

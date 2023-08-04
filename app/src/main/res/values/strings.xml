@@ -74,9 +74,7 @@
     <string name="streaming">Streaming</string>
     <string name="recommendations">Recommendations</string>
     <string name="synopsis">Synopsis</string>
-    <string name="list_character">List Character</string>
-    <string name="list_episodes">List Episodes</string>
-    <string name="list_anime_staff">List anime staff</string>
+
 
     <!--    Image Description   -->
 
@@ -115,7 +113,16 @@
     <!--    Placeholder     -->
 
     <string name="format_statistic">%1$s (%2$s)</string>
-    <string name="staff">Staff</string>
+
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</string>
+    <string name="recommended">Recommended</string>
+    <string name="show_less">Show Less</string>
+    <string name="read_more">Read More</string>
+
+    <string name="anime_pictures">Anime Pictures</string>
     <string name="anime_news">Anime News</string>
-    <string name="reviews">Reviews</string>
+    <string name="anime_reviews">Anime Reviews</string>
+    <string name="anime_character">Anime Character</string>
+    <string name="anime_episodes">Anime Episodes</string>
+
 </resources>
