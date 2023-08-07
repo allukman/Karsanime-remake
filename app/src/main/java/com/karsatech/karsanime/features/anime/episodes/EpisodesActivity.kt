@@ -56,6 +56,16 @@ class EpisodesActivity : AppCompatActivity() {
                 is Resource.Success -> {
                     hideLoadingState(binding.progressAnimeEpisodes)
                     anime.data?.data?.let { setAnimeEpisodesData(it) }
+
+                    if (anime.data?.data!!.isEmpty()) {
+                        binding.lottieEmpty.visibility = View.VISIBLE
+                        binding.tvEmpty.visibility = View.VISIBLE
+                        binding.tvEmpty.text = getString(R.string.empty_string, "Episodes")
+                    } else {
+                        binding.lottieEmpty.visibility = View.GONE
+                        binding.tvEmpty.visibility = View.GONE
+                    }
+
                 }
 
                 is Resource.Error -> {

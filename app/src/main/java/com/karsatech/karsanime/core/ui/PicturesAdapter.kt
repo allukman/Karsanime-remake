@@ -73,6 +73,10 @@ class PicturesAdapter(private val context: Context) : ListAdapter<PictureItem, P
                 pictures.layoutParams = layoutParams
 
                 pictures.loadImage(data.jpg?.largeImageUrl, itemView.context, progressBar)
+
+                itemView.setOnClickListener {
+                    actionAdapter.onClick(data)
+                }
             }
         }
     }

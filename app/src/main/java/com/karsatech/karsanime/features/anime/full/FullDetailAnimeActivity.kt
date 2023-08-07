@@ -2,7 +2,6 @@ package com.karsatech.karsanime.features.anime.full
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -138,11 +137,11 @@ class FullDetailAnimeActivity : AppCompatActivity() {
 
         binding.topView.toggleSynopsis.setOnClickListener {
             isSynopsisOpen = if (isSynopsisOpen) {
-                binding.topView.toggleSynopsis.setImageResource(R.drawable.ic_arrow_up)
+                binding.topView.toggleSynopsis.setImageResource(R.drawable.ic_arrow_down)
                 binding.topView.synopsis.visibility = View.GONE
                 false
             } else {
-                binding.topView.toggleSynopsis.setImageResource(R.drawable.ic_arrow_down)
+                binding.topView.toggleSynopsis.setImageResource(R.drawable.ic_arrow_up)
                 binding.topView.synopsis.visibility = View.VISIBLE
                 true
             }
@@ -150,12 +149,12 @@ class FullDetailAnimeActivity : AppCompatActivity() {
 
         binding.midView.toggleMoreInfo.setOnClickListener {
             isMoreInfoOpen = if (isMoreInfoOpen) {
-                binding.midView.toggleMoreInfo.setImageResource(R.drawable.ic_arrow_up)
+                binding.midView.toggleMoreInfo.setImageResource(R.drawable.ic_arrow_down)
                 binding.midView.layoutTextInfo.visibility = View.GONE
                 binding.midView.layoutInfo.visibility = View.GONE
                 false
             } else {
-                binding.midView.toggleMoreInfo.setImageResource(R.drawable.ic_arrow_down)
+                binding.midView.toggleMoreInfo.setImageResource(R.drawable.ic_arrow_up)
                 binding.midView.layoutTextInfo.visibility = View.VISIBLE
                 binding.midView.layoutInfo.visibility = View.VISIBLE
                 true
@@ -164,11 +163,11 @@ class FullDetailAnimeActivity : AppCompatActivity() {
 
         binding.midView.toggleTrailer.setOnClickListener {
             isTrailerOpen = if (isTrailerOpen) {
-                binding.midView.toggleTrailer.setImageResource(R.drawable.ic_arrow_up)
+                binding.midView.toggleTrailer.setImageResource(R.drawable.ic_arrow_down)
                 binding.midView.youtubePlayer.visibility = View.GONE
                 false
             } else {
-                binding.midView.toggleTrailer.setImageResource(R.drawable.ic_arrow_down)
+                binding.midView.toggleTrailer.setImageResource(R.drawable.ic_arrow_up)
                 binding.midView.youtubePlayer.visibility = View.VISIBLE
                 true
             }
@@ -176,14 +175,14 @@ class FullDetailAnimeActivity : AppCompatActivity() {
 
         binding.midView.toggleTheme.setOnClickListener {
             isThemeOpen = if (isThemeOpen) {
-                binding.midView.toggleTheme.setImageResource(R.drawable.ic_arrow_up)
+                binding.midView.toggleTheme.setImageResource(R.drawable.ic_arrow_down)
                 binding.midView.textThemeOpenings.visibility = View.GONE
                 binding.midView.textThemeEndings.visibility = View.GONE
                 binding.midView.rvOpenings.visibility = View.GONE
                 binding.midView.rvEndings.visibility = View.GONE
                 false
             } else {
-                binding.midView.toggleTheme.setImageResource(R.drawable.ic_arrow_down)
+                binding.midView.toggleTheme.setImageResource(R.drawable.ic_arrow_up)
                 binding.midView.textThemeOpenings.visibility = View.VISIBLE
                 binding.midView.textThemeEndings.visibility = View.VISIBLE
                 binding.midView.rvOpenings.visibility = View.VISIBLE
@@ -194,11 +193,11 @@ class FullDetailAnimeActivity : AppCompatActivity() {
 
         binding.midView.toggleExternal.setOnClickListener {
             isExternalOpen = if (isExternalOpen) {
-                binding.midView.toggleExternal.setImageResource(R.drawable.ic_arrow_up)
+                binding.midView.toggleExternal.setImageResource(R.drawable.ic_arrow_down)
                 binding.midView.rvExternal.visibility = View.GONE
                 false
             } else {
-                binding.midView.toggleExternal.setImageResource(R.drawable.ic_arrow_down)
+                binding.midView.toggleExternal.setImageResource(R.drawable.ic_arrow_up)
                 binding.midView.rvExternal.visibility = View.VISIBLE
                 true
             }
@@ -206,11 +205,11 @@ class FullDetailAnimeActivity : AppCompatActivity() {
 
         binding.midView.toggleStreaming.setOnClickListener {
             isStreamingOpen = if (isStreamingOpen) {
-                binding.midView.toggleStreaming.setImageResource(R.drawable.ic_arrow_up)
+                binding.midView.toggleStreaming.setImageResource(R.drawable.ic_arrow_down)
                 binding.midView.rvStreaming.visibility = View.GONE
                 false
             } else {
-                binding.midView.toggleStreaming.setImageResource(R.drawable.ic_arrow_down)
+                binding.midView.toggleStreaming.setImageResource(R.drawable.ic_arrow_up)
                 binding.midView.rvStreaming.visibility = View.VISIBLE
                 true
             }
@@ -218,11 +217,11 @@ class FullDetailAnimeActivity : AppCompatActivity() {
 
         binding.midView.toggleRecommendation.setOnClickListener {
             isRecommendationOpen = if (isRecommendationOpen) {
-                binding.midView.toggleRecommendation.setImageResource(R.drawable.ic_arrow_up)
+                binding.midView.toggleRecommendation.setImageResource(R.drawable.ic_arrow_down)
                 binding.midView.rvRecommendation.visibility = View.GONE
                 false
             } else {
-                binding.midView.toggleRecommendation.setImageResource(R.drawable.ic_arrow_down)
+                binding.midView.toggleRecommendation.setImageResource(R.drawable.ic_arrow_up)
                 binding.midView.rvRecommendation.visibility = View.VISIBLE
                 true
             }
@@ -267,17 +266,19 @@ class FullDetailAnimeActivity : AppCompatActivity() {
         recommendationAdapter.setOnItemClickCallback(object :
             RecommendationAnimeAdapter.ActionAdapter {
             override fun onItemClick(data: RecommendationItem) {
-
+                val intent = Intent(this@FullDetailAnimeActivity, FullDetailAnimeActivity::class.java)
+                intent.putExtra(ANIME_ID, data.entry?.malId.toString())
+                startActivity(intent)
             }
         })
-
-
     }
 
     private fun observeViewModel(id: String) {
         fullDetailAnimeViewModel.getFullDetailAnime(id).observe(this) { anime ->
             when (anime) {
-                is Resource.Loading -> Log.d("FullDetailAnime", "Loading")
+                is Resource.Loading -> {
+
+                }
 
                 is Resource.Success -> {
                     setFullDataAnime(anime.data?.data!!)
@@ -285,23 +286,36 @@ class FullDetailAnimeActivity : AppCompatActivity() {
                 }
 
                 is Resource.Error -> {
+
                 }
             }
         }
 
         fullDetailAnimeViewModel.getRecommendationAnime(id).observe(this) { recommendation ->
             when (recommendation) {
-                is Resource.Loading -> Log.d("getRecommendationAnime", "Loading")
+                is Resource.Loading -> {
+
+                }
 
                 is Resource.Success -> {
-                    Log.d("getRecommendationAnime", recommendation.data?.data?.size.toString())
                     setRecommendationsData(recommendation.data?.data!!)
+                    if (recommendation.data?.data.isEmpty()) {
+                        hideRecommendation()
+                    }
                 }
 
                 is Resource.Error -> {
+                    hideRecommendation()
                 }
             }
         }
+    }
+
+    private fun hideRecommendation() {
+        binding.midView.textRecommendation.visibility = View.GONE
+        binding.midView.toggleRecommendation.visibility = View.GONE
+        binding.midView.rvRecommendation.visibility = View.GONE
+        binding.midView.view7.visibility = View.GONE
     }
 
     private fun setFullDataAnime(data: DetailAnimeItem) {

@@ -1,24 +1,21 @@
 package com.karsatech.karsanime.features.anime.pictures
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.facebook.shimmer.ShimmerFrameLayout
 import com.karsatech.karsanime.R
 import com.karsatech.karsanime.core.data.Resource
 import com.karsatech.karsanime.core.data.source.remote.response.anime.PictureItem
-import com.karsatech.karsanime.core.data.source.remote.response.anime.ReviewItem
 import com.karsatech.karsanime.core.ui.PicturesAdapter
-import com.karsatech.karsanime.core.ui.ReviewAdapter
 import com.karsatech.karsanime.databinding.ActivityPicturesBinding
-import com.karsatech.karsanime.features.anime.review.ReviewActivity
+import com.karsatech.karsanime.features.image.ImageActivity
+import com.karsatech.karsanime.features.image.ImageActivity.Companion.DETAIL_IMAGE
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -54,6 +51,15 @@ class PicturesActivity : AppCompatActivity() {
 
     private fun setAnimePicturesData(data: List<PictureItem?>) {
         picturesAdapter.submitList(data)
+
+        picturesAdapter.setOnItemClickCallback(object : PicturesAdapter.ActionAdapter {
+            override fun onClick(data: PictureItem) {
+                val intent = Intent(this@PicturesActivity, ImageActivity::class.java)
+                intent.putExtra(DETAIL_IMAGE, data.jpg?.largeImageUrl)
+                startActivity(intent)
+            }
+        })
+
     }
 
     private fun observeViewModel(id: String) {
