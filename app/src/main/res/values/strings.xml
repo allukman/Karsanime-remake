@@ -125,6 +125,11 @@
     <string name="anime_reviews">Anime Reviews</string>
     <string name="anime_character">Anime Character</string>
     <string name="anime_episodes">Anime Episodes</string>
+    <string name="DOWNLOAD_STATUS_FAILED">Download has been failed, please try again</string>
+    <string name="DOWNLOAD_STATUS_PAUSED">Paused</string>
+    <string name="DOWNLOAD_STATUS_PENDING">Pending</string>
+    <string name="DOWNLOAD_STATUS_RUNNING">Downloading...</string>
+    <string name="DOWNLOAD_STATUS_ELSE">There\'s nothing to download</string>
 
 
 </resources>
